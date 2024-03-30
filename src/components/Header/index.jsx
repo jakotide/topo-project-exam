@@ -6,7 +6,7 @@ export const Header = () => {
   const [isActive, setIsActive] = useState(false);
 
   return (
-    <>
+    <header>
       <div>TOPO</div>
       <button
         onClick={() => {
@@ -16,6 +16,6 @@ export const Header = () => {
         <div className="burger"></div>
       </button>
       {isActive && <Nav />}
-    </>
+    </header>
   );
 };
