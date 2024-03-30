@@ -12,3 +12,18 @@ export const navLinks = [
     to: "/contact",
   },
 ];
+
+export const footerLinks = [
+  {
+    title: "Facebook",
+  },
+  {
+    title: "Twitter",
+  },
+  {
+    title: "Instagram",
+  },
+  {
+    title: "Youtube",
+  },
+];
