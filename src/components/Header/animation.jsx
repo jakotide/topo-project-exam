@@ -1,16 +1,8 @@
-// export const menuSlide = {
-//   initial: { x: "calc(100% + 100px)" },
-//   enter: { x: "0", transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } },
-//   exit: {
-//     x: "calc(100% + 100px)",
-//     transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] },
-//   },
-// };
 export const menuSlide = {
-  initial: { x: "100%" }, // Initial position is 100% to the left (off-screen)
-  enter: { x: "0", transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }, // Entering the screen
+  initial: { x: "100%" },
+  enter: { x: "0", transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } },
   exit: {
-    x: "100%", // Exiting back to the left (off-screen)
+    x: "100%",
     transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] },
   },
 };
@@ -26,7 +18,13 @@ export const slide = {
   }),
 };
 
-export const scale = {
-  open: { scale: 1, transition: { duration: 0.3 } },
-  closed: { scale: 0, transition: { duration: 0.4 } },
+export const circle = {
+  hidden: {
+    y: "0%",
+    transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1], delay: 0.2 },
+  },
+  visible: {
+    y: "-100%",
+    transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1], delay: 0.3 },
+  },
 };

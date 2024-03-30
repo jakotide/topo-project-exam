@@ -9,7 +9,7 @@ header {
     background-color: clr.$black;
     height: 84px;
     width: 84px;
-    border-radius: 100%;
+    border-radius: 50%;
     border: none;
     display: grid;
     place-items: center;
@@ -18,8 +18,19 @@ header {
     cursor: pointer;
     transition: all 0.3s;
     z-index: 50;
+    overflow: hidden;
+    .circle {
+      height: 150%;
+      width: 155%;
+      background-color: clr.$white;
+      position: absolute;
+      right: -28%;
+      top: 100%;
+      border-radius: 50%;
+    }
 
     .burger {
+      z-index: 50;
       width: 100%;
       &::after,
       &::before {
@@ -52,9 +63,5 @@ header {
         background-color: clr.$black;
       }
     }
-  }
-
-  .buttonActive {
-    background-color: clr.$white;
   }
 }
