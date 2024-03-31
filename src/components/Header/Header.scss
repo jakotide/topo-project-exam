@@ -2,8 +2,18 @@
 
 header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin: 24px 34px;
+  margin: 44px 54px;
+
+  .top__nav {
+    display: flex;
+    gap: 1rem;
+
+    li {
+      list-style: none;
+    }
+  }
 
   button {
     background-color: clr.$black;

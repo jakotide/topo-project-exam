@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 export const Nav = () => {
   return (
     <motion.nav
+      className="button__nav"
       variants={menuSlide}
       initial="initial"
       animate="enter"
