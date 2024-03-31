@@ -1,3 +1,5 @@
+import { easeIn } from "framer-motion";
+
 export const menuSlide = {
   initial: { x: "100%" },
   enter: { x: "0", transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } },
@@ -26,5 +28,36 @@ export const circle = {
   visible: {
     y: "-100%",
     transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1], delay: 0.3 },
+  },
+};
+
+export const buttonScale = {
+  hidden: {
+    // opacity: 0,
+    transition: { duration: 0.2, ease: easeIn },
+    scale: 0,
+  },
+  visible: {
+    // opacity: 1,
+    transition: { duration: 0.2, ease: easeIn },
+    scale: 1,
+  },
+  exit: {
+    // opacity: 0,
+    scale: 0,
+    transition: { duration: 0.1, ease: easeIn },
+  },
+};
+
+export const topNavSlide = {
+  hidden: {
+    transition: { duration: 0.3, ease: easeIn },
+    y: "-100%",
+    opacity: 0,
+  },
+  visible: {
+    transition: { duration: 0.3, ease: easeIn },
+    y: "0%",
+    opacity: 1,
   },
 };

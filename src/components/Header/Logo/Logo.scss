@@ -2,8 +2,10 @@
   font-size: 2.5rem;
   text-decoration: none;
   color: #171717;
-  position: sticky;
-  top: 44px;
+  position: fixed;
+  top: 54px;
+  left: 54px;
+
   .characters {
     display: inline-block;
   }

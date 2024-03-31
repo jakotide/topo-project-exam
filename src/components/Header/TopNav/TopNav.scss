@@ -1,0 +1,14 @@
+.top__nav__container {
+  //   border: 1px solid black;
+  padding-top: 1rem;
+  overflow: hidden;
+
+  .top__nav {
+    display: flex;
+    gap: 2.5rem;
+
+    li {
+      list-style: none;
+    }
+  }
+}
