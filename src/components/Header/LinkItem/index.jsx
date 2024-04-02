@@ -3,8 +3,12 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { slide } from "../animation";
 
-export const LinkItem = ({ data }) => {
+export const LinkItem = ({ data, closeMenu }) => {
   const { title, to, index } = data;
+
+  const handleClick = () => {
+    closeMenu();
+  };
 
   return (
     <motion.div
@@ -14,7 +18,7 @@ export const LinkItem = ({ data }) => {
       exit="exit"
       custom={index}
     >
-      <Link className="nav__links" to={to}>
+      <Link className="nav__links" to={to} onClick={handleClick}>
         {title}
       </Link>
     </motion.div>

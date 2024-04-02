@@ -37,7 +37,7 @@ export const buttonScale = {
     scale: 0,
   },
   visible: {
-    transition: { duration: 0.2, ease: [0.76, 0, 0.24, 1] },
+    transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] },
     scale: 1,
   },
   exit: {

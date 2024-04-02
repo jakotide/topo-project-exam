@@ -4,7 +4,7 @@ import "./Nav.scss";
 import { menuSlide } from "../animation";
 import { motion } from "framer-motion";
 
-export const Nav = () => {
+export const Nav = ({ closeMenu }) => {
   return (
     <motion.nav
       className="button__nav"
@@ -17,7 +17,11 @@ export const Nav = () => {
         <div className="nav__header">Menu</div>
         <menu>
           {navLinks.map((data, index) => (
-            <LinkItem key={index} data={{ ...data, index }} />
+            <LinkItem
+              key={index}
+              data={{ ...data, index }}
+              closeMenu={closeMenu}
+            />
           ))}
         </menu>
         <div className="nav__footer">

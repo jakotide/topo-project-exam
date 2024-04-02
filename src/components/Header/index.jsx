@@ -24,6 +24,14 @@ export const Header = () => {
     };
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = isActive ? "hidden" : "";
+  }, [isActive]);
+
+  const handeCloseMenu = () => {
+    setIsActive(false);
+  };
+
   return (
     <header>
       <Logo />
@@ -53,7 +61,24 @@ export const Header = () => {
           </MagneticEffect>
         )}
       </AnimatePresence>
-      <AnimatePresence mode="wait">{isActive && <Nav />}</AnimatePresence>
+      <AnimatePresence mode="wait">
+        {isActive && (
+          <>
+            <Nav closeMenu={handeCloseMenu} />
+            <motion.div
+              className="nav__overlay"
+              variants={{
+                start: { opacity: 0 },
+                end: { opacity: 0.5 },
+              }}
+              initial="start"
+              animate="end"
+              exit="start"
+              transition={{ duration: 0.8, ease: [0.7, 0, 0.2, 1] }}
+            ></motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </header>
   );
 };
