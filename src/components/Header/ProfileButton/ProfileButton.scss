@@ -1,0 +1,9 @@
+@use "../../../scss/base/globals" as clr;
+
+.profile__btn {
+  text-decoration: none;
+  color: clr.$white;
+  background-color: clr.$black;
+  padding: 0.4rem 1rem;
+  border-radius: 2em;
+}

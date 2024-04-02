@@ -2,8 +2,10 @@
 
 header {
   display: flex;
-  justify-content: flex-end;
-  margin: 38px 54px;
+  justify-content: space-between;
+  align-items: center;
+  margin: 48px 54px 32px;
+  font-family: "GeneralSans-Medium";
 }
 
 button {
@@ -15,7 +17,7 @@ button {
   display: grid;
   place-items: center;
   position: fixed;
-  top: 54px;
+  top: 32px;
   right: 54px;
   cursor: pointer;
   z-index: 50;

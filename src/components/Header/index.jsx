@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Nav } from "./Nav";
 import { Logo } from "./Logo";
 import { TopNav } from "./TopNav";
+import { ProfileButton } from "./ProfileButton";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 import { circle, buttonScale } from "./animation";
@@ -26,7 +27,9 @@ export const Header = () => {
   return (
     <header>
       <Logo />
+      <div></div>
       <TopNav />
+      <ProfileButton />
       <AnimatePresence>
         {showBtn && (
           <MagneticEffect>

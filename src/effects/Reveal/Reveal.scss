@@ -1,4 +1,18 @@
 .reveal__container {
   position: relative;
   overflow: hidden;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+
+  .slider__box {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    right: "100%";
+    background: #ffa48d;
+    z-index: 20;
+  }
 }

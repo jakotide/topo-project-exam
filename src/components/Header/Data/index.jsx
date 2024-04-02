@@ -8,6 +8,10 @@ export const navLinks = [
     to: "/venues",
   },
   {
+    title: "Profile",
+    to: "/",
+  },
+  {
     title: "Contact",
     to: "/contact",
   },

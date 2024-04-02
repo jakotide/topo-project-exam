@@ -1,15 +1,17 @@
+@use "../../../scss/base/globals" as clr;
+
 .top__nav__container {
-  // border: 1px solid black;
-  padding-top: 0.5rem;
   overflow: hidden;
+  font-family: "GeneralSans-Medium";
+  padding-left: 5rem;
 
   .top__nav {
     display: flex;
-    gap: 2.5rem;
+    gap: 3rem;
 
     .top__nav__link {
       text-decoration: none;
-      color: #000;
+      color: clr.$black;
     }
   }
 }
