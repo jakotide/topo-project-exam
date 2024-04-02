@@ -14,3 +14,27 @@
   font-family: "Tusker-Grotesk-7700-Bold";
   src: url(../src/assets/fonts/TuskerGrotesk-7700Bold.woff2) format("woff2");
 }
+@font-face {
+  font-family: "GeneralSans-Regular";
+  src: url(../src/assets/fonts/GeneralSans-Regular.woff2) format("woff2");
+}
+@font-face {
+  font-family: "GeneralSans-Light";
+  src: url(../src/assets/fonts/GeneralSans-Light.woff2) format("woff2");
+}
+@font-face {
+  font-family: "GeneralSans-Medium";
+  src: url(../src/assets/fonts/GeneralSans-Medium.woff2) format("woff2");
+}
+@font-face {
+  font-family: "GeneralSans-Semibold";
+  src: url(../src/assets/fonts/GeneralSans-Semibold.woff2) format("woff2");
+}
+@font-face {
+  font-family: "GeneralSans-Bold";
+  src: url(../src/assets/fonts/GeneralSans-Bold.woff2) format("woff2");
+}
+@font-face {
+  font-family: "GeneralSans-Variable";
+  src: url(../src/assets/fonts/GeneralSans-Variable.woff2) format("woff2");
+}
