@@ -33,31 +33,26 @@ export const circle = {
 
 export const buttonScale = {
   hidden: {
-    // opacity: 0,
-    transition: { duration: 0.2, ease: easeIn },
+    transition: { duration: 0.2, ease: [0.76, 0, 0.24, 1] },
     scale: 0,
   },
   visible: {
-    // opacity: 1,
-    transition: { duration: 0.2, ease: easeIn },
+    transition: { duration: 0.2, ease: [0.76, 0, 0.24, 1] },
     scale: 1,
   },
   exit: {
-    // opacity: 0,
     scale: 0,
-    transition: { duration: 0.1, ease: easeIn },
+    transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] },
   },
 };
 
 export const topNavSlide = {
   hidden: {
     transition: { duration: 0.3, ease: easeIn },
-    y: "-100%",
-    opacity: 0,
+    y: "-150%",
   },
-  visible: {
-    transition: { duration: 0.3, ease: easeIn },
+  visible: (index) => ({
+    transition: { delay: 0.05 * index, ease: easeIn },
     y: "0%",
-    opacity: 1,
-  },
+  }),
 };

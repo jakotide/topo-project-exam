@@ -6,7 +6,7 @@ import { TopNav } from "./TopNav";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 import { circle, buttonScale } from "./animation";
-import { MagneticEffect } from "../MagneticEffect";
+import { MagneticEffect } from "../../effects/MagneticEffect";
 
 export const Header = () => {
   const [isActive, setIsActive] = useState(false);
@@ -15,7 +15,7 @@ export const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      setShowBtn(scrollY > 70);
+      setShowBtn(scrollY > 200);
     };
     window.addEventListener("scroll", handleScroll);
     return () => {

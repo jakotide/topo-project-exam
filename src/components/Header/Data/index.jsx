@@ -27,3 +27,18 @@ export const footerLinks = [
     title: "Youtube",
   },
 ];
+
+export const topNavLinks = [
+  {
+    title: "Home",
+    to: "/",
+  },
+  {
+    title: "Venues",
+    to: "/venues",
+  },
+  {
+    title: "Contact",
+    to: "/contact",
+  },
+];
