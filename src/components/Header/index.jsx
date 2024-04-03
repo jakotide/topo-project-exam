@@ -45,27 +45,27 @@ export const Header = () => {
       <ProfileButton />
       <AnimatePresence>
         {showBtn && (
-          <MagneticEffect>
-            <motion.button
-              variants={buttonScale}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              className={`${isActive ? "buttonActive" : ""}`}
-              onClick={() => {
-                setIsActive(!isActive);
-              }}
-              // onMouseEnter={() => setIsHover(!isHover)}
-              // onMouseLeave={() => isHover}
-            >
-              <div className={`burger ${isActive ? "burgerActive" : ""}`}></div>
-              <motion.div
-                className="circle"
-                animate={isActive ? "visible" : "hidden"}
-                variants={circle}
-              ></motion.div>
-            </motion.button>
-          </MagneticEffect>
+          // <MagneticEffect>
+          <motion.button
+            variants={buttonScale}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className={`${isActive ? "buttonActive" : ""}`}
+            onClick={() => {
+              setIsActive(!isActive);
+            }}
+            // onMouseEnter={() => setIsHover(!isHover)}
+            // onMouseLeave={() => isHover}
+          >
+            <div className={`burger ${isActive ? "burgerActive" : ""}`}></div>
+            <motion.div
+              className="circle"
+              animate={isActive ? "visible" : "hidden"}
+              variants={circle}
+            ></motion.div>
+          </motion.button>
+          // </MagneticEffect>
         )}
       </AnimatePresence>
       <AnimatePresence mode="wait">

@@ -3,7 +3,35 @@
 .profile__btn {
   text-decoration: none;
   color: clr.$white;
+  display: flex;
+  align-items: center;
   background-color: clr.$black;
   padding: 0.4rem 1rem;
   border-radius: 2em;
+  gap: 0.6rem;
+  position: relative;
+  overflow: hidden;
+  .user__icon {
+    object-fit: cover;
+    width: 15px;
+    height: 15px;
+  }
+  .circle__profile__hover {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // top: -20px;
+    top: 40px;
+    gap: 0.6rem;
+    right: 0;
+    // right: -10px;
+    // height: 150%;
+    // width: 120%;
+    width: 100%;
+    padding: 0.4rem 1rem;
+    border-radius: 2em;
+    background-color: rgb(43, 40, 40);
+    // border-radius: 100%;
+  }
 }
