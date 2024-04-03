@@ -4,14 +4,37 @@
   overflow: hidden;
   font-family: "GeneralSans-Medium";
   padding-left: 5rem;
+  // background-color: clr.$black;
 
   .top__nav {
     display: flex;
-    gap: 3rem;
+    gap: 6rem;
 
     .top__nav__link {
       text-decoration: none;
       color: clr.$black;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      border: 1px solid black;
+      border-radius: 2em;
+      padding-right: 1rem;
+      // position: relative;
+      // color: clr.$white;
+
+      .link__arrow__circle {
+        background-color: clr.$black;
+        overflow: hidden;
+        // scale: 0.3;
+        border-radius: 50%;
+        padding: 0.6rem;
+
+        .arrow__up {
+          object-fit: cover;
+          height: 18px;
+          width: 18px;
+        }
+      }
     }
   }
 }

@@ -12,6 +12,7 @@ import { MagneticEffect } from "../../effects/MagneticEffect";
 export const Header = () => {
   const [isActive, setIsActive] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
+  // const [isHover, setIsHover] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +28,10 @@ export const Header = () => {
   useEffect(() => {
     document.body.style.overflow = isActive ? "hidden" : "";
   }, [isActive]);
+
+  // useEffect(() => {
+  //   document.body.style.overflow = isHover ? "hidden" : "";
+  // }, [isHover]);
 
   const handeCloseMenu = () => {
     setIsActive(false);
@@ -50,6 +55,8 @@ export const Header = () => {
               onClick={() => {
                 setIsActive(!isActive);
               }}
+              // onMouseEnter={() => setIsHover(!isHover)}
+              // onMouseLeave={() => isHover}
             >
               <div className={`burger ${isActive ? "burgerActive" : ""}`}></div>
               <motion.div

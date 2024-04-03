@@ -7,15 +7,15 @@ export const Reveal = ({ children }) => {
   const isInView = useInView(ref);
 
   const mainControls = useAnimation();
-  const slideControls = useAnimation();
+  // const slideControls = useAnimation();
 
   useEffect(() => {
     if (isInView) {
       mainControls.start("visible");
-      slideControls.start("visible");
+      // slideControls.start("visible");
     } else {
       mainControls.start("hidden");
-      slideControls.start("hidden");
+      // slideControls.start("hidden");
     }
   }, [isInView]);
 
@@ -28,11 +28,12 @@ export const Reveal = ({ children }) => {
         }}
         initial="hidden"
         animate={mainControls}
-        transition={{ duration: 0.3, delay: 0.25 }}
+        exit="hidden"
+        transition={{ duration: 0.3, delay: 0.1 }}
       >
         {children}
       </motion.div>
-      <motion.div
+      {/* <motion.div
         className="slider__box"
         variants={{
           hidden: { right: 0 },
@@ -40,8 +41,9 @@ export const Reveal = ({ children }) => {
         }}
         initial="hidden"
         animate={slideControls}
-        transition={{ duration: 0.3, ease: "easeIn" }}
-      />
+        exit="hidden"
+        transition={{ duration: 0.3, ease: "easeIn", delay: 0.5 }}
+      /> */}
     </div>
   );
 };

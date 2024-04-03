@@ -1,5 +1,16 @@
 @use "../../../scss/base/globals" as clr;
 
-.nav__links {
-  color: clr.$white;
+.link__container {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  img {
+    object-fit: cover;
+    width: 26px;
+    height: 26px;
+  }
+  .nav__links {
+    color: clr.$white;
+  }
 }
