@@ -1,6 +1,6 @@
 import "./LinkItem.scss";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { slide } from "../animation";
 import arrowRight from "../../../assets/icons/arrow-right-white.png";
@@ -8,6 +8,7 @@ import arrowRight from "../../../assets/icons/arrow-right-white.png";
 export const LinkItem = ({ data, closeMenu }) => {
   const { title, to, index } = data;
   const [isHover, setIsHover] = useState(false);
+  const location = useLocation();
 
   const handleClick = () => {
     closeMenu();
@@ -36,7 +37,11 @@ export const LinkItem = ({ data, closeMenu }) => {
         className="hidden-arrow"
       />
 
-      <Link className="nav__links" to={to} onClick={handleClick}>
+      <Link
+        className={`nav__links ${location.pathname === to ? "active" : ""}`}
+        to={to}
+        onClick={handleClick}
+      >
         {title}
       </Link>
     </motion.div>

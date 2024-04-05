@@ -3,14 +3,14 @@ import { useRef, useEffect, useState } from "react";
 import { motion, useInView, useAnimation } from "framer-motion";
 import { topNavSlide, navLinkScale, arrowLinkUp } from "../animation";
 import { topNavLinks } from "../Data";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import arrowUp from "../../../assets/icons/arrow-up-white.png";
 
 export const TopNav = () => {
   const ref = useRef(null);
   const isInView = useInView(ref);
-  const [isHovered, setIsHovered] = useState(null); // Changed initial state to null
-
+  const [isHovered, setIsHovered] = useState(null);
+  const location = useLocation();
   const mainControls = useAnimation();
 
   useEffect(() => {
@@ -35,15 +35,23 @@ export const TopNav = () => {
           >
             <Link
               to={data.to}
-              className="top__nav__link"
-              onMouseEnter={() => setIsHovered(index)} // Set index on hover
-              onMouseLeave={() => setIsHovered(null)} // Reset to null on hover out
+              className={`top__nav__link ${
+                location.pathname === data.to ? "active" : ""
+              }`}
+              onMouseEnter={() => setIsHovered(index)}
+              onMouseLeave={() => setIsHovered(null)}
             >
               <motion.div
-                className="link__arrow__circle"
+                className={`link__arrow__circle ${
+                  location.pathname === data.to ? "active" : ""
+                }`}
                 variants={navLinkScale}
                 initial="normal"
-                animate={isHovered === index ? "hovered" : "normal"} // Apply animation based on index
+                animate={
+                  isHovered === index && location.pathname !== data.to
+                    ? "hovered"
+                    : "normal"
+                }
                 exit="normal"
               >
                 <motion.img

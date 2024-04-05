@@ -1,4 +1,5 @@
 @use "../../../scss/base/globals" as clr;
+@use "../../../scss/base/globals" as mq;
 
 .mobile__menu {
   display: flex;
@@ -30,7 +31,14 @@
     cursor: pointer;
     z-index: 150;
     overflow: hidden;
-    // scale: 0;
+
+    @include mq.tabletL {
+      right: 24px;
+    }
+    @include mq.mobileL {
+      right: 20px;
+      top: 16px;
+    }
 
     .x {
       z-index: 50;

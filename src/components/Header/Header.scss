@@ -48,6 +48,18 @@ header {
   cursor: pointer;
   z-index: 150;
   overflow: hidden;
+
+  @include mq.tabletL {
+    top: 32px;
+    right: 24px;
+    height: 64px;
+    width: 64px;
+  }
+  @include mq.mobileL {
+    right: 20px;
+    top: 16px;
+  }
+
   .hidden {
     pointer-events: none;
     display: none;

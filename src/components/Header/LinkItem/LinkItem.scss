@@ -13,5 +13,9 @@
   }
   .nav__links {
     color: clr.$white;
+
+    &.active {
+      color: clr.$yellow;
+    }
   }
 }

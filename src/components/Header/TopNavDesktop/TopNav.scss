@@ -28,6 +28,10 @@
         border-radius: 50%;
         padding: 0.6rem;
 
+        &.active {
+          background-color: clr.$yellow;
+        }
+
         .arrow__up {
           object-fit: cover;
           height: 18px;
