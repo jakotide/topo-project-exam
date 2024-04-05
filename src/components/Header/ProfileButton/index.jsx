@@ -28,7 +28,7 @@ export const ProfileButton = () => {
               initial="hidden"
               exit="exit"
               animate={isHover ? "visible" : "hidden"}
-              transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1] }}
+              transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
             >
               Profile
               <img src={userIcon} alt="User icon" className="user__icon" />

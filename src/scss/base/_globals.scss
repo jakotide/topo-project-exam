@@ -2,3 +2,41 @@ $black: #171717;
 $white: #f9f5f3;
 $yellow: #f6f29a;
 $green: #b4ddcb;
+
+// MQ Breakpoints
+
+$desktop: 80em; //1280px
+$tabletL: 60em; // 960px
+$tablet: 48em; // 768px
+$mobileL: 35em; // 560px
+$mobileS: 26.25em; // 420px
+
+@mixin desktop {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}
+
+@mixin tabletL {
+  @media (max-width: $tabletL) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin mobileL {
+  @media (max-width: $mobileL) {
+    @content;
+  }
+}
+
+@mixin mobileS {
+  @media (max-width: $mobileS) {
+    @content;
+  }
+}

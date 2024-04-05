@@ -1,0 +1,59 @@
+@use "../../../scss/base/globals" as clr;
+
+.mobile__menu {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  .mobile__menu__dot {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    background-color: clr.$black;
+  }
+  .mobile__menu {
+    border: none;
+    background-color: transparent;
+    padding-top: 0.05rem;
+  }
+  .mobile__close {
+    background-color: clr.$white;
+    height: 64px;
+    width: 64px;
+    border-radius: 50%;
+    border: none;
+    display: grid;
+    place-items: center;
+    position: fixed;
+    top: 32px;
+    right: 54px;
+    cursor: pointer;
+    z-index: 150;
+    overflow: hidden;
+    // scale: 0;
+
+    .x {
+      z-index: 50;
+      width: 100%;
+      &::after,
+      &::before {
+        content: "";
+        background-color: clr.$black;
+        height: 1px;
+        width: 40%;
+        display: block;
+        margin: auto;
+        position: relative;
+        transition: all 0.3s;
+      }
+      &::after {
+        top: -1px;
+        transform: rotate(45deg);
+      }
+      &::before {
+        top: 0px;
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}

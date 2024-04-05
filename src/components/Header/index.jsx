@@ -2,17 +2,18 @@ import "./Header.scss";
 import { useState, useEffect } from "react";
 import { Nav } from "./Nav";
 import { Logo } from "./Logo";
-import { TopNav } from "./TopNav";
+import { TopNav } from "./TopNavDesktop";
+import { TopNavMobile } from "./TopNavMobile";
 import { ProfileButton } from "./ProfileButton";
-import { AnimatePresence } from "framer-motion";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { circle, buttonScale } from "./animation";
-import { MagneticEffect } from "../../effects/MagneticEffect";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 
 export const Header = () => {
   const [isActive, setIsActive] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
-  // const [isHover, setIsHover] = useState(false);
+
+  const isMobile = useMediaQuery("(max-width: 48em)");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,43 +30,47 @@ export const Header = () => {
     document.body.style.overflow = isActive ? "hidden" : "";
   }, [isActive]);
 
-  // useEffect(() => {
-  //   document.body.style.overflow = isHover ? "hidden" : "";
-  // }, [isHover]);
-
   const handeCloseMenu = () => {
     setIsActive(false);
+  };
+
+  const toggleMenu = () => {
+    setIsActive(!isActive);
   };
 
   return (
     <header>
       <Logo />
-      <div></div>
-      <TopNav />
-      <ProfileButton />
+      {isMobile ? (
+        <TopNavMobile toggleMenu={toggleMenu} isActive={isActive} />
+      ) : (
+        <>
+          <TopNav /> <ProfileButton />
+        </>
+      )}
       <AnimatePresence>
         {showBtn && (
-          // <MagneticEffect>
           <motion.button
             variants={buttonScale}
             initial="hidden"
             animate="visible"
             exit="exit"
-            className={`${isActive ? "buttonActive" : ""}`}
+            className="side__nav__button"
             onClick={() => {
               setIsActive(!isActive);
             }}
-            // onMouseEnter={() => setIsHover(!isHover)}
-            // onMouseLeave={() => isHover}
           >
-            <div className={`burger ${isActive ? "burgerActive" : ""}`}></div>
+            <div className={`burger ${isActive ? "burgerActive" : ""}`}>
+              <span aria-hidden="true" className="hidden">
+                Hidden
+              </span>
+            </div>
             <motion.div
               className="circle"
               animate={isActive ? "visible" : "hidden"}
               variants={circle}
             ></motion.div>
           </motion.button>
-          // </MagneticEffect>
         )}
       </AnimatePresence>
       <AnimatePresence mode="wait">

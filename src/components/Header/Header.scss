@@ -1,11 +1,21 @@
 @use "../../scss/base/globals" as clr;
+@use "../../scss/base/globals" as mq;
 
 header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 2rem;
   align-items: center;
   margin: 48px 54px 32px;
   font-family: "GeneralSans-Medium";
+
+  @include mq.tabletL {
+    margin: 48px 24px 32px;
+    gap: 1rem;
+  }
+  @include mq.mobileL {
+    margin: 34px 24px 32px;
+  }
 
   .nav__overlay {
     position: absolute;
@@ -21,11 +31,10 @@ header {
     transition: opacity 2 cubic-bezier(0.7, 0, 0.2, 1);
     z-index: 0;
     pointer-events: none;
-    // will-change: opacity;
   }
 }
 
-button {
+.side__nav__button {
   background-color: clr.$black;
   height: 84px;
   width: 84px;
@@ -39,6 +48,10 @@ button {
   cursor: pointer;
   z-index: 150;
   overflow: hidden;
+  .hidden {
+    pointer-events: none;
+    display: none;
+  }
   .circle {
     height: 150%;
     width: 155%;

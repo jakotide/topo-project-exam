@@ -1,11 +1,26 @@
+@use "../../../scss/base/globals" as clr;
+@use "../../../scss/base/globals" as mq;
+
 .nav__logo {
   font-size: 2.4rem;
   text-decoration: none;
-  color: #171717;
+  color: clr.$black;
   position: fixed;
-  top: 32px;
+  top: 40px;
   left: 54px;
   font-family: "Tusker-Grotesk-8700-Bold";
+
+  @include mq.tabletL {
+    left: 30px;
+  }
+  @include mq.tablet {
+    font-size: 1.5rem;
+    top: 36px;
+    left: 24px;
+  }
+  @include mq.mobileL {
+    top: 22px;
+  }
 
   .characters {
     display: inline-block;
