@@ -6,6 +6,7 @@ $green: #b4ddcb;
 // MQ Breakpoints
 
 $desktop: 80em; //1280px
+$desktopS: 75em; //1200px
 $tabletL: 60em; // 960px
 $tablet: 48em; // 768px
 $mobileL: 35em; // 560px
@@ -13,6 +14,12 @@ $mobileS: 26.25em; // 420px
 
 @mixin desktop {
   @media (min-width: $desktop) {
+    @content;
+  }
+}
+
+@mixin desktopS {
+  @media (max-width: $desktopS) {
     @content;
   }
 }

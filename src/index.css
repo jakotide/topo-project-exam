@@ -15,6 +15,10 @@
   src: url(../src/assets/fonts/TuskerGrotesk-7700Bold.woff2) format("woff2");
 }
 @font-face {
+  font-family: "Tusker-Grotesk-6600-Semibold";
+  src: url(../src/assets/fonts/TuskerGrotesk-6600Semibold.woff2) format("woff2");
+}
+@font-face {
   font-family: "GeneralSans-Regular";
   src: url(../src/assets/fonts/GeneralSans-Regular.woff2) format("woff2");
 }
