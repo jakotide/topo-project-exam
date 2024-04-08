@@ -16,13 +16,17 @@ footer {
     .footer__upper {
       height: 80%;
       border-bottom: 1px solid clr.$white;
-      padding: 7rem 4rem 4rem;
+      padding: 7rem 4rem 5rem;
       display: flex;
+
+      @include mq.tabletL {
+        padding: 5rem 1.5rem 4rem;
+      }
 
       @include mq.tablet {
         flex-direction: column;
         align-items: center;
-        gap: 3rem;
+        gap: 5rem;
       }
 
       .footer__left {
@@ -38,11 +42,15 @@ footer {
           font-size: 7rem;
           margin-bottom: 8rem;
           line-height: 1;
+          align-self: start;
           @include mq.desktopS {
             font-size: 4.7rem;
           }
           @include mq.tablet {
             margin-bottom: 3rem;
+          }
+          @include mq.mobileS {
+            font-size: 3.7rem;
           }
         }
         .footer__newsletter {
@@ -101,10 +109,17 @@ footer {
         font-family: "GeneralSans-Medium";
         display: flex;
         gap: 10rem;
+        align-self: start;
         @include mq.desktopS {
           gap: 5rem;
           flex-wrap: wrap;
           justify-content: space-between;
+          font-size: 15px;
+        }
+        @include mq.tablet {
+          gap: 5rem;
+          flex-wrap: wrap;
+
           font-size: 15px;
         }
 
@@ -126,7 +141,7 @@ footer {
       align-items: flex-end;
       font-size: 3.5rem;
       font-family: "Tusker-Grotesk-8800-Super";
-      line-height: 1;
+      line-height: 1.06;
       padding-top: 3rem;
 
       @include mq.desktopS {
