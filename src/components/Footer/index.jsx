@@ -1,6 +1,17 @@
 import "./Footer.scss";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 export const Footer = ({ className }) => {
+  const [isHover, setIsHover] = useState(false);
+  const subHover = {
+    hidden: {
+      y: 0,
+    },
+    visible: {
+      y: "-60px",
+    },
+  };
   return (
     <footer className={className}>
       <div className="footer__body">
@@ -9,9 +20,27 @@ export const Footer = ({ className }) => {
             <div className="footer__logo">TOPO</div>
             <form action="" className="footer__newsletter">
               <label htmlFor="email">Subscribe to our newsletter!</label>
-              <div>
-                <input type="email" id="email" placeholder="Your Email ..." />
-                <button>Subscribe</button>
+              <div className="input__container">
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="Your Email ..."
+                  required
+                />
+                <button
+                  type="submit"
+                  onMouseEnter={() => setIsHover(true)}
+                  onMouseLeave={() => setIsHover(false)}
+                >
+                  <div className="button__text">Subscribe</div>
+                  <motion.div
+                    className="hover__button"
+                    variants={subHover}
+                    initial="hidden"
+                    animate={isHover ? "visible" : ""}
+                    transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+                  ></motion.div>
+                </button>
               </div>
             </form>
           </div>

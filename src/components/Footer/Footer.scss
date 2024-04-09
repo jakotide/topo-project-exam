@@ -75,7 +75,7 @@ footer {
               font-size: 16px;
             }
           }
-          div {
+          .input__container {
             border-bottom: 3px solid clr.$white;
             display: flex;
             justify-content: space-between;
@@ -95,12 +95,33 @@ footer {
             button {
               padding: 0.4rem 1.6rem 0.2rem;
               border-radius: 2em;
-              border: none;
+              width: 9rem;
+              border: 2px solid clr.$white;
               font-size: 0.8rem;
+              display: grid;
+              place-items: center;
+              position: relative;
+              cursor: pointer;
+              overflow: hidden;
               @include mq.mobileL {
                 padding: 0.3rem 1rem 0.2rem;
                 font-size: 0.7rem;
               }
+            }
+            .button__text {
+              z-index: 5;
+              color: clr.$white;
+              mix-blend-mode: difference;
+            }
+            .hover__button {
+              position: absolute;
+              right: 5;
+              top: 30px;
+              border-radius: 50%;
+              border: none;
+              width: 9rem;
+              height: 6rem;
+              background-color: clr.$black;
             }
           }
         }
@@ -152,11 +173,11 @@ footer {
         flex-direction: column;
         align-items: center;
         gap: 1rem;
-        font-size: 2rem;
+        font-size: 1.5rem;
       }
 
       @include mq.mobileL {
-        font-size: 1.5rem;
+        font-size: 1.1rem;
       }
       div {
         padding: 0 4rem;
