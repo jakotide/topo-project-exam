@@ -5,6 +5,7 @@ export const HomePage = () => {
   return (
     <>
       <Hero />
+      <section>hello?</section>
     </>
   );
 };

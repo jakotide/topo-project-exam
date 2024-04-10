@@ -26,6 +26,7 @@ export const Footer = ({ className }) => {
                   id="email"
                   placeholder="Your Email ..."
                   required
+                  autoComplete="true"
                 />
                 <button
                   type="submit"

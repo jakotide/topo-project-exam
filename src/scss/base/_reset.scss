@@ -18,13 +18,14 @@ html:focus-within {
 
 html,
 body {
-  height: 100%;
+  // height: 100%;
 }
 
 body {
   text-rendering: optimizeSpeed;
   line-height: 1.5;
-  background-image: linear-gradient(clr.$peach, clr.$pink);
+  background-image: linear-gradient(180deg, clr.$peach, clr.$pink 40%);
+  background-size: cover;
 }
 
 * {

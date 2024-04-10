@@ -8,9 +8,9 @@ export const Layout = () => {
   return (
     <div className="layout">
       <Header />
-      <main>
-        <Outlet />
-      </main>
+      {/* <main> */}
+      <Outlet />
+      {/* </main> */}
       <Footer className="footer" />
     </div>
   );
