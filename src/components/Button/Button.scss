@@ -1,0 +1,32 @@
+@use "../../scss/base/" as clr;
+
+.button__link {
+  text-decoration: none;
+
+  .button__component {
+    --button-height: 2.7rem;
+    --button-width: 10rem;
+    --button-color: #f9f5f3;
+    --button-background: #171717;
+    cursor: pointer;
+    height: var(--button-height);
+    width: var(--button-width);
+    background-color: var(--button-background);
+    color: var(--button-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    border-radius: 2rem;
+    border: none;
+    font-family: "GeneralSans-Medium";
+    line-height: 1;
+    overflow: hidden;
+    text-transform: uppercase;
+    img {
+      height: 1.8rem;
+      width: 2rem;
+      object-fit: cover;
+    }
+  }
+}

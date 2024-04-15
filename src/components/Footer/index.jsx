@@ -29,6 +29,7 @@ export const Footer = ({ className }) => {
                   autoComplete="true"
                 />
                 <button
+                  className="newsletter__button"
                   type="submit"
                   onMouseEnter={() => setIsHover(true)}
                   onMouseLeave={() => setIsHover(false)}

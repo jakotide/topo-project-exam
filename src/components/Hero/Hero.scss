@@ -1,4 +1,36 @@
+@use "../../scss/base/globals" as clr;
+
 .hero__section {
   height: 90vh;
   background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // justify-content: center;
+
+  .hero__image {
+    object-fit: cover;
+    width: 320px;
+    height: 320px;
+    padding-top: 3rem;
+  }
+
+  .hero__h1 {
+    font-family: "Tusker-Grotesk-8800-Super";
+    text-transform: uppercase;
+    color: clr.$white;
+    font-size: 6rem;
+    transform: translateY(-40%);
+    z-index: 3;
+  }
+
+  .hero__btn__container {
+    display: flex;
+    gap: 1rem;
+
+    .primary__btn {
+      // background-color: clr.$black;
+      // color: clr.$white;
+    }
+  }
 }
