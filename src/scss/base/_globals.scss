@@ -7,12 +7,19 @@ $pink: #ff7c7c;
 
 // MQ Breakpoints
 
+$desktopL: 91.25em; // 1460px
 $desktop: 80em; //1280px
 $desktopS: 75em; //1200px
 $tabletL: 60em; // 960px
 $tablet: 48em; // 768px
 $mobileL: 35em; // 560px
 $mobileS: 26.25em; // 420px
+
+@mixin desktopL {
+  @media (max-width: $desktopL) {
+    @content;
+  }
+}
 
 @mixin desktop {
   @media (min-width: $desktop) {

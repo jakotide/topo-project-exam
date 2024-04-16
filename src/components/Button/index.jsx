@@ -1,10 +1,17 @@
 import "./Button.scss";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import ArrowRightSvg from "../../assets/icons/arrow-right_1.svg";
+import { ArrowRightSvg } from "../ui/ArrowRightSvg";
 import { useState } from "react";
 
-export const Button = ({ children, to, style, arrowColor, ...rest }) => {
+export const Button = ({
+  children,
+  to,
+  style,
+  options,
+  arrowFillColor,
+  ...rest
+}) => {
   const [isHover, setIsHover] = useState(false);
   const variants = {
     normal: {
@@ -25,15 +32,19 @@ export const Button = ({ children, to, style, arrowColor, ...rest }) => {
           onMouseEnter={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}
         >
-          <motion.svg
-            fill="white"
-            style={{ fill: "white" }}
-            src={ArrowRightSvg}
-            alt=""
+          <motion.div
             variants={variants}
             initial="normal"
             animate={isHover ? "active" : "normal"}
-          />
+          >
+            <ArrowRightSvg
+              options={{
+                width: "24px",
+                height: "24px",
+                fill: arrowFillColor,
+              }}
+            />
+          </motion.div>
           <motion.div
             variants={variants}
             initial="normal"
@@ -41,14 +52,19 @@ export const Button = ({ children, to, style, arrowColor, ...rest }) => {
           >
             {children}
           </motion.div>
-          <motion.svg
-            style={{ fill: arrowColor }}
-            src={ArrowRightSvg}
-            alt=""
+          <motion.div
             variants={variants}
             initial="normal"
             animate={isHover ? "active" : "normal"}
-          />
+          >
+            <ArrowRightSvg
+              options={{
+                width: "24px",
+                height: "24px",
+                fill: arrowFillColor,
+              }}
+            />
+          </motion.div>
         </button>
       </Link>
     </motion.div>

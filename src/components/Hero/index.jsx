@@ -8,7 +8,7 @@ export const Hero = () => {
       <img className="hero__image" src={heroPlanet} alt="" />
       <h1 className="hero__h1">Booking Made Easy</h1>
       <div className="hero__btn__container">
-        <Button to="/venues" className="primary__btn" arrowColor="#FFF">
+        <Button to="/venues" className="primary__btn" arrowFillColor="#f9f5f3">
           Venues
         </Button>
         <Button
@@ -16,9 +16,9 @@ export const Hero = () => {
             "--button-color": "#171717",
             "--button-background": "#f9f5f3",
           }}
-          arrowColor="#000000"
+          arrowFillColor="#171717"
         >
-          List
+          Something
         </Button>
       </div>
       {/* <img src={cloudOne} alt="" /> */}
