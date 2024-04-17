@@ -2,18 +2,29 @@
 @use "../../scss/base/globals" as mq;
 
 .hero__section {
-  height: 85vh;
+  height: 90vh;
   padding: 0 2rem;
   background: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  overflow: hidden;
+  @include mq.tablet {
+    padding: 0 1rem;
+  }
 
   .hero__image {
     object-fit: cover;
     width: 320px;
     height: 320px;
     margin-top: 5rem;
+
+    @include mq.tablet {
+      width: 250px;
+      height: 250px;
+      margin-top: 3rem;
+    }
   }
 
   .hero__h1 {
@@ -27,10 +38,68 @@
     @include mq.desktopL {
       font-size: 4.5rem;
     }
+    @include mq.desktopS {
+      font-size: 3.5rem;
+    }
+    @include mq.tabletL {
+      font-size: 3rem;
+    }
+    @include mq.tablet {
+      font-size: 2.2rem;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+    @include mq.mobileS {
+      transform: translateY(-40%);
+    }
   }
 
   .hero__btn__container {
     display: flex;
     gap: 1rem;
+    @include mq.mobileS {
+      flex-direction: column;
+    }
+  }
+
+  .cloud__img {
+    align-self: flex-end;
+    z-index: -2;
+    position: absolute;
+    top: 68%;
+    right: -15%;
+
+    @include mq.tablet {
+      top: 88%;
+      width: 250px;
+      right: -14%;
+    }
+    @include mq.mobileL {
+      top: 88%;
+      width: 250px;
+      right: -17%;
+    }
+  }
+  .cloud__img__small {
+    position: absolute;
+    width: 5rem;
+    z-index: -2;
+    top: 7%;
+    @include mq.tablet {
+      top: 3%;
+      width: 3.5rem;
+    }
+  }
+  .cloud__img__small2 {
+    position: absolute;
+    width: 6rem;
+    z-index: 2;
+    top: 42%;
+    left: 55%;
+    @include mq.tablet {
+      top: 35%;
+      left: 58%;
+      width: 4.2rem;
+    }
   }
 }
