@@ -1,11 +1,11 @@
 import "./HomePage.scss";
-import { Hero } from "../../components/Hero";
+import { Hero, HomeVenuesSection } from "../../components";
 
 export const HomePage = () => {
   return (
     <>
       <Hero />
-      <section>hello?</section>
+      <HomeVenuesSection />
     </>
   );
 };
