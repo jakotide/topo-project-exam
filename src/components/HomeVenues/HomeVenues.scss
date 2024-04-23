@@ -5,7 +5,11 @@
   width: 100%;
   padding: 4rem;
   background-color: clr.$white;
+  border-bottom: 1px solid clr.$grey;
   border-top-left-radius: 44px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
   @include mq.tabletL {
     padding: 4rem 2rem;
   }
@@ -62,23 +66,23 @@
       grid-template-rows: repeat(auto, minmax(6, 1fr));
       gap: 1rem;
     }
+  }
 
-    :nth-child(1) {
-      grid-area: 1 / 1 / 2 / 3;
-      // background-color: clr.$yellow;
+  .more__venues__button {
+    align-self: flex-end;
+  }
+}
 
-      @include mq.desktopS {
-        grid-area: auto;
-        // background-color: clr.$green;
-      }
-    }
-    :nth-child(5) {
-      grid-area: 2 / 2 / 2 / 4;
+.home__venue__grid > div:nth-child(1) {
+  grid-area: 1 / 1 / 2 / 3;
+  @include mq.desktopS {
+    grid-area: auto;
+  }
+}
+.home__venue__grid > div:nth-child(5) {
+  grid-area: 2 / 2 / 2 / 4;
 
-      @include mq.desktopS {
-        grid-area: auto;
-        background-color: clr.$green;
-      }
-    }
+  @include mq.desktopS {
+    grid-area: auto;
   }
 }

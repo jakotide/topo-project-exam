@@ -9,11 +9,13 @@ export const Button = ({
   to,
   style,
   options,
+  className,
   arrowFillColor,
+  variants,
   ...rest
 }) => {
   const [isHover, setIsHover] = useState(false);
-  const variants = {
+  const buttonVariants = {
     normal: {
       x: "-24px",
     },
@@ -23,7 +25,7 @@ export const Button = ({
   };
 
   return (
-    <motion.div>
+    <motion.div className={className}>
       <Link to={to} className="button__link">
         <button
           {...rest}
@@ -33,7 +35,7 @@ export const Button = ({
           onMouseLeave={() => setIsHover(false)}
         >
           <motion.div
-            variants={variants}
+            variants={variants || buttonVariants}
             initial="normal"
             animate={isHover ? "active" : "normal"}
           >
@@ -46,14 +48,14 @@ export const Button = ({
             />
           </motion.div>
           <motion.div
-            variants={variants}
+            variants={variants || buttonVariants}
             initial="normal"
             animate={isHover ? "active" : "normal"}
           >
             {children}
           </motion.div>
           <motion.div
-            variants={variants}
+            variants={variants || buttonVariants}
             initial="normal"
             animate={isHover ? "active" : "normal"}
           >

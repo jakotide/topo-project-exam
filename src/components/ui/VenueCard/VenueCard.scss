@@ -1,5 +1,8 @@
+@use "../../../scss/base/globals" as clr;
+@use "../../../scss/base/globals" as mq;
+
 .venue__card {
-  border: 1px solid black;
+  border: 1px solid clr.$black;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -16,7 +19,7 @@
   }
 
   .venue__card__info {
-    padding: 1rem;
+    padding: 1rem 1rem;
     display: flex;
     height: 40%;
     flex-direction: column;
@@ -28,7 +31,17 @@
     }
     .card__h3,
     .card__price {
+      font-size: 1.1rem;
       font-family: "GeneralSans-Semibold";
+    }
+    .card__desc {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .card__location {
+      font-size: 0.9rem;
+      color: clr.$grey;
     }
   }
 }
