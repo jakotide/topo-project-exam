@@ -1,6 +1,7 @@
 import "./HomeVenues.scss";
 import { VenueCard, Button } from "../ui/";
 import { useApi } from "../../hooks/useApi";
+import { norwayCartoon } from "../../assets/images";
 
 export const HomeVenuesSection = () => {
   const { data, isLoading, isError } = useApi(
@@ -61,9 +62,40 @@ export const HomeVenuesSection = () => {
           More Venues
         </Button>
       </section>
-      <section className="">
-        <h4>Destinations</h4>
-        <p>TOPO helps you with accommodation for all kinds of adventures.</p>
+      <section className="destination__section">
+        <h4 className="destination__header">Destinations</h4>
+        <p className="destination__info">
+          TOPO helps you with accommodation for all kinds of adventures. Whether
+          you're seeking the serene solitude of a mountain retreat, the vibrant
+          energy of a bustling city, or the tranquil sounds of waves crashing on
+          the shore, TOPO has you covered.
+        </p>
+        <div className="destination__card__grid">
+          <div className="destination__card">
+            <img src={norwayCartoon} alt="" />
+            <h5>Find Your Calm In Norway</h5>
+            <p>
+              With venues all over the globe, Topo offers venues for every
+              occasion and every weather.{" "}
+            </p>
+          </div>
+          <div className="destination__card">
+            <img src={norwayCartoon} alt="" />
+            <h5>Find Your Calm In Norway</h5>
+            <p>
+              With venues all over the globe, Topo offers venues for every
+              occasion and every weather.{" "}
+            </p>
+          </div>
+          <div className="destination__card">
+            <img src={norwayCartoon} alt="" />
+            <h5>Find Your Calm In Norway</h5>
+            <p>
+              With venues all over the globe, Topo offers venues for every
+              occasion and every weather.{" "}
+            </p>
+          </div>
+        </div>
       </section>
     </>
   );
