@@ -1,4 +1,4 @@
-@use "../../scss/base/" as clr;
+@use "../../../scss/base/globals" as clr;
 
 .button__link {
   text-decoration: none;
@@ -23,10 +23,5 @@
     line-height: 1;
     overflow: hidden;
     text-transform: uppercase;
-    // img {
-    //   height: 1.8rem;
-    //   width: 2rem;
-    //   object-fit: cover;
-    // }
   }
 }

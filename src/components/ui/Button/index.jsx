@@ -1,7 +1,7 @@
 import "./Button.scss";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRightSvg } from "../ui/ArrowRightSvg";
+import { ArrowRightSvg } from "../ArrowRightSvg";
 import { useState } from "react";
 
 export const Button = ({

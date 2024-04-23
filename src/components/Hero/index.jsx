@@ -1,7 +1,7 @@
 import React from "react";
 import "./Hero.scss";
 import { heroPlanet, cloudOne } from "../../assets/images";
-import { Button } from "../../components/Button";
+import { Button } from "../../components/ui/Button";
 import { motion } from "framer-motion";
 import { cloudPath } from "./anim";
 

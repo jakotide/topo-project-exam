@@ -2,22 +2,35 @@
 @use "../../scss/base/globals" as mq;
 
 .home__venue__section {
-  height: 1000px;
   width: 100%;
   padding: 4rem;
   background-color: clr.$white;
   border-top-left-radius: 44px;
+  @include mq.tabletL {
+    padding: 4rem 2rem;
+  }
+  @include mq.mobileL {
+    padding: 4rem 1rem;
+  }
 
   .search__h2 {
     font-family: "Tusker-Grotesk-8800-Super";
     font-size: 4rem;
     text-transform: uppercase;
     padding-bottom: 1.5rem;
+
+    @include mq.desktopS {
+      font-size: 3rem;
+    }
+    @include mq.mobileL {
+      font-size: 2rem;
+    }
   }
 
   .search__container {
     display: flex;
     gap: 2rem;
+    padding-bottom: 4rem;
     input {
       width: 100%;
       height: 4rem;
@@ -26,6 +39,46 @@
       font-family: "GeneralSans-Medium";
       padding: 0 2rem;
       font-size: 1.1rem;
+    }
+  }
+
+  .home__venue__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(6, 1fr));
+    width: 100%;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    @include mq.desktopS {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    @include mq.tabletL {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: repeat(3, minmax(6, 1fr));
+      gap: 1rem;
+    }
+    @include mq.mobileL {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      grid-template-rows: repeat(auto, minmax(6, 1fr));
+      gap: 1rem;
+    }
+
+    :nth-child(1) {
+      grid-area: 1 / 1 / 2 / 3;
+      background-color: clr.$yellow;
+
+      @include mq.desktopS {
+        grid-area: auto;
+        background-color: clr.$green;
+      }
+    }
+    :nth-child(5) {
+      grid-area: 2 / 2 / 2 / 4;
+
+      @include mq.desktopS {
+        grid-area: auto;
+        background-color: clr.$green;
+      }
     }
   }
 }
