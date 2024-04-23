@@ -65,11 +65,11 @@
 
     :nth-child(1) {
       grid-area: 1 / 1 / 2 / 3;
-      background-color: clr.$yellow;
+      // background-color: clr.$yellow;
 
       @include mq.desktopS {
         grid-area: auto;
-        background-color: clr.$green;
+        // background-color: clr.$green;
       }
     }
     :nth-child(5) {

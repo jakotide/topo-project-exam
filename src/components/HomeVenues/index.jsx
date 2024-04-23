@@ -1,5 +1,5 @@
 import "./HomeVenues.scss";
-import { VenueCard } from "../ui/VenueCard";
+import { VenueCard, Button } from "../ui/";
 import { useApi } from "../../hooks/useApi";
 
 export const HomeVenuesSection = () => {
@@ -29,6 +29,7 @@ export const HomeVenuesSection = () => {
         <button>Filter</button>
       </div>
       <div className="home__venue__grid">{content}</div>
+      <Button>More Venues</Button>
     </section>
   );
 };
