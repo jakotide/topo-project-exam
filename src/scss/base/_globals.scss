@@ -9,15 +9,23 @@ $pink: #ff7c7c;
 // MQ Breakpoints
 
 $desktopL: 91.25em; // 1460px
+$desktopM: 81.25em; // 1300px
 $desktop: 80em; //1280px
 $desktopS: 75em; //1200px
 $tabletL: 60em; // 960px
 $tablet: 48em; // 768px
+$tabletS: 40.625; // 650px
 $mobileL: 35em; // 560px
 $mobileS: 26.25em; // 420px
 
 @mixin desktopL {
   @media (max-width: $desktopL) {
+    @content;
+  }
+}
+
+@mixin desktopM {
+  @media (max-width: $desktopM) {
     @content;
   }
 }
@@ -41,6 +49,12 @@ $mobileS: 26.25em; // 420px
 }
 
 @mixin tablet {
+  @media (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin tabletS {
   @media (max-width: $tablet) {
     @content;
   }

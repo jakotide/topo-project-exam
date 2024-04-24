@@ -1,13 +1,13 @@
 import "./HomeVenues.scss";
-import { VenueCard, Button } from "../ui/";
+import { VenueCard, Button, ArrowRightSvg } from "../ui/";
 import { useApi } from "../../hooks/useApi";
-import { norwayCartoon } from "../../assets/images";
+import { destinationCards, destinationInfo } from "./data";
 
-export const HomeVenuesSection = () => {
+export const HomeVenuesSection = ({ options }) => {
   const { data, isLoading, isError } = useApi(
     "https://v2.api.noroff.dev/holidaze/venues"
   );
-  console.log(data);
+
   let content;
   if (isError) {
     content = <div>Error</div>;
@@ -45,6 +45,15 @@ export const HomeVenuesSection = () => {
     },
   };
 
+  const variantsBrowseButton = {
+    normal: {
+      x: "-32px",
+    },
+    active: {
+      x: "29px",
+    },
+  };
+
   return (
     <>
       <section className="home__venue__section">
@@ -64,39 +73,60 @@ export const HomeVenuesSection = () => {
       </section>
       <section className="destination__section">
         <h4 className="destination__header">Destinations</h4>
-        <p className="destination__info">
-          TOPO helps you with accommodation for all kinds of adventures. Whether
-          you're seeking the serene solitude of a mountain retreat, the vibrant
-          energy of a bustling city, or the tranquil sounds of waves crashing on
-          the shore, TOPO has you covered.
-        </p>
-        <div className="destination__card__grid">
-          <div className="destination__card">
-            <img src={norwayCartoon} alt="" />
-            <h5>Find Your Calm In Norway</h5>
-            <p>
-              With venues all over the globe, Topo offers venues for every
-              occasion and every weather.{" "}
-            </p>
-          </div>
-          <div className="destination__card">
-            <img src={norwayCartoon} alt="" />
-            <h5>Find Your Calm In Norway</h5>
-            <p>
-              With venues all over the globe, Topo offers venues for every
-              occasion and every weather.{" "}
-            </p>
-          </div>
-          <div className="destination__card">
-            <img src={norwayCartoon} alt="" />
-            <h5>Find Your Calm In Norway</h5>
-            <p>
-              With venues all over the globe, Topo offers venues for every
-              occasion and every weather.{" "}
-            </p>
+        <p className="destination__info">{destinationInfo}</p>
+        {/* <div className="destination__card__grid">
+          {destinationCards.map((destination, index) => (
+            <div key={index} className="destination__card">
+              <img
+                src={destination.image}
+                alt={destination.alt}
+                className="destination__card__img"
+              />
+              <div className="destination__tag">{destination.tag}</div>
+              <h5>{destination.title}</h5>
+              <p>{destination.description}</p>
+            </div>
+          ))}
+        </div>
+        <div className="get__inspired">
+          <p>Get Inspired</p>
+          <Button
+            className="browse__button"
+            style={{ width: "16rem", gap: "2.1rem" }}
+            variants={variantsBrowseButton}
+          >
+            Browse Venues
+          </Button>
+        </div> */}
+      </section>
+      {/* <section className="color__card__section">
+        <div className="color__card">
+          <p>Got a venue to list out?</p>
+          <div>
+            <p>Become a venue manager</p>
+            <ArrowRightSvg
+              options={{
+                width: "24px",
+                height: "24px",
+                fill: "#000000",
+              }}
+            />
           </div>
         </div>
-      </section>
+        <div className="color__card green">
+          <p>Got any questions?</p>
+          <div>
+            <p>Contact our customer support</p>
+            <ArrowRightSvg
+              options={{
+                width: "24px",
+                height: "24px",
+                fill: "#000000",
+              }}
+            />
+          </div>
+        </div>
+      </section> */}
     </>
   );
 };
