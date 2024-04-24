@@ -23,9 +23,9 @@ export const destinationCards = [
     image: norwayCartoon,
     alt: "Norwegian landscape and a cabin",
     tag: "NORWAY",
-    title: "Find your calm in Norway",
+    title: "Find Your Calm In Norway",
     description:
-      "Escape to the tranquil beauty of Norway's landscapes with our serene accommodations.",
+      "Escape to the calm beauty of Norway's landscapes with our serene accommodations.",
   },
 ];
 

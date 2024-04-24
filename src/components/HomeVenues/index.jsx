@@ -74,7 +74,7 @@ export const HomeVenuesSection = ({ options }) => {
       <section className="destination__section">
         <h4 className="destination__header">Destinations</h4>
         <p className="destination__info">{destinationInfo}</p>
-        {/* <div className="destination__card__grid">
+        <div className="destination__card__grid">
           {destinationCards.map((destination, index) => (
             <div key={index} className="destination__card">
               <img
@@ -82,7 +82,7 @@ export const HomeVenuesSection = ({ options }) => {
                 alt={destination.alt}
                 className="destination__card__img"
               />
-              <div className="destination__tag">{destination.tag}</div>
+              {/* <div className="destination__tag">{destination.tag}</div> */}
               <h5>{destination.title}</h5>
               <p>{destination.description}</p>
             </div>
@@ -97,36 +97,36 @@ export const HomeVenuesSection = ({ options }) => {
           >
             Browse Venues
           </Button>
-        </div> */}
+        </div>
       </section>
-      {/* <section className="color__card__section">
+      <section className="color__card__section">
         <div className="color__card">
           <p>Got a venue to list out?</p>
           <div>
             <p>Become a venue manager</p>
-            <ArrowRightSvg
+            {/* <ArrowRightSvg
               options={{
                 width: "24px",
                 height: "24px",
                 fill: "#000000",
               }}
-            />
+            /> */}
           </div>
         </div>
         <div className="color__card green">
           <p>Got any questions?</p>
           <div>
             <p>Contact our customer support</p>
-            <ArrowRightSvg
+            {/* <ArrowRightSvg
               options={{
                 width: "24px",
                 height: "24px",
                 fill: "#000000",
               }}
-            />
+            /> */}
           </div>
         </div>
-      </section> */}
+      </section>
     </>
   );
 };
