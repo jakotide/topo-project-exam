@@ -45,7 +45,7 @@ export const Header = () => {
         <TopNavMobile toggleMenu={toggleMenu} isActive={isActive} />
       ) : (
         <>
-          <TopNav /> <ProfileButton />
+          <TopNav />
         </>
       )}
       <AnimatePresence>

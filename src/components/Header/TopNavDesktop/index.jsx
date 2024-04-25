@@ -4,6 +4,7 @@ import { motion, useInView, useAnimation } from "framer-motion";
 import { topNavSlide, navLinkScale, arrowLinkUp } from "../animation";
 import { topNavLinks } from "../Data";
 import { Link, useLocation } from "react-router-dom";
+import { ProfileButton } from "../ProfileButton";
 import arrowUp from "../../../assets/icons/arrow-up-white.png";
 
 export const TopNav = () => {
@@ -67,6 +68,7 @@ export const TopNav = () => {
             </Link>
           </motion.div>
         ))}
+        <ProfileButton />
       </motion.menu>
     </nav>
   );

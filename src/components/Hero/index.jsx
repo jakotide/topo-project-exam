@@ -1,14 +1,39 @@
-import React from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import "./Hero.scss";
 import { heroPlanet, cloudOne } from "../../assets/images";
 import { Button } from "../../components/ui/Button";
 import { motion } from "framer-motion";
-import { cloudPath } from "./anim";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/all";
+gsap.registerPlugin(ScrollTrigger);
 
-export const Hero = () => {
+export const Hero = ({}) => {
+  const container = useRef(null);
+  const title = useRef(null);
+  const buttonContainer = useRef(null);
+  const heroImage = useRef(null);
+
+  useLayoutEffect(() => {
+    const context = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          target: container.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      tl.to(title.current, { y: -500 }, 0);
+      tl.to(buttonContainer.current, { y: -350 }, 0);
+      tl.to(heroImage.current, { y: 50 }, 0);
+    });
+
+    return () => context.revert();
+  }, []);
   return (
-    <section className="hero__section">
-      <img className="hero__image" src={heroPlanet} alt="" />
+    <section className="hero__section" ref={container}>
+      <img className="hero__image" src={heroPlanet} alt="" ref={heroImage} />
       <motion.img
         initial={{ y: "10%" }}
         animate={{
@@ -39,8 +64,10 @@ export const Hero = () => {
         alt="White 3d cloud"
         className="cloud__img__small2"
       />
-      <h1 className="hero__h1">Booking Made Easy</h1>
-      <div className="hero__btn__container">
+      <h1 className="hero__h1" ref={title}>
+        Booking Made Easy
+      </h1>
+      <div className="hero__btn__container" ref={buttonContainer}>
         <Button to="/venues" className="primary__btn" arrowFillColor="#f9f5f3">
           Venues
         </Button>

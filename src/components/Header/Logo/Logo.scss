@@ -5,22 +5,22 @@
   font-size: 2.4rem;
   text-decoration: none;
   color: clr.$black;
-  position: fixed;
-  top: 40px;
-  left: 54px;
+  // position: fixed;
+  // top: 40px;
+  // left: 54px;
   font-family: "Tusker-Grotesk-8700-Bold";
 
-  @include mq.tabletL {
-    left: 30px;
-  }
+  // @include mq.tabletL {
+  //   left: 30px;
+  // }
   @include mq.tablet {
     font-size: 1.5rem;
-    top: 36px;
-    left: 24px;
+    // top: 36px;
+    // left: 24px;
   }
-  @include mq.mobileL {
-    top: 22px;
-  }
+  // @include mq.mobileL {
+  //   top: 22px;
+  // }
 
   .characters {
     display: inline-block;

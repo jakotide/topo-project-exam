@@ -64,10 +64,11 @@
 
   .cloud__img {
     align-self: flex-end;
-    z-index: -2;
+    z-index: 2;
     position: absolute;
     top: 68%;
     right: -15%;
+    // overflow: hidden;
 
     @include mq.tablet {
       top: 88%;

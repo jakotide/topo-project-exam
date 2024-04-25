@@ -8,6 +8,7 @@
   .top__nav {
     display: flex;
     gap: 2rem;
+    align-items: center;
 
     @include mq.tabletL {
       gap: 1rem;
