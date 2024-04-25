@@ -222,13 +222,13 @@
 
 .color__card__section {
   background-color: clr.$white;
-  padding: 6rem 4rem;
+  padding: 6rem 4rem 10rem;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 2rem;
   font-family: "GeneralSans-Regular";
   @include mq.tabletL {
-    padding: 6rem 2rem;
+    padding: 6rem 2rem 8rem;
   }
   @include mq.mobileL {
     padding: 6rem 1rem;
@@ -267,5 +267,21 @@
   }
   .green {
     background-color: clr.$green;
+  }
+}
+.circleContainer {
+  position: relative;
+  // margin-top: 150px;
+  // overflow: hidden;
+  // height: -100px;
+  .circle {
+    box-shadow: 0px 60px 50px rgba(0, 0, 0, 0.8);
+    position: absolute;
+    height: 1850%;
+    width: 100%;
+    // left: -10%;
+    background-color: clr.$white;
+    border-radius: 0% 0% 50% 50%;
+    z-index: 1;
   }
 }

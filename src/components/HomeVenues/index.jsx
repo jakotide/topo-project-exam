@@ -1,7 +1,9 @@
 import "./HomeVenues.scss";
-import { VenueCard, Button, ArrowRightSvg } from "../ui/";
+import { VenueCard, Button } from "../ui/";
 import { useApi } from "../../hooks/useApi";
 import { destinationCards, destinationInfo } from "./data";
+import { motion, useTransform, useScroll } from "framer-motion";
+import { useRef } from "react";
 
 export const HomeVenuesSection = ({ options }) => {
   const { data, isLoading, isError } = useApi(
@@ -54,8 +56,15 @@ export const HomeVenuesSection = ({ options }) => {
     },
   };
 
+  const container = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ["start end", "end 250px"],
+  });
+  const height = useTransform(scrollYProgress, [0, 1], [50, 0]);
+
   return (
-    <>
+    <div ref={container}>
       <section className="home__venue__section">
         <h2 className="search__h2">Search</h2>
         <div className="search__container">
@@ -104,29 +113,18 @@ export const HomeVenuesSection = ({ options }) => {
           <p>Got a venue to list out?</p>
           <div>
             <p>Become a venue manager</p>
-            {/* <ArrowRightSvg
-              options={{
-                width: "24px",
-                height: "24px",
-                fill: "#000000",
-              }}
-            /> */}
           </div>
         </div>
         <div className="color__card green">
           <p>Got any questions?</p>
           <div>
             <p>Contact our customer support</p>
-            {/* <ArrowRightSvg
-              options={{
-                width: "24px",
-                height: "24px",
-                fill: "#000000",
-              }}
-            /> */}
           </div>
         </div>
       </section>
-    </>
+      <motion.div className="circleContainer" style={{ height }}>
+        <div className="circle"></div>
+      </motion.div>
+    </div>
   );
 };
