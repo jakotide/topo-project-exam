@@ -57,10 +57,12 @@ export const HomeVenuesSection = ({ options }) => {
   };
 
   const container = useRef(null);
+
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ["start end", "end 250px"],
   });
+
   const height = useTransform(scrollYProgress, [0, 1], [50, 0]);
 
   return (
