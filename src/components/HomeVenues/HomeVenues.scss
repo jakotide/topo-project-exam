@@ -124,6 +124,18 @@
     font-size: 2rem;
     width: 52%;
     padding-bottom: 6rem;
+    display: flex;
+    flex-wrap: wrap;
+
+    .word {
+      margin-right: 6px;
+    }
+    .mask {
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+    }
+
     @include mq.tabletL {
       font-size: clamp(1.4rem, 8.5vw, 1.8rem);
       width: 65%;

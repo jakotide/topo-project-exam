@@ -2,8 +2,9 @@ import "./HomeVenues.scss";
 import { VenueCard, Button } from "../ui/";
 import { useApi } from "../../hooks/useApi";
 import { destinationCards, destinationInfo } from "./data";
-import { motion, useTransform, useScroll } from "framer-motion";
+import { motion, useTransform, useScroll, useInView } from "framer-motion";
 import { useRef } from "react";
+import { slideUp, customVariantMoreButton, variantsBrowseButton } from "./anim";
 
 export const HomeVenuesSection = ({ options }) => {
   const { data, isLoading, isError } = useApi(
@@ -38,24 +39,6 @@ export const HomeVenuesSection = ({ options }) => {
     ));
   }
 
-  const customVariantMoreButton = {
-    normal: {
-      x: "-28px",
-    },
-    active: {
-      x: "26px",
-    },
-  };
-
-  const variantsBrowseButton = {
-    normal: {
-      x: "-32px",
-    },
-    active: {
-      x: "29px",
-    },
-  };
-
   const container = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -64,6 +47,11 @@ export const HomeVenuesSection = ({ options }) => {
   });
 
   const height = useTransform(scrollYProgress, [0, 1], [50, 0]);
+
+  const destInfoAnimation = useRef(null);
+
+  const isInView = useInView(destInfoAnimation);
+  console.log(isInView);
 
   return (
     <div ref={container}>
@@ -84,7 +72,25 @@ export const HomeVenuesSection = ({ options }) => {
       </section>
       <section className="destination__section">
         <h4 className="destination__header">Destinations</h4>
-        <p className="destination__info">{destinationInfo}</p>
+
+        <p className="destination__info" ref={destInfoAnimation}>
+          {destinationInfo.split(" ").map((word, index) => {
+            return (
+              <span key={index} className="mask">
+                <motion.span
+                  variants={slideUp}
+                  custom={index}
+                  animate={isInView ? "active" : "closed"}
+                  key={index}
+                  className="word"
+                >
+                  {word}
+                </motion.span>
+              </span>
+            );
+          })}
+        </p>
+
         <div className="destination__card__grid">
           {destinationCards.map((destination, index) => (
             <div key={index} className="destination__card">
