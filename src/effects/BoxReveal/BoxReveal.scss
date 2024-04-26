@@ -1,0 +1,20 @@
+@use "../../scss/base/globals" as clr;
+
+.boxbox {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+.slider__box {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  inset: 0;
+  background: clr.$white;
+  z-index: 200;
+  //   border-radius: 2em;
+  //   border-top-left-radius: 2em;
+  //   border-bottom-left-radius: 2em;
+}

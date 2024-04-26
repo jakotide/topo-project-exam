@@ -4,9 +4,10 @@ import { useApi } from "../../hooks/useApi";
 import { destinationCards, destinationInfo } from "./data";
 import { motion, useTransform, useScroll, useInView } from "framer-motion";
 import { useRef } from "react";
-import { slideUp, customVariantMoreButton, variantsBrowseButton } from "./anim";
+import { slideUp, MoreButton, BrowseButton, widthReveal } from "./anim";
+import { BoxReveal } from "../../effects/BoxReveal";
 
-export const HomeVenuesSection = ({ options }) => {
+export const HomeVenuesSection = ({ options, children }) => {
   const { data, isLoading, isError } = useApi(
     "https://v2.api.noroff.dev/holidaze/venues"
   );
@@ -39,6 +40,7 @@ export const HomeVenuesSection = ({ options }) => {
     ));
   }
 
+  // Footer Reveal
   const container = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -48,10 +50,10 @@ export const HomeVenuesSection = ({ options }) => {
 
   const height = useTransform(scrollYProgress, [0, 1], [50, 0]);
 
+  // Destination info text reveal
   const destInfoAnimation = useRef(null);
 
   const isInView = useInView(destInfoAnimation);
-  console.log(isInView);
 
   return (
     <div ref={container}>
@@ -65,7 +67,7 @@ export const HomeVenuesSection = ({ options }) => {
         <Button
           className="more__venues__button"
           style={{ width: "14rem", gap: "1.8rem" }}
-          variants={customVariantMoreButton}
+          variants={MoreButton}
         >
           More Venues
         </Button>
@@ -110,25 +112,29 @@ export const HomeVenuesSection = ({ options }) => {
           <Button
             className="browse__button"
             style={{ width: "16rem", gap: "2.1rem" }}
-            variants={variantsBrowseButton}
+            variants={BrowseButton}
           >
             Browse Venues
           </Button>
         </div>
       </section>
       <section className="color__card__section">
-        <div className="color__card">
-          <p>Got a venue to list out?</p>
-          <div>
-            <p>Become a venue manager</p>
+        <BoxReveal>
+          <div className="color__card">
+            <p>Got a venue to list out?</p>
+            <div>
+              <p>Become a venue manager</p>
+            </div>
           </div>
-        </div>
-        <div className="color__card green">
-          <p>Got any questions?</p>
-          <div>
-            <p>Contact our customer support</p>
+        </BoxReveal>
+        <BoxReveal>
+          <div className="color__card green">
+            <p>Got any questions?</p>
+            <div>
+              <p>Contact our customer support</p>
+            </div>
           </div>
-        </div>
+        </BoxReveal>
       </section>
       <motion.div className="circleContainer" style={{ height }}>
         <div className="circle"></div>

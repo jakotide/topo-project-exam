@@ -12,7 +12,21 @@ export const slideUp = {
   },
 };
 
-export const customVariantMoreButton = {
+export const widthReveal = {
+  initial: {
+    width: "100",
+  },
+  active: {
+    width: "0",
+    transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] },
+  },
+  closed: {
+    width: "100",
+    transition: { duration: 0.3, ease: [0.76, 0, 0.24, 1] },
+  },
+};
+
+export const MoreButton = {
   normal: {
     x: "-28px",
   },
@@ -21,7 +35,7 @@ export const customVariantMoreButton = {
   },
 };
 
-export const variantsBrowseButton = {
+export const BrowseButton = {
   normal: {
     x: "-32px",
   },
