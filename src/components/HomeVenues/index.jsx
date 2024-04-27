@@ -4,7 +4,7 @@ import { useApi } from "../../hooks/useApi";
 import { destinationCards, destinationInfo } from "./data";
 import { motion, useTransform, useScroll, useInView } from "framer-motion";
 import { useRef } from "react";
-import { slideUp, MoreButton, BrowseButton, widthReveal } from "./anim";
+import { slideUp, MoreButton, BrowseButton } from "./anim";
 import { BoxReveal } from "../../effects/BoxReveal";
 
 export const HomeVenuesSection = ({ options, children }) => {

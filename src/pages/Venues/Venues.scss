@@ -1,4 +1,42 @@
+@use "../../scss/base/globals" as clr;
+@use "../../scss/base/globals" as mq;
+
 .venues__section {
   background: transparent;
-  height: 1000px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .venues__h1 {
+    color: clr.$white;
+    font-family: "Tusker-Grotesk-8800-Super";
+    font-size: 6rem;
+    text-transform: uppercase;
+    padding: 4rem 0;
+  }
+
+  .venues__grid__container {
+    background-color: clr.$white;
+    border-radius: 2em;
+    width: 90vw;
+
+    padding: 4rem 2rem;
+
+    .venues__grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 2rem;
+
+      @include mq.desktopL {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      @include mq.desktopS {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      @include mq.tabletS {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+    }
+  }
 }
