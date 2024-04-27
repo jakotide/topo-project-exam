@@ -53,7 +53,7 @@ export const HomeVenuesSection = ({ options, children }) => {
   // Destination info text reveal
   const destInfoAnimation = useRef(null);
 
-  const isInView = useInView(destInfoAnimation);
+  const isInView = useInView(destInfoAnimation, { once: true });
 
   return (
     <div ref={container}>

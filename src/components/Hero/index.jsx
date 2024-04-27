@@ -85,7 +85,7 @@ export const Hero = ({}) => {
       <motion.img
         initial={{ y: "10%" }}
         animate={{
-          x: ["-12%", "-10%", "-12%"],
+          x: ["-12%", "-8%", "-12%"],
           y: [-60],
         }}
         transition={{
