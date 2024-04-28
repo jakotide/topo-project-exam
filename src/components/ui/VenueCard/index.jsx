@@ -1,5 +1,6 @@
 import "./VenueCard.scss";
 import { StarRating } from "../StarRating";
+import { Link } from "react-router-dom";
 
 export const VenueCard = ({ data }) => {
   const imageUrl = data.media && data.media.length > 0 ? data.media[0].url : "";
@@ -18,7 +19,7 @@ export const VenueCard = ({ data }) => {
     return `${capitalizedCountry}, ${capitalizedCity}`;
   };
   return (
-    <div className="venue__card">
+    <Link className="venue__card" to={`/venues/${data.id}`}>
       <img src={imageUrl} alt="" />
       <div className="venue__card__info">
         <div>
@@ -35,6 +36,6 @@ export const VenueCard = ({ data }) => {
           <span className="card__price">{data.price}$</span> per night
         </div>
       </div>
-    </div>
+    </Link>
   );
 };

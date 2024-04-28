@@ -7,6 +7,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-bottom: 4rem;
 
   .venues__h1 {
     color: clr.$white;
@@ -27,6 +28,7 @@
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 2rem;
+      row-gap: 3rem;
 
       @include mq.desktopL {
         grid-template-columns: repeat(3, minmax(0, 1fr));

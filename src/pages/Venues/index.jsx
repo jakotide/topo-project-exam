@@ -21,6 +21,7 @@ export const Venues = () => {
           (!item.description || !item.description.toLowerCase().includes(word))
       )
     );
+    console.log(data);
     content = filteredVenues.map((venue) => (
       <VenueCard key={venue.id} data={venue} />
     ));
