@@ -1,0 +1,10 @@
+@use "../../scss/base/globals" as clr;
+@use "../../scss/base/globals" as mq;
+
+.venue__container {
+  background-color: clr.$white;
+  width: 90vw;
+  border-radius: 2em;
+  margin: auto;
+  padding: 4rem;
+}

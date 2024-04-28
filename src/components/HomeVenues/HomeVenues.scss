@@ -77,13 +77,13 @@
   }
 }
 
-.home__venue__grid > div:nth-child(1) {
+.home__venue__grid > a:nth-child(1) {
   grid-area: 1 / 1 / 2 / 3;
   @include mq.desktopS {
     grid-area: auto;
   }
 }
-.home__venue__grid > div:nth-child(5) {
+.home__venue__grid > a:nth-child(5) {
   grid-area: 2 / 2 / 2 / 4;
 
   @include mq.desktopS {
