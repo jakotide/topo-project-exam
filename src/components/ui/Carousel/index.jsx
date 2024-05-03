@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
-export const Carousel = ({ children: slides }) => {
+export const Carousel = ({ children: slides, hideBtn }) => {
   const [curr, setCurr] = useState(0);
 
   const prev = () => {
@@ -25,18 +25,22 @@ export const Carousel = ({ children: slides }) => {
       >
         {slides}
       </div>
-      <div className="caro__btn__container">
-        <FontAwesomeIcon
-          className="carousel__arrow__right"
-          icon={faChevronLeft}
-          onClick={prev}
-        />
-        <FontAwesomeIcon
-          className="carousel__arrow__right"
-          icon={faChevronRight}
-          onClick={next}
-        />
-      </div>
+      {hideBtn === false ? (
+        <div className="caro__btn__container">
+          <FontAwesomeIcon
+            className="carousel__arrow__right"
+            icon={faChevronLeft}
+            onClick={prev}
+          />
+          <FontAwesomeIcon
+            className="carousel__arrow__right"
+            icon={faChevronRight}
+            onClick={next}
+          />
+        </div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };
