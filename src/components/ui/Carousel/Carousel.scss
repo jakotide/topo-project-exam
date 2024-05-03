@@ -1,4 +1,40 @@
-.carousel {
+@use "../../../scss/base/globals" as clr;
+
+.caro__container {
+  width: 100%;
+  height: 39rem;
   overflow: hidden;
   position: relative;
+  border-radius: 2em;
+
+  .carousel {
+    display: flex;
+    position: relative;
+    transition: transform;
+    height: 100%;
+
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      flex: 0 0 100%;
+    }
+  }
+  .caro__btn__container {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .carousel__arrow__right,
+    .carousel__arrow__left {
+      width: 30px;
+      height: 30px;
+      background-color: clr.$black;
+      border-radius: 50%;
+      color: clr.$white;
+      padding: 0.5rem;
+    }
+  }
 }

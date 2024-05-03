@@ -7,7 +7,6 @@ export const Venue = () => {
   const BASEURL = "https://v2.api.noroff.dev/holidaze/venues";
   let params = useParams();
   const { data, isError, isLoading } = useApi(`${BASEURL}/${params.id}`);
-  console.log("Data:", data);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -17,12 +16,6 @@ export const Venue = () => {
     return <div>Error: Failed to fetch data</div>;
   }
 
-  const hasMedia =
-    data.data.media &&
-    Array.isArray(data.data.media) &&
-    data.data.media.length > 0;
-
-  // Create an array of three items, each representing an image or null if not available
   const imagesToDisplay = Array.from(
     { length: data.data.media.length },
     (_, index) => {
@@ -31,8 +24,6 @@ export const Venue = () => {
         : null;
     }
   );
-
-  console.log(imagesToDisplay);
 
   return (
     <>
