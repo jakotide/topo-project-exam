@@ -1,3 +1,6 @@
+@use "../../../scss/base/globals" as clr;
+@use "../../../scss/base/globals" as mq;
+
 .MuiInputLabel-root[data-shrink="false"] {
   outline: rgb(27, 27, 27) !important;
   font-family: "GeneralSans-Regular";
@@ -9,4 +12,72 @@
 }
 .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
   border-color: rgb(27, 27, 27) !important;
+}
+
+.datepicker__container {
+  display: flex;
+  width: 100%;
+
+  .dateFrom,
+  .dateTo {
+    width: 50%;
+  }
+  .dateFrom {
+    margin-right: 0.2rem;
+  }
+}
+.venue__booking__box {
+  padding: 2rem 1rem;
+  width: 40%;
+  height: fit-content;
+  justify-self: flex-end;
+  border: 0.5px solid rgba(150, 150, 150, 0.2);
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 12px;
+  @include mq.tabletL {
+    width: 100%;
+    margin-bottom: 6rem;
+  }
+
+  .venue__price {
+    padding: 0.5rem 0 1.5rem;
+    span {
+      font-size: 1.5rem;
+      font-weight: 600;
+      padding-right: 0.2rem;
+    }
+  }
+  .guests__input {
+    height: 3.4rem;
+    width: 100%;
+    border-radius: 4px;
+    border: 0.5px solid rgba(150, 150, 150, 0.6);
+    padding: 0 0.7rem;
+    margin-top: 1rem;
+    background-color: transparent;
+  }
+  .book__button {
+    height: 3.4rem;
+    width: 100%;
+    margin-top: 1rem;
+    // background-color: clr.$pink;
+    background-image: linear-gradient(120deg, clr.$peach, clr.$pink 30%);
+    color: clr.$white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: "GeneralSans-Medium";
+    font-size: 1.2rem;
+    transition: linear 0.2s;
+
+    &:hover {
+      background-image: linear-gradient(120deg, clr.$peach, clr.$pink 90%);
+    }
+  }
+  .venue__total {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 0;
+    font-weight: 600;
+  }
 }

@@ -4,10 +4,6 @@ import { useParams } from "react-router-dom";
 import { Carousel } from "../../components/ui";
 import { useState, useEffect } from "react";
 import { StarRating } from "../../components/ui";
-// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-// import { DatePicker } from "@mui/x-date-pickers";
-// import { isBefore, isSameDay } from "date-fns";
 import { DatePickerComponent } from "../../components/ui/DatePickerComponent";
 
 export const Venue = () => {
@@ -38,18 +34,23 @@ export const Venue = () => {
     <img key={index} src={item.url} alt={`Image ${index + 1}`} />
   ));
 
+  console.log(data);
+
   return (
     <section className="venue__container">
       <Carousel hideBtn={hideBtn}>{imagesToDisplay}</Carousel>
-      <div>
+      <div className="venue__section__container">
         <div className="venue__info">
           <div>
-            <h1>{data.data.name}</h1>
-            <div className="">
-              {data.data.location.city}, {data.data.location.country}
+            <div className="info__header">
+              <h1>{data.data.name}</h1>
+              <div className="">
+                {data.data.location.city}, {data.data.location.country}
+              </div>
             </div>
-            <StarRating></StarRating>
-            <div>
+
+            <StarRating rating={data.data.rating}></StarRating>
+            <div className="hosted__container">
               <img
                 className="venue__owner__avatar"
                 src={data.data.owner.avatar.url}
@@ -58,21 +59,51 @@ export const Venue = () => {
               <div>Hosted by {data.data.owner.name}</div>
             </div>
           </div>
-          <p>{data.data.description}</p>
+          <p className="venue__description">
+            {data.data.description
+              ? data.data.description
+              : "No description available."}
+          </p>
           <h2>Includes</h2>
-          <div>
-            <div>{data.data.meta.breakfast ? "Breakfast" : ""}</div>
-            <div>{data.data.meta.wifi ? "Wifi" : ""}</div>
-            <div>{data.data.meta.pets ? "Pets" : ""}</div>
-            <div>{data.data.meta.parking ? "Parking" : ""}</div>
+          <div className="includes__grid">
+            {data.data.meta.breakfast ? (
+              <div>{data.data.meta.breakfast ? "Breakfast" : ""}</div>
+            ) : null}
+            {data.data.meta.wifi ? (
+              <div>{data.data.meta.wifi ? "Wifi" : ""}</div>
+            ) : null}
+            {data.data.meta.pets ? (
+              <div>{data.data.meta.pets ? "Pets" : ""}</div>
+            ) : null}
+            {data.data.meta.parking ? (
+              <div>{data.data.meta.parking ? "Parking" : ""}</div>
+            ) : null}
+            {!data.data.meta.breakfast &&
+              !data.data.meta.wifi &&
+              !data.data.meta.pets &&
+              !data.data.meta.parking && <p>No amenities included.</p>}
           </div>
           <h3>Info</h3>
-          <div>Max guests: {data.data.maxGuests}</div>
-          <div>Booked {data.data.bookings.length} times</div>
+          <div className="venue__info__container">
+            <div>Max guests: {data.data.maxGuests}</div>
+            <div>Booked {data.data.bookings.length} times</div>
+          </div>
         </div>
-        <div className="venue__booking__box">
-          <DatePickerComponent />
-        </div>
+        {/* <form className="venue__booking__box"> */}
+        {/* <div className="venue__price">
+            <span>{data.data.price}$</span> per night{" "}
+          </div> */}
+        <DatePickerComponent />
+        {/* <input
+            type="number"
+            aria-label="Number of guests input"
+            className="guests__input"
+            placeholder="Guests"
+          />
+          <button type="submit" className="book__button">
+            Book
+          </button> */}
+        {/* </form> */}
       </div>
     </section>
   );
