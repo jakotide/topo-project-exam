@@ -93,3 +93,16 @@
     }
   }
 }
+.circleContainer {
+  position: relative;
+  transform: translateY(-2px);
+  .circle {
+    box-shadow: 0px 60px 50px rgba(0, 0, 0, 0.8);
+    position: absolute;
+    height: 1250%;
+    width: 100%;
+    background-color: clr.$white;
+    border-radius: 0% 0% 50% 50%;
+    z-index: 1;
+  }
+}

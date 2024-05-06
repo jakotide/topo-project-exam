@@ -2,9 +2,10 @@ import "./Venue.scss";
 import { useApi } from "../../hooks/useApi";
 import { useParams } from "react-router-dom";
 import { Carousel } from "../../components/ui";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { StarRating } from "../../components/ui";
 import { DatePickerComponent } from "../../components/ui/DatePickerComponent";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export const Venue = () => {
   const params = useParams();
@@ -12,6 +13,7 @@ export const Venue = () => {
   const { data, isError, isLoading } = useApi(
     `${BASEURL}/${params.id}?_bookings=true&_owner=true`
   );
+
   const [hideBtn, setHideBtn] = useState(false);
 
   useEffect(() => {
@@ -21,6 +23,15 @@ export const Venue = () => {
       setHideBtn(false);
     }
   }, [data]);
+
+  const venueContainer = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: venueContainer,
+    offset: ["start end", "end start"],
+  });
+
+  const height = useTransform(scrollYProgress, [0, 0.9], [50, 0]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -34,77 +45,66 @@ export const Venue = () => {
     <img key={index} src={item.url} alt={`Image ${index + 1}`} />
   ));
 
-  console.log(data);
-
   return (
-    <section className="venue__container">
-      <Carousel hideBtn={hideBtn}>{imagesToDisplay}</Carousel>
-      <div className="venue__section__container">
-        <div className="venue__info">
-          <div>
-            <div className="info__header">
-              <h1>{data.data.name}</h1>
-              <div className="">
-                {data.data.location.city}, {data.data.location.country}
+    <div ref={venueContainer}>
+      <section className="venue__container">
+        <Carousel hideBtn={hideBtn}>{imagesToDisplay}</Carousel>
+        <div className="venue__section__container">
+          <div className="venue__info">
+            <div>
+              <div className="info__header">
+                <h1>{data.data.name}</h1>
+                <div className="">
+                  {data.data.location.city}, {data.data.location.country}
+                </div>
+              </div>
+
+              <StarRating rating={data.data.rating}></StarRating>
+              <div className="hosted__container">
+                <img
+                  className="venue__owner__avatar"
+                  src={data.data.owner.avatar.url}
+                  alt=""
+                />
+                <div>Hosted by {data.data.owner.name}</div>
               </div>
             </div>
-
-            <StarRating rating={data.data.rating}></StarRating>
-            <div className="hosted__container">
-              <img
-                className="venue__owner__avatar"
-                src={data.data.owner.avatar.url}
-                alt=""
-              />
-              <div>Hosted by {data.data.owner.name}</div>
+            <p className="venue__description">
+              {data.data.description
+                ? data.data.description
+                : "No description available."}
+            </p>
+            <h2>Includes</h2>
+            <div className="includes__grid">
+              {data.data.meta.breakfast ? (
+                <div>{data.data.meta.breakfast ? "Breakfast" : ""}</div>
+              ) : null}
+              {data.data.meta.wifi ? (
+                <div>{data.data.meta.wifi ? "Wifi" : ""}</div>
+              ) : null}
+              {data.data.meta.pets ? (
+                <div>{data.data.meta.pets ? "Pets" : ""}</div>
+              ) : null}
+              {data.data.meta.parking ? (
+                <div>{data.data.meta.parking ? "Parking" : ""}</div>
+              ) : null}
+              {!data.data.meta.breakfast &&
+                !data.data.meta.wifi &&
+                !data.data.meta.pets &&
+                !data.data.meta.parking && <p>No amenities included.</p>}
+            </div>
+            <h3>Info</h3>
+            <div className="venue__info__container">
+              <div>Max guests: {data.data.maxGuests}</div>
+              <div>Booked {data.data.bookings.length} times</div>
             </div>
           </div>
-          <p className="venue__description">
-            {data.data.description
-              ? data.data.description
-              : "No description available."}
-          </p>
-          <h2>Includes</h2>
-          <div className="includes__grid">
-            {data.data.meta.breakfast ? (
-              <div>{data.data.meta.breakfast ? "Breakfast" : ""}</div>
-            ) : null}
-            {data.data.meta.wifi ? (
-              <div>{data.data.meta.wifi ? "Wifi" : ""}</div>
-            ) : null}
-            {data.data.meta.pets ? (
-              <div>{data.data.meta.pets ? "Pets" : ""}</div>
-            ) : null}
-            {data.data.meta.parking ? (
-              <div>{data.data.meta.parking ? "Parking" : ""}</div>
-            ) : null}
-            {!data.data.meta.breakfast &&
-              !data.data.meta.wifi &&
-              !data.data.meta.pets &&
-              !data.data.meta.parking && <p>No amenities included.</p>}
-          </div>
-          <h3>Info</h3>
-          <div className="venue__info__container">
-            <div>Max guests: {data.data.maxGuests}</div>
-            <div>Booked {data.data.bookings.length} times</div>
-          </div>
+          <DatePickerComponent />
         </div>
-        {/* <form className="venue__booking__box"> */}
-        {/* <div className="venue__price">
-            <span>{data.data.price}$</span> per night{" "}
-          </div> */}
-        <DatePickerComponent />
-        {/* <input
-            type="number"
-            aria-label="Number of guests input"
-            className="guests__input"
-            placeholder="Guests"
-          />
-          <button type="submit" className="book__button">
-            Book
-          </button> */}
-        {/* </form> */}
-      </div>
-    </section>
+      </section>
+      <motion.div className="circleContainer" style={{ height }}>
+        <div className="circle"></div>
+      </motion.div>
+    </div>
   );
 };
