@@ -1,0 +1,12 @@
+.MuiInputLabel-root[data-shrink="false"] {
+  outline: rgb(27, 27, 27) !important;
+  font-family: "GeneralSans-Regular";
+}
+.MuiInputLabel-root.Mui-focused,
+.MuiOutlinedInput-root.Mui-focused {
+  font-family: "GeneralSans-Regular";
+  color: rgb(27, 27, 27) !important;
+}
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: rgb(27, 27, 27) !important;
+}

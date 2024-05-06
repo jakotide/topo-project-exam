@@ -4,10 +4,11 @@ import { useParams } from "react-router-dom";
 import { Carousel } from "../../components/ui";
 import { useState, useEffect } from "react";
 import { StarRating } from "../../components/ui";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers";
-import { isBefore, isSameDay } from "date-fns";
+// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+// import { DatePicker } from "@mui/x-date-pickers";
+// import { isBefore, isSameDay } from "date-fns";
+import { DatePickerComponent } from "../../components/ui/DatePickerComponent";
 
 export const Venue = () => {
   const params = useParams();
@@ -16,9 +17,6 @@ export const Venue = () => {
     `${BASEURL}/${params.id}?_bookings=true&_owner=true`
   );
   const [hideBtn, setHideBtn] = useState(false);
-  const [bookedDates, setBookedDates] = useState([]);
-  const [dateFrom, setDateFrom] = useState(null);
-  const [dateTo, setDateTo] = useState(null);
 
   useEffect(() => {
     if (data && data.data.media.length < 2) {
@@ -26,22 +24,7 @@ export const Venue = () => {
     } else {
       setHideBtn(false);
     }
-
-    if (data && data.data.bookings) {
-      const bookedDatesArray = data.data.bookings;
-      setBookedDates(bookedDatesArray);
-    }
   }, [data]);
-
-  const isDateBooked = (date) => {
-    const isBooked = bookedDates.some((booking) => {
-      const bookingDateFrom = new Date(booking.dateFrom);
-      const bookingDateTo = new Date(booking.dateTo);
-      return date >= bookingDateFrom && date <= bookingDateTo;
-    });
-
-    return isBooked;
-  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -54,16 +37,6 @@ export const Venue = () => {
   const imagesToDisplay = data.data.media.map((item, index) => (
     <img key={index} src={item.url} alt={`Image ${index + 1}`} />
   ));
-
-  const areDatesEqual = (date1, date2) => {
-    return (
-      date1 &&
-      date2 &&
-      date1.$y === date2.$y &&
-      date1.$M === date2.$M &&
-      date1.$D === date2.$D
-    );
-  };
 
   return (
     <section className="venue__container">
@@ -98,38 +71,7 @@ export const Venue = () => {
           <div>Booked {data.data.bookings.length} times</div>
         </div>
         <div className="venue__booking__box">
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              label="Check In"
-              value={dateFrom}
-              onChange={(newDate) => {
-                setDateFrom(newDate);
-              }}
-              shouldDisableDate={(date) =>
-                isDateBooked(date) || date < new Date()
-              }
-            />
-            <DatePicker
-              label="Check Out"
-              value={dateTo}
-              onChange={(newDate) => setDateTo(newDate)}
-              shouldDisableDate={(date) =>
-                isDateBooked(date) ||
-                (dateFrom && date < dateFrom) ||
-                (dateFrom &&
-                  bookedDates.some(
-                    (booking) =>
-                      new Date(booking.dateFrom) >= dateFrom &&
-                      new Date(booking.dateFrom) <= date
-                  ))
-              }
-            />
-            <div>
-              {dateFrom && areDatesEqual(dateFrom, dateTo) && (
-                <div className="required-message">Minimum 1 night stay</div>
-              )}
-            </div>
-          </LocalizationProvider>
+          <DatePickerComponent />
         </div>
       </div>
     </section>
