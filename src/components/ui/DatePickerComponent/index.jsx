@@ -43,6 +43,7 @@ export const DatePickerComponent = () => {
       date1.$D === date2.$D
     );
   };
+  const numberOfNights = Math.ceil((dateTo - dateFrom) / (1000 * 60 * 60 * 24)); // Calculate number of nights
 
   const calculateTotalSum = () => {
     if (dateFrom && dateTo && data && data.data && data.data.price) {
@@ -64,111 +65,114 @@ export const DatePickerComponent = () => {
       )}
       <div className="datepicker__container">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            slotProps={{
-              layout: {
-                sx: {
-                  color: "#171717",
+          <div className="checkin__container">
+            <DatePicker
+              slotProps={{
+                layout: {
+                  sx: {
+                    color: "#171717",
 
-                  "& .MuiButtonBase-root": {
-                    color: "black",
-                    fontFamily: "GeneralSans-Regular",
-                  },
-                  "& .MuiButtonBase-root.MuiPickersDay-root.Mui-selected:hover":
-                    {
+                    "& .MuiButtonBase-root": {
+                      color: "black",
+                      fontFamily: "GeneralSans-Regular",
+                    },
+                    "& .MuiButtonBase-root.MuiPickersDay-root.Mui-selected:hover":
+                      {
+                        backgroundColor: "#ff7c7c",
+                      },
+                    "& .MuiButtonBase-root.MuiPickersDay-root.Mui-selected": {
                       backgroundColor: "#ff7c7c",
                     },
-                  "& .MuiButtonBase-root.MuiPickersDay-root.Mui-selected": {
-                    backgroundColor: "#ff7c7c",
-                  },
-                  "& .MuiDatePickerToolbar-title": {
-                    color: "black",
-                    fontFamily: "GeneralSans-Regular",
-                  },
-                  "& .MuiPickersCalendarHeader-root": {
-                    fontFamily: "GeneralSans-Regular",
-                  },
-                  "& .MuiPickersYear-yearButton.Mui-selected": {
-                    backgroundColor: "#ff7c7c",
-                  },
-                  "& .MuiInputBase-input.MuiOutlinedInput-input": {
-                    font: "GeneralSans-Regular",
-                  },
-
-                  "& .MuiPickersLayout-root.MuiPickersYear-yearButton.Mui-selected":
-                    {
+                    "& .MuiDatePickerToolbar-title": {
+                      color: "black",
+                      fontFamily: "GeneralSans-Regular",
+                    },
+                    "& .MuiPickersCalendarHeader-root": {
+                      fontFamily: "GeneralSans-Regular",
+                    },
+                    "& .MuiPickersYear-yearButton.Mui-selected": {
                       backgroundColor: "#ff7c7c",
                     },
-                  "[for=':r3:']": {
-                    color: "red",
-                    outline: "2px solid red",
+                    "& .MuiInputBase-input.MuiOutlinedInput-input": {
+                      font: "GeneralSans-Regular",
+                    },
+
+                    "& .MuiPickersLayout-root.MuiPickersYear-yearButton.Mui-selected":
+                      {
+                        backgroundColor: "#ff7c7c",
+                      },
+                    "[for=':r3:']": {
+                      color: "red",
+                      outline: "2px solid red",
+                    },
                   },
                 },
-              },
-            }}
-            className="dateFrom"
-            label="Check In"
-            value={dateFrom}
-            onChange={(newDate) => {
-              setDateFrom(newDate);
-            }}
-            shouldDisableDate={(date) =>
-              isDateBooked(date) || date < new Date()
-            }
-          />
-          <DatePicker
-            slotProps={{
-              layout: {
-                sx: {
-                  color: "#171717",
+              }}
+              className="dateFrom"
+              label="Check In"
+              value={dateFrom}
+              onChange={(newDate) => {
+                setDateFrom(newDate);
+              }}
+              shouldDisableDate={(date) =>
+                isDateBooked(date) || date < new Date()
+              }
+            />
+            <DatePicker
+              slotProps={{
+                layout: {
+                  sx: {
+                    color: "#171717",
 
-                  "& .MuiButtonBase-root": {
-                    color: "black",
-                    fontFamily: "GeneralSans-Regular",
-                  },
-                  "& .MuiInputBase-input.MuiOutlinedInput-input": {
-                    font: "GeneralSans-Regular",
-                  },
-                  "& .MuiButtonBase-root.MuiPickersDay-root.Mui-selected:hover":
-                    {
+                    "& .MuiButtonBase-root": {
+                      color: "black",
+                      fontFamily: "GeneralSans-Regular",
+                    },
+                    "& .MuiInputBase-input.MuiOutlinedInput-input": {
+                      font: "GeneralSans-Regular",
+                    },
+                    "& .MuiButtonBase-root.MuiPickersDay-root.Mui-selected:hover":
+                      {
+                        backgroundColor: "#ff7c7c",
+                      },
+                    "& .MuiButtonBase-root.MuiPickersDay-root.Mui-selected": {
                       backgroundColor: "#ff7c7c",
                     },
-                  "& .MuiButtonBase-root.MuiPickersDay-root.Mui-selected": {
-                    backgroundColor: "#ff7c7c",
-                  },
-                  "& .MuiDatePickerToolbar-title": {
-                    color: "black",
-                    fontFamily: "GeneralSans-Regular",
-                  },
-                  "& .MuiPickersCalendarHeader-root": {
-                    fontFamily: "GeneralSans-Regular",
-                  },
-                  "& .MuiPickersYear-yearButton.Mui-selected": {
-                    backgroundColor: "#ff7c7c",
-                  },
-
-                  "& .MuiPickersLayout-root.MuiPickersYear-yearButton.Mui-selected":
-                    {
+                    "& .MuiDatePickerToolbar-title": {
+                      color: "black",
+                      fontFamily: "GeneralSans-Regular",
+                    },
+                    "& .MuiPickersCalendarHeader-root": {
+                      fontFamily: "GeneralSans-Regular",
+                    },
+                    "& .MuiPickersYear-yearButton.Mui-selected": {
                       backgroundColor: "#ff7c7c",
                     },
+
+                    "& .MuiPickersLayout-root.MuiPickersYear-yearButton.Mui-selected":
+                      {
+                        backgroundColor: "#ff7c7c",
+                      },
+                  },
                 },
-              },
-            }}
-            className="dateTo"
-            label="Check Out"
-            value={dateTo}
-            onChange={(newDate) => setDateTo(newDate)}
-            shouldDisableDate={(date) =>
-              isDateBooked(date) ||
-              (dateFrom && date < dateFrom) ||
-              (dateFrom &&
-                bookedDates.some(
-                  (booking) =>
-                    new Date(booking.dateFrom) >= dateFrom &&
-                    new Date(booking.dateFrom) <= date
-                ))
-            }
-          />
+              }}
+              className="dateTo"
+              label="Check Out"
+              value={dateTo}
+              onChange={(newDate) => setDateTo(newDate)}
+              shouldDisableDate={(date) =>
+                isDateBooked(date) ||
+                (dateFrom && date < dateFrom) ||
+                (dateFrom &&
+                  bookedDates.some(
+                    (booking) =>
+                      new Date(booking.dateFrom) >= dateFrom &&
+                      new Date(booking.dateFrom) <= date
+                  ))
+              }
+            />
+          </div>
+
           <div>
             {dateFrom && areDatesEqual(dateFrom, dateTo) && (
               <div className="required-message">Minimum 1 night stay</div>
@@ -186,6 +190,14 @@ export const DatePickerComponent = () => {
       <button type="submit" className="book__button">
         Book
       </button>
+      {data && data.data && calculateTotalSum() && (
+        <div className="venue__calculated__total">
+          <span className="total__x">
+            {data.data.price}$<span>X</span> {numberOfNights}
+          </span>
+          <span>{calculateTotalSum()}$</span>
+        </div>
+      )}
       {calculateTotalSum() ? (
         <div className="venue__total">
           <span>Total sum:</span>
