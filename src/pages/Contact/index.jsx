@@ -1,11 +1,18 @@
 import "./Contact.scss";
+import { contactBoxReveal, combinedVariants } from "./anim";
+import { motion } from "framer-motion";
 
 export const Contact = () => {
   return (
     <div className="contact__container">
       <h1 className="contact__h1">Contact Us</h1>
-      <section className="contact__grid">
-        <div className="hello__box">
+      <motion.section
+        className="contact__grid"
+        variants={contactBoxReveal}
+        initial="initial"
+        animate="animate"
+      >
+        <motion.div className="hello__box" variants={combinedVariants}>
           <div className="contact__box__header">Hello</div>
           <div>
             <p>Topostreet123,</p>
@@ -15,17 +22,9 @@ export const Contact = () => {
             <p className="write__us">Write us at</p>
             <p>hello@topo.com</p>
           </div>
-        </div>
-        <div className="socials__box">
-          <div className="contact__box__header">Socials</div>
-          <p>Facebook</p>
-          <p>Twitter</p>
-          <p>Instagram</p>
-        </div>
-        <div className="faq__box">
-          <p>FAQ</p>
-        </div>
-        <div className="international__box">
+        </motion.div>
+
+        <motion.div className="international__box" variants={combinedVariants}>
           <p className="contact__box__header">International</p>
           <div>
             <p>Europe:</p>
@@ -47,20 +46,33 @@ export const Contact = () => {
             <p>Africa:</p>
             <div className="contact__country__number">+11 (213) 551333</div>
           </div>
-        </div>
-        <div className="career__box">
+        </motion.div>
+
+        <motion.div className="socials__box" variants={combinedVariants}>
+          <div className="contact__box__header">Socials</div>
+          <p>Facebook</p>
+          <p>Twitter</p>
+          <p>Instagram</p>
+        </motion.div>
+
+        <motion.div className="faq__box" variants={combinedVariants}>
+          <p>FAQ</p>
+        </motion.div>
+
+        <motion.div className="career__box" variants={combinedVariants}>
           <div className="contact__box__header">Career</div>
           <p>
             We're always on the lookout for talented individuals who are eager
             to contribute their skills and grow with us. Email us at
             jobs@topo.com.
           </p>
-        </div>
-        <div className="terms__box">
+        </motion.div>
+
+        <motion.div className="terms__box" variants={combinedVariants}>
           <div className="contact__box__header">Terms Of Service</div>
           <p>Read here</p>
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
     </div>
   );
 };
