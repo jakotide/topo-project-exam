@@ -4,18 +4,16 @@ import { useState, useEffect } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers";
-import { MobileDatePicker } from "@mui/x-date-pickers";
-import { pickersLayoutClasses } from "@mui/x-date-pickers/PickersLayout";
-import "./DatePickerComponent.scss";
-import { format } from "date-fns";
+import "./VenueBookingBox.scss";
 
-export const DatePickerComponent = () => {
+export const VenueBookingBox = () => {
   const params = useParams();
   const BASEURL = "https://v2.api.noroff.dev/holidaze/venues";
   const { data } = useApi(`${BASEURL}/${params.id}?_bookings=true&_owner=true`);
   const [bookedDates, setBookedDates] = useState([]);
   const [dateFrom, setDateFrom] = useState(null);
   const [dateTo, setDateTo] = useState(null);
+  const [exceededMaxGuests, setExceededMaxGuests] = useState(false);
 
   useEffect(() => {
     if (data && data.data.bookings) {
@@ -43,17 +41,25 @@ export const DatePickerComponent = () => {
       date1.$D === date2.$D
     );
   };
-  const numberOfNights = Math.ceil((dateTo - dateFrom) / (1000 * 60 * 60 * 24)); // Calculate number of nights
+
+  const numberOfNights = Math.ceil((dateTo - dateFrom) / (1000 * 60 * 60 * 24));
 
   const calculateTotalSum = () => {
     if (dateFrom && dateTo && data && data.data && data.data.price) {
       const pricePerNight = data.data.price;
-      const numberOfNights = Math.ceil(
-        (dateTo - dateFrom) / (1000 * 60 * 60 * 24)
-      ); // Calculate number of nights
       return pricePerNight * numberOfNights;
     }
-    return null; // Return null if any required data is missing
+    return null;
+  };
+
+  const handleMaxGuests = (event) => {
+    const value = parseInt(event.target.value);
+
+    if (value === data.data.maxGuests) {
+      setExceededMaxGuests(true);
+    } else {
+      setExceededMaxGuests(false);
+    }
   };
 
   return (
@@ -180,20 +186,29 @@ export const DatePickerComponent = () => {
           </div>
         </LocalizationProvider>
       </div>
-      <input
-        type="number"
-        aria-label="Number of guests input"
-        className="guests__input"
-        placeholder="Guests"
-        min="1"
-      />
+      {data && (
+        <input
+          type="number"
+          aria-label="Number of guests input"
+          className="guests__input"
+          placeholder="Guests"
+          min="1"
+          max={data.data.maxGuests}
+          onChange={handleMaxGuests}
+        />
+      )}
+      {exceededMaxGuests && (
+        <div>Maximun number of guests allowed is {data.data.maxGuests}</div>
+      )}
       <button type="submit" className="book__button">
         Book
       </button>
-      {data && data.data && calculateTotalSum() && (
+
+      {numberOfNights > 0 && data && data.data && calculateTotalSum() && (
         <div className="venue__calculated__total">
           <span className="total__x">
-            {data.data.price}$<span>X</span> {numberOfNights}
+            {data.data.price}$<span>X</span>
+            {numberOfNights}
           </span>
           <span>{calculateTotalSum()}$</span>
         </div>

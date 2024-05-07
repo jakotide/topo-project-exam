@@ -4,9 +4,10 @@
 .venue__container {
   background-color: clr.$white;
   width: 100%;
+  height: fit-content;
   border-top-left-radius: 2em;
   border-top-right-radius: 2em;
-  margin: 2rem auto 0;
+  margin: 1rem auto 0;
   padding: 4rem 18rem;
   font-family: "GeneralSans-Regular";
   display: flex;

@@ -1,10 +1,8 @@
 import "./Venue.scss";
 import { useApi } from "../../hooks/useApi";
 import { useParams } from "react-router-dom";
-import { Carousel } from "../../components/ui";
+import { Carousel, VenueBookingBox, StarRating } from "../../components/ui";
 import { useState, useEffect, useRef } from "react";
-import { StarRating } from "../../components/ui";
-import { DatePickerComponent } from "../../components/ui/DatePickerComponent";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 export const Venue = () => {
@@ -16,6 +14,14 @@ export const Venue = () => {
 
   const [hideBtn, setHideBtn] = useState(false);
 
+  // const venueContainer = useRef(null);
+  // const { scrollYProgress } = useScroll({
+  //   layoutEffect: false,
+  //   target: venueContainer,
+  //   offset: ["start end", "end 10px"],
+  // });
+  // const height = useTransform(scrollYProgress, [0, 0.9], [50, 0]);
+
   useEffect(() => {
     if (data && data.data.media.length < 2) {
       setHideBtn(true);
@@ -23,15 +29,6 @@ export const Venue = () => {
       setHideBtn(false);
     }
   }, [data]);
-
-  const venueContainer = useRef(null);
-
-  const { scrollYProgress } = useScroll({
-    target: venueContainer,
-    offset: ["start end", "end start"],
-  });
-
-  const height = useTransform(scrollYProgress, [0, 0.9], [50, 0]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -46,65 +43,66 @@ export const Venue = () => {
   ));
 
   return (
-    <div ref={venueContainer}>
-      <section className="venue__container">
-        <Carousel hideBtn={hideBtn}>{imagesToDisplay}</Carousel>
-        <div className="venue__section__container">
-          <div className="venue__info">
-            <div>
-              <div className="info__header">
-                <h1>{data.data.name}</h1>
-                <div className="">
-                  {data.data.location.city}, {data.data.location.country}
-                </div>
+    <section className="venue__container">
+      <Carousel hideBtn={hideBtn}>{imagesToDisplay}</Carousel>
+      <div className="venue__section__container">
+        <div className="venue__info">
+          <div>
+            <div className="info__header">
+              <h1>{data.data.name}</h1>
+              <div className="">
+                {data.data.location.city === ""
+                  ? "Outer"
+                  : data.data.location.city}
+                ,{" "}
+                {data.data.location.country === null || ""
+                  ? "Space"
+                  : data.data.location.country}
               </div>
+            </div>
 
-              <StarRating rating={data.data.rating}></StarRating>
-              <div className="hosted__container">
-                <img
-                  className="venue__owner__avatar"
-                  src={data.data.owner.avatar.url}
-                  alt=""
-                />
-                <div>Hosted by {data.data.owner.name}</div>
-              </div>
-            </div>
-            <p className="venue__description">
-              {data.data.description
-                ? data.data.description
-                : "No description available."}
-            </p>
-            <h2>Includes</h2>
-            <div className="includes__grid">
-              {data.data.meta.breakfast ? (
-                <div>{data.data.meta.breakfast ? "Breakfast" : ""}</div>
-              ) : null}
-              {data.data.meta.wifi ? (
-                <div>{data.data.meta.wifi ? "Wifi" : ""}</div>
-              ) : null}
-              {data.data.meta.pets ? (
-                <div>{data.data.meta.pets ? "Pets" : ""}</div>
-              ) : null}
-              {data.data.meta.parking ? (
-                <div>{data.data.meta.parking ? "Parking" : ""}</div>
-              ) : null}
-              {!data.data.meta.breakfast &&
-                !data.data.meta.wifi &&
-                !data.data.meta.pets &&
-                !data.data.meta.parking && <p>No amenities included.</p>}
-            </div>
-            <h3>Info</h3>
-            <div className="venue__info__container">
-              <div>Max guests: {data.data.maxGuests}</div>
-              <div>Booked {data.data.bookings.length} times</div>
+            <StarRating rating={data.data.rating}></StarRating>
+            <div className="hosted__container">
+              <img
+                className="venue__owner__avatar"
+                src={data.data.owner.avatar.url}
+                alt=""
+              />
+              <div>Hosted by {data.data.owner.name}</div>
             </div>
           </div>
-          <DatePickerComponent />
+          <p className="venue__description">
+            {data.data.description
+              ? data.data.description
+              : "No description available."}
+          </p>
+          <h2>Includes</h2>
+          <div className="includes__grid">
+            {data.data.meta.breakfast ? (
+              <div>{data.data.meta.breakfast ? "Breakfast" : ""}</div>
+            ) : null}
+            {data.data.meta.wifi ? (
+              <div>{data.data.meta.wifi ? "Wifi" : ""}</div>
+            ) : null}
+            {data.data.meta.pets ? (
+              <div>{data.data.meta.pets ? "Pets" : ""}</div>
+            ) : null}
+            {data.data.meta.parking ? (
+              <div>{data.data.meta.parking ? "Parking" : ""}</div>
+            ) : null}
+            {!data.data.meta.breakfast &&
+              !data.data.meta.wifi &&
+              !data.data.meta.pets &&
+              !data.data.meta.parking && <p>No amenities included.</p>}
+          </div>
+          <h3>Info</h3>
+          <div className="venue__info__container">
+            <div>Max guests: {data.data.maxGuests}</div>
+            <div>Booked {data.data.bookings.length} times</div>
+          </div>
         </div>
-      </section>
-      <motion.div className="circleContainer" style={{ height }}>
-        <div className="circle"></div>
-      </motion.div>
-    </div>
+        <VenueBookingBox />
+      </div>
+    </section>
   );
 };

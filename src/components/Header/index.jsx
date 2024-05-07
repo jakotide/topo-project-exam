@@ -39,58 +39,60 @@ export const Header = () => {
   };
 
   return (
-    <header>
-      <Logo />
-      {isMobile ? (
-        <TopNavMobile toggleMenu={toggleMenu} isActive={isActive} />
-      ) : (
-        <>
-          <TopNav />
-        </>
-      )}
-      <AnimatePresence>
-        {showBtn && (
-          <motion.button
-            variants={buttonScale}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="side__nav__button"
-            onClick={() => {
-              setIsActive(!isActive);
-            }}
-          >
-            <div className={`burger ${isActive ? "burgerActive" : ""}`}>
-              <span aria-hidden="true" className="hidden">
-                Hidden
-              </span>
-            </div>
-            <motion.div
-              className="circle"
-              animate={isActive ? "visible" : "hidden"}
-              variants={circle}
-            ></motion.div>
-          </motion.button>
-        )}
-      </AnimatePresence>
-      <AnimatePresence mode="wait">
-        {isActive && (
+    <>
+      <header>
+        <Logo />
+        {isMobile ? (
+          <TopNavMobile toggleMenu={toggleMenu} isActive={isActive} />
+        ) : (
           <>
-            <Nav closeMenu={handeCloseMenu} />
-            <motion.div
-              className="nav__overlay"
-              variants={{
-                start: { opacity: 0 },
-                end: { opacity: 0.5 },
-              }}
-              initial="start"
-              animate="end"
-              exit="start"
-              transition={{ duration: 0.8, ease: [0.7, 0, 0.2, 1] }}
-            ></motion.div>
+            <TopNav />
           </>
         )}
-      </AnimatePresence>
-    </header>
+        <AnimatePresence>
+          {showBtn && (
+            <motion.button
+              variants={buttonScale}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="side__nav__button"
+              onClick={() => {
+                setIsActive(!isActive);
+              }}
+            >
+              <div className={`burger ${isActive ? "burgerActive" : ""}`}>
+                <span aria-hidden="true" className="hidden">
+                  Hidden
+                </span>
+              </div>
+              <motion.div
+                className="circle"
+                animate={isActive ? "visible" : "hidden"}
+                variants={circle}
+              ></motion.div>
+            </motion.button>
+          )}
+        </AnimatePresence>
+        <AnimatePresence mode="wait">
+          {isActive && (
+            <>
+              <Nav closeMenu={handeCloseMenu} />
+              <motion.div
+                className="nav__overlay"
+                variants={{
+                  start: { opacity: 0 },
+                  end: { opacity: 0.5 },
+                }}
+                initial="start"
+                animate="end"
+                exit="start"
+                transition={{ duration: 0.8, ease: [0.7, 0, 0.2, 1] }}
+              ></motion.div>
+            </>
+          )}
+        </AnimatePresence>
+      </header>
+    </>
   );
 };

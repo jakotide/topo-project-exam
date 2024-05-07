@@ -3,13 +3,14 @@
 
 .caro__container {
   width: 100%;
-  height: 39rem;
+  height: 34rem;
   overflow: hidden;
   position: relative;
   border-radius: 2em;
 
   @include mq.tabletL {
     border-radius: 2em 2em 0 0;
+    height: 32rem;
   }
 
   .carousel {
