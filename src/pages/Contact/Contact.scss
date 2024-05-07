@@ -2,9 +2,11 @@
 @use "../../scss/base/globals" as mq;
 
 .contact__container {
-  max-width: 90%;
+  padding: 0 0.5rem;
+  max-width: 1800px;
   margin: auto;
   height: fit-content;
+  margin-bottom: 8rem;
   .contact__h1 {
     color: clr.$white;
     font-family: "Tusker-Grotesk-8800-Super";
@@ -14,46 +16,85 @@
   }
   .contact__grid {
     display: grid;
-    grid-template-columns: repeat(8, (minMax(120px, 1fr)));
-    grid-template-rows: repeat(9, (minMax(100px, 1fr)));
+    grid-template-columns: repeat(8, (minMax(0, 1fr)));
+    grid-template-rows: repeat(9, (minMax(120px, 1fr)));
     gap: 1.5rem;
     font-family: "GeneralSans-Regular";
 
     > * {
       border-radius: 2em;
-      padding: 10px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .contact__box__header {
+      font-size: 14px;
+      text-transform: uppercase;
     }
     .hello__box {
       background-color: clr.$green;
       grid-column: 1 / 5;
       grid-row: 1 / 4;
+      justify-content: space-between;
+      p {
+        font-size: 1.5rem;
+      }
+      .write__us {
+        font-size: 14px;
+        text-transform: uppercase;
+      }
     }
     .socials__box {
       background-color: clr.$white;
       grid-column: 1 / 3;
       grid-row: 4 / 7;
+      justify-content: space-between;
+      p {
+        font-size: 1.5rem;
+      }
     }
     .faq__box {
       background-color: clr.$red;
       grid-column: 3 / 5;
       grid-row: 4 / 7;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
     }
     .international__box {
       background-color: clr.$yellow;
       grid-column: 5 / 9;
       grid-row: 1 / 7;
+      justify-content: space-between;
+      padding-bottom: 6rem;
+
+      .contact__country__number {
+        font-size: 2rem;
+      }
     }
     .career__box {
       background-color: clr.$black;
       color: clr.$white;
       grid-column: 1 / 5;
       grid-row: 7 / 10;
+      justify-content: space-between;
+
+      p {
+        width: 50%;
+        font-size: 1.5rem;
+        text-wrap: balance;
+      }
     }
     .terms__box {
       background-color: clr.$purple;
-
       grid-column: 5 / 9;
       grid-row: 7 / 10;
+      justify-content: space-between;
+      p {
+        font-size: 1.5rem;
+      }
     }
   }
 }
