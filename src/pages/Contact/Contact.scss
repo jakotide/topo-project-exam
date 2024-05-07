@@ -1,0 +1,39 @@
+@use "../../scss/base/globals" as clr;
+@use "../../scss/base/globals" as mq;
+
+.contact__container {
+  max-width: 80%;
+  margin: auto;
+  height: fit-content;
+  .contact__h1 {
+    color: clr.$white;
+    font-family: "Tusker-Grotesk-8800-Super";
+    font-size: 6rem;
+    text-transform: uppercase;
+    padding: 4rem 0;
+  }
+  .contact__grid {
+    display: grid;
+    grid-template-columns: repeat(8, (minMax(0, 1fr)));
+    grid-template-rows: repeat(10, (minMax(0, 1fr)));
+    font-family: "GeneralSans-Regular";
+
+    .hello__box {
+    }
+    .socials__box {
+      display: none;
+    }
+    .faq__box {
+      display: none;
+    }
+    .international__box {
+      display: none;
+    }
+    .career__box {
+      display: none;
+    }
+    .terms__box {
+      display: none;
+    }
+  }
+}
