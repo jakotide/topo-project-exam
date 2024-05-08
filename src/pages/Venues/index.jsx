@@ -1,10 +1,12 @@
 import "./Venues.scss";
 import { SearchFilterComponent, VenueCard } from "../../components/ui";
 import { useApi } from "../../hooks/useApi";
+import React, { useState } from "react";
 
 export const Venues = () => {
   const BASEURL = "https://v2.api.noroff.dev/holidaze/venues";
   const { data, isError, isLoading } = useApi(BASEURL);
+  const [searchQuery, setSearchQuery] = useState("");
 
   let content;
 
@@ -14,13 +16,23 @@ export const Venues = () => {
     content = <div>Loading</div>;
   } else {
     const exludedWords = ["test", "testing", "tittel", "lorem", "string"];
-    const filteredVenues = data.data.filter((item) =>
-      exludedWords.every(
-        (word) =>
-          (!item.name || !item.name.toLowerCase().includes(word)) &&
-          (!item.description || !item.description.toLowerCase().includes(word))
+    // Filter venues based on search query
+    const filteredVenues = data.data
+      .filter((item) =>
+        exludedWords.every(
+          (word) =>
+            (!item.name || !item.name.toLowerCase().includes(word)) &&
+            (!item.description ||
+              !item.description.toLowerCase().includes(word))
+        )
       )
-    );
+      .filter(
+        (venue) =>
+          // Filter by search query
+          venue.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          (venue.description &&
+            venue.description.toLowerCase().includes(searchQuery.toLowerCase()))
+      );
     content = filteredVenues.map((venue) => (
       <VenueCard key={venue.id} data={venue} />
     ));
@@ -31,7 +43,10 @@ export const Venues = () => {
       <section className="venues__section">
         <h1 className="venues__h1">Venues</h1>
         <div className="venues__grid__container">
-          <SearchFilterComponent />
+          <SearchFilterComponent
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+          />
           <div className="venues__grid">{content}</div>
         </div>
       </section>
