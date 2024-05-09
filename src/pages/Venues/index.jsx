@@ -43,10 +43,13 @@ export const Venues = () => {
       <section className="venues__section">
         <h1 className="venues__h1">Venues</h1>
         <div className="venues__grid__container">
-          <SearchFilterComponent
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-          />
+          <div className="search__filter__container">
+            <SearchFilterComponent
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
+          </div>
+
           <div className="venues__grid">{content}</div>
         </div>
       </section>

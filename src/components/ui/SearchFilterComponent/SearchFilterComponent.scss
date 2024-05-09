@@ -20,7 +20,7 @@
 
 .search__container {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   padding-bottom: 4rem;
   input {
     width: 100%;
@@ -33,7 +33,6 @@
     font-size: 1.1rem;
 
     &:focus {
-      // border: 0.5px solid clr.$grey;
       outline: 0.5px solid clr.$grey;
     }
     @include mq.mobileL {

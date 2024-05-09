@@ -1,0 +1,29 @@
+@use "../../../scss/base/globals" as clr;
+@use "../../../scss/base/globals" as mq;
+
+.filter__btn {
+  background-color: clr.$white;
+  border-radius: 1em;
+  padding: 0.3rem;
+  border: 1px solid rgb(214, 214, 214);
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(206, 206, 206, 0.1);
+  }
+
+  img {
+    object-fit: cover;
+    width: 80%;
+    margin: auto;
+  }
+}
+
+.filter__modal {
+  align-self: center;
+  justify-self: center;
+  height: 2000px;
+  width: 100%;
+  max-width: 780px;
+  overflow-y: scroll;
+}

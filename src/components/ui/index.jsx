@@ -5,3 +5,4 @@ export { StarRating } from "./StarRating";
 export { SearchFilterComponent } from "./SearchFilterComponent";
 export { Carousel } from "./Carousel";
 export { VenueBookingBox } from "./VenueBookingBox";
+export { FilterComponent } from "./FilterComponent";

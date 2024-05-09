@@ -1,5 +1,5 @@
 import "./SearchFilterComponent.scss";
-
+import { FilterComponent } from "../FilterComponent";
 export const SearchFilterComponent = ({ searchQuery, setSearchQuery }) => {
   const handleSearchQuery = (e) => {
     setSearchQuery(e.target.value);
@@ -8,7 +8,7 @@ export const SearchFilterComponent = ({ searchQuery, setSearchQuery }) => {
   return (
     <>
       <h2 className="search__h2">Search</h2>
-      <form className="search__container">
+      <div className="search__container">
         <input
           type="search"
           name="search"
@@ -17,8 +17,8 @@ export const SearchFilterComponent = ({ searchQuery, setSearchQuery }) => {
           onChange={handleSearchQuery}
           value={searchQuery}
         />
-        <button>Filter</button>
-      </form>
+        <FilterComponent></FilterComponent>
+      </div>
     </>
   );
 };
