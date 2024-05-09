@@ -15,14 +15,30 @@
     font-size: 6rem;
     text-transform: uppercase;
     padding: 4rem 0;
+    @include mq.tabletL {
+      font-size: 4rem;
+      @include mq.tabletS {
+        font-size: 3rem;
+      }
+    }
   }
 
   .venues__grid__container {
     background-color: clr.$white;
     border-radius: 2em;
-    width: 90vw;
-
+    // width: 90vw;
+    margin: 0 3.725rem;
     padding: 4rem 2rem;
+
+    @include mq.desktopL {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    @include mq.tabletL {
+      margin: 0 1.5rem;
+    }
+    @include mq.tabletS {
+      margin: 0;
+    }
 
     .venues__grid {
       display: grid;
