@@ -27,6 +27,7 @@
   max-width: 780px;
   border: 1px solid rgb(206, 206, 206, 0.7);
   border-radius: 1.5em;
+  font-family: "GeneralSans-Regular";
 
   .filter__modal {
     display: flex;
@@ -46,10 +47,143 @@
     .filter__header {
       justify-self: flex-start;
       border-bottom: 0.5px solid rgb(206, 206, 206, 0.7);
+      flex-direction: row;
+      display: flex;
+      padding: 2rem;
+      justify-content: space-between;
+
+      div {
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+
+      .modal__close__button {
+        border: none;
+        outline: none;
+        background-color: white;
+        width: 1.1rem;
+        cursor: pointer;
+      }
     }
     .filter__modal__content {
       overflow-y: scroll;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      .filter__modal__content__box {
+        padding: 2rem;
+        width: 100%;
+      }
+
+      .modal__header {
+        font-size: 1.5rem;
+      }
+
+      .price__slider__box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        border-bottom: 0.5px solid rgb(206, 206, 206, 0.4);
+        padding: 2rem 0;
+
+        .price__box {
+          display: flex;
+          justify-content: space-between;
+          font-size: 1.25rem;
+        }
+
+        input[type="range"] {
+          -webkit-appearance: none;
+          appearance: none;
+          background: transparent;
+          cursor: pointer;
+          width: 100%;
+          border: none;
+          align-self: center;
+          padding: 0;
+        }
+
+        input[type="range"]:focus {
+          outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-runnable-track {
+          background-color: rgb(206, 206, 206, 0.5);
+          border-radius: 0.5rem;
+          height: 0.5rem;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          margin-top: -4px;
+          background-color: clr.$pink;
+          border-radius: 0.5rem;
+          height: 1rem;
+          width: 1rem;
+          transition: all 0.1s;
+        }
+
+        input[type="range"]:focus::-webkit-slider-thumb {
+          height: 1.2rem;
+          width: 1.2rem;
+          margin-top: -5px;
+        }
+
+        input[type="range"]::-moz-range-track {
+          background-color: rgb(206, 206, 206, 0.5);
+          border-radius: 0.5rem;
+          height: 0.5rem;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          margin-top: -4px;
+          background-color: clr.$pink;
+          border-radius: 0.5rem;
+          height: 1rem;
+          width: 1rem;
+          transition: all 0.1s;
+        }
+
+        input[type="range"]:focus::-moz-range-thumb {
+          height: 1.2rem;
+          width: 1.2rem;
+          margin-top: -5px;
+        }
+      }
+
+      .rooms__box {
+        padding: 2rem 0;
+        overflow: auto;
+
+        .rooms__btn__container {
+          padding-top: 1rem;
+          display: flex;
+          justify-content: space-between;
+          // overflow: auto;
+          width: 750px;
+          .rooms__btn {
+            outline: rgb(206, 206, 206, 0.5);
+            border: 0.5px solid rgb(206, 206, 206, 0.5);
+            background-color: white;
+            // padding: 0.9rem;
+            border-radius: 2em;
+            width: 4rem;
+            height: 3rem;
+
+            &:active {
+              background-color: clr.$pink;
+              border: none;
+            }
+          }
+        }
+      }
     }
+
     .filter__footer {
       justify-self: flex-end;
       border-top: 0.5px solid rgb(206, 206, 206, 0.7);
