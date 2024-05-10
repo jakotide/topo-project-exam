@@ -20,8 +20,16 @@ export const FilterComponent = () => {
       <button onClick={toggleDialog} className="filter__btn">
         <img src={FilterIcon} alt="Filter icon" />
       </button>
-      <dialog ref={dialogRef} aria-modal="true" className="filter__modal">
-        Hello!
+      <dialog
+        ref={dialogRef}
+        aria-modal="true"
+        className="filter__modal__container"
+      >
+        <div className="filter__modal">
+          <div className="filter__header">Filter</div>
+          <div className="filter__modal__content">Hello</div>
+          <div className="filter__footer">Accept</div>
+        </div>
       </dialog>
     </>
   );

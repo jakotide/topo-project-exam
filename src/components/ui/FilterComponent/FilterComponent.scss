@@ -19,11 +19,40 @@
   }
 }
 
-.filter__modal {
+.filter__modal__container {
   align-self: center;
   justify-self: center;
-  height: 2000px;
+  height: 840px;
   width: 100%;
   max-width: 780px;
-  overflow-y: scroll;
+  border: 1px solid rgb(206, 206, 206, 0.7);
+  border-radius: 1.5em;
+
+  .filter__modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    max-height: 840px;
+
+    .filter__header,
+    .filter__footer {
+      justify-self: flex-start;
+      display: flex;
+      align-items: center;
+      height: 10%;
+    }
+
+    .filter__header {
+      justify-self: flex-start;
+      border-bottom: 0.5px solid rgb(206, 206, 206, 0.7);
+    }
+    .filter__modal__content {
+      overflow-y: scroll;
+    }
+    .filter__footer {
+      justify-self: flex-end;
+      border-top: 0.5px solid rgb(206, 206, 206, 0.7);
+    }
+  }
 }

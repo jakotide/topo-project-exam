@@ -3,7 +3,7 @@ import { VenueCard, Button, SearchFilterComponent } from "../ui/";
 import { useApi } from "../../hooks/useApi";
 import { destinationCards, destinationInfo } from "./data";
 import { motion, useTransform, useScroll, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { slideUp, MoreButton, BrowseButton } from "./anim";
 import { BoxReveal } from "../../effects/BoxReveal";
 
@@ -11,32 +11,32 @@ export const HomeVenuesSection = ({ options, children }) => {
   const { data, isLoading, isError } = useApi(
     "https://v2.api.noroff.dev/holidaze/venues"
   );
-
+  const [searchQuery, setSearchQuery] = useState("");
   let content;
   if (isError) {
     content = <div>Error</div>;
   } else if (isLoading || data === null) {
     content = <div>Loading</div>;
   } else {
-    const filteredOutWords = [
-      "test",
-      "testing",
-      "example",
-      "string",
-      "lorem",
-      "tittel",
-    ];
-    const filteredVenues = data.data.filter((item) =>
-      filteredOutWords.every(
-        (word) =>
-          (!item.name || !item.name.toLowerCase().includes(word)) &&
-          (!item.description || !item.description.toLowerCase().includes(word))
+    const exludedWords = ["test", "testing", "tittel", "lorem", "string"];
+    const filteredVenues = data.data
+      .filter((item) =>
+        exludedWords.every(
+          (word) =>
+            (!item.name || !item.name.toLowerCase().includes(word)) &&
+            (!item.description ||
+              !item.description.toLowerCase().includes(word))
+        )
       )
-    );
-
-    const firstSixVenues = filteredVenues.slice(1, 7);
-    content = firstSixVenues.map((item) => (
-      <VenueCard data={item} key={item.id} />
+      .filter(
+        (venue) =>
+          venue.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          (venue.description &&
+            venue.description.toLowerCase().includes(searchQuery.toLowerCase()))
+      );
+    const firstSixVenues = filteredVenues.slice(0, 6);
+    content = firstSixVenues.map((venue) => (
+      <VenueCard key={venue.id} data={venue} />
     ));
   }
 
@@ -58,7 +58,10 @@ export const HomeVenuesSection = ({ options, children }) => {
   return (
     <div ref={container}>
       <section className="home__venue__section">
-        <SearchFilterComponent />
+        <SearchFilterComponent
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
         <div className="home__venue__grid">{content}</div>
         <Button
           className="more__venues__button"
