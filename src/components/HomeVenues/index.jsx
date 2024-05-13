@@ -35,9 +35,13 @@ export const HomeVenuesSection = ({ options, children }) => {
             venue.description.toLowerCase().includes(searchQuery.toLowerCase()))
       );
     const firstSixVenues = filteredVenues.slice(0, 6);
-    content = firstSixVenues.map((venue) => (
-      <VenueCard key={venue.id} data={venue} />
-    ));
+    if (firstSixVenues.length === 0) {
+      content = <div className="no__match__message">No matching results!</div>;
+    } else {
+      content = firstSixVenues.map((venue) => (
+        <VenueCard key={venue.id} data={venue} />
+      ));
+    }
   }
 
   // Footer Reveal

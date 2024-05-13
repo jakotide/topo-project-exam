@@ -33,9 +33,13 @@ export const Venues = () => {
           (venue.description &&
             venue.description.toLowerCase().includes(searchQuery.toLowerCase()))
       );
-    content = filteredVenues.map((venue) => (
-      <VenueCard key={venue.id} data={venue} />
-    ));
+    if (filteredVenues.length === 0) {
+      content = <div className="no__match__message">No matching results!</div>;
+    } else {
+      content = filteredVenues.map((venue) => (
+        <VenueCard key={venue.id} data={venue} />
+      ));
+    }
   }
 
   return (

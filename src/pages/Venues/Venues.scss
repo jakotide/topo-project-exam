@@ -7,7 +7,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-bottom: 4rem;
+  // padding-bottom: 4rem;
 
   .venues__h1 {
     color: clr.$white;
@@ -25,10 +25,12 @@
 
   .venues__grid__container {
     background-color: clr.$white;
-    border-radius: 2em;
+    border-radius: 2em 2em 0 0;
     // width: 90vw;
     margin: 0 3.725rem;
     padding: 4rem 2rem;
+    width: 100%;
+    min-height: 768px;
 
     @include mq.desktopL {
       grid-template-columns: repeat(3, minmax(0, 1fr));

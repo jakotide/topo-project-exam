@@ -56,6 +56,7 @@
     width: 100%;
     gap: 2rem;
     margin-bottom: 3rem;
+    min-height: 368px;
     @include mq.desktopS {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
@@ -296,4 +297,9 @@
     border-radius: 0% 0% 50% 50%;
     z-index: 1;
   }
+}
+
+.no__match__message {
+  font-family: "GeneralSans-Regular";
+  margin-bottom: auto;
 }
