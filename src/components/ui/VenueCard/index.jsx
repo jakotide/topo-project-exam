@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 
 export const VenueCard = ({ data }) => {
   const imageUrl = data.media && data.media.length > 0 ? data.media[0].url : "";
+  const imageAlt =
+    data.media && data.media.length > 0 && data.media[0].alt
+      ? data.media[0].alt
+      : data.name;
   const capitalizeFirstLetter = (str) => {
     if (str && str.length > 0) {
       return str.charAt(0).toUpperCase() + str.slice(1);
@@ -18,9 +22,10 @@ export const VenueCard = ({ data }) => {
 
     return `${capitalizedCountry}, ${capitalizedCity}`;
   };
+
   return (
     <Link className="venue__card" to={`/venues/${data.id}`}>
-      <img src={imageUrl} alt="" />
+      <img src={imageUrl} alt={imageAlt} />
       <div className="venue__card__info">
         <div>
           <div className="venue__title">

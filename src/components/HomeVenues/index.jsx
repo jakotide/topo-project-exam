@@ -1,5 +1,10 @@
 import "./HomeVenues.scss";
-import { VenueCard, Button, SearchFilterComponent } from "../ui/";
+import {
+  VenueCard,
+  Button,
+  SearchFilterComponent,
+  FilterComponent,
+} from "../ui/";
 import { useApi } from "../../hooks/useApi";
 import { destinationCards, destinationInfo } from "./data";
 import { motion, useTransform, useScroll, useInView } from "framer-motion";
@@ -62,10 +67,16 @@ export const HomeVenuesSection = ({ options, children }) => {
   return (
     <div ref={container}>
       <section className="home__venue__section">
-        <SearchFilterComponent
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
+        <div className="search__filter__container">
+          <h2 className="search__h2">Search</h2>
+          <div className="search__container">
+            <SearchFilterComponent
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
+            <FilterComponent></FilterComponent>
+          </div>
+        </div>
         <div className="home__venue__grid">{content}</div>
         <Button
           className="more__venues__button"
