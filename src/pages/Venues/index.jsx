@@ -93,10 +93,30 @@ export const Venues = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRooms, setSelectedRooms] = useState(null);
   const [priceRange, setPriceRange] = useState([100, 12000]);
+  const [wifiChecked, setWifiChecked] = useState(false);
+  const [petsChecked, setPetsChecked] = useState(false);
+  const [parkingChecked, setParkingChecked] = useState(false);
+  const [breakfastChecked, setBreakfastChecked] = useState(false);
 
   const handleSearch = (newPriceRange, newSelectedRooms) => {
     setPriceRange(newPriceRange);
     setSelectedRooms(newSelectedRooms);
+  };
+
+  const handleWifiChange = (event) => {
+    setWifiChecked(event.target.checked);
+  };
+
+  const handlePetsChange = (event) => {
+    setPetsChecked(event.target.checked);
+  };
+
+  const handleParkingChange = (event) => {
+    setParkingChecked(event.target.checked);
+  };
+
+  const handleBreakfastChange = (event) => {
+    setBreakfastChecked(event.target.checked);
   };
 
   let content;
@@ -134,6 +154,32 @@ export const Venues = () => {
         } else {
           return venue.maxGuests === selectedRooms;
         }
+      })
+      // .filter((venue) => {
+      //   if (
+      //     (wifiChecked && !venue.meta.wifi) ||
+      //     (petsChecked && !venue.meta.pets) ||
+      //     (parkingChecked && !venue.meta.parking) ||
+      //     (breakfastChecked && !venue.meta.breakfast)
+      //   ) {
+      //     return false;
+      //   }
+      //   return true;
+      // });
+      .filter((venue) => {
+        const conditions = [
+          { checked: wifiChecked, key: "wifi" },
+          { checked: petsChecked, key: "pets" },
+          { checked: parkingChecked, key: "parking" },
+          { checked: breakfastChecked, key: "breakfast" },
+        ];
+
+        return conditions.every((condition) => {
+          if (condition.checked) {
+            return venue.meta[condition.key];
+          }
+          return true;
+        });
       });
 
     if (filteredVenues.length === 0) {
@@ -157,7 +203,17 @@ export const Venues = () => {
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
               />
-              <FilterComponent onSearch={handleSearch} />
+              <FilterComponent
+                onSearch={handleSearch}
+                wifiChecked={wifiChecked}
+                onWifiChange={handleWifiChange}
+                petsChecked={petsChecked}
+                onPetsChange={handlePetsChange}
+                parkingChecked={parkingChecked}
+                onParkingChange={handleParkingChange}
+                breakfastChecked={breakfastChecked}
+                onBreakfastChange={handleBreakfastChange}
+              />
             </div>
           </div>
 
