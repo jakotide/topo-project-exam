@@ -17,7 +17,36 @@ export const HomeVenuesSection = ({ options, children }) => {
     "https://v2.api.noroff.dev/holidaze/venues"
   );
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedRooms, setSelectedRooms] = useState(null);
+  const [priceRange, setPriceRange] = useState([100, 12000]);
+  const [wifiChecked, setWifiChecked] = useState(false);
+  const [petsChecked, setPetsChecked] = useState(false);
+  const [parkingChecked, setParkingChecked] = useState(false);
+  const [breakfastChecked, setBreakfastChecked] = useState(false);
+
+  const handleSearch = (newPriceRange, newSelectedRooms) => {
+    setPriceRange(newPriceRange);
+    setSelectedRooms(newSelectedRooms);
+  };
+
+  const handleWifiChange = (event) => {
+    setWifiChecked(event.target.checked);
+  };
+
+  const handlePetsChange = (event) => {
+    setPetsChecked(event.target.checked);
+  };
+
+  const handleParkingChange = (event) => {
+    setParkingChecked(event.target.checked);
+  };
+
+  const handleBreakfastChange = (event) => {
+    setBreakfastChecked(event.target.checked);
+  };
+
   let content;
+
   if (isError) {
     content = <div>Error</div>;
   } else if (isLoading || data === null) {
@@ -38,7 +67,35 @@ export const HomeVenuesSection = ({ options, children }) => {
           venue.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
           (venue.description &&
             venue.description.toLowerCase().includes(searchQuery.toLowerCase()))
-      );
+      )
+      .filter(
+        (venue) => venue.price >= priceRange[0] && venue.price <= priceRange[1]
+      )
+      .filter((venue) => {
+        if (selectedRooms === null) {
+          return true;
+        } else if (selectedRooms === "8+") {
+          return venue.maxGuests >= 8;
+        } else {
+          return venue.maxGuests === selectedRooms;
+        }
+      })
+      .filter((venue) => {
+        const conditions = [
+          { checked: wifiChecked, key: "wifi" },
+          { checked: petsChecked, key: "pets" },
+          { checked: parkingChecked, key: "parking" },
+          { checked: breakfastChecked, key: "breakfast" },
+        ];
+
+        return conditions.every((condition) => {
+          if (condition.checked) {
+            return venue.meta[condition.key];
+          }
+          return true;
+        });
+      });
+
     const firstSixVenues = filteredVenues.slice(0, 6);
     if (firstSixVenues.length === 0) {
       content = <div className="no__match__message">No matching results!</div>;
@@ -74,7 +131,17 @@ export const HomeVenuesSection = ({ options, children }) => {
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
             />
-            <FilterComponent></FilterComponent>
+            <FilterComponent
+              onSearch={handleSearch}
+              wifiChecked={wifiChecked}
+              onWifiChange={handleWifiChange}
+              petsChecked={petsChecked}
+              onPetsChange={handlePetsChange}
+              parkingChecked={parkingChecked}
+              onParkingChange={handleParkingChange}
+              breakfastChecked={breakfastChecked}
+              onBreakfastChange={handleBreakfastChange}
+            />
           </div>
         </div>
         <div className="home__venue__grid">{content}</div>
