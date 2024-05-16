@@ -1,0 +1,9 @@
+@use "../../scss/base/globals" as clr;
+
+.login__container {
+  width: 900px;
+  height: 600px;
+  background-color: clr.$green;
+  border-radius: 2em;
+  margin: 4rem auto;
+}

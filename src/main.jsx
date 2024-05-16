@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import "../src/scss/main.scss";
 import { Layout } from "./components/Layout";
-import { HomePage, Venues, Contact, Venue } from "./pages";
+import { HomePage, Venues, Contact, Venue, LoginPage } from "./pages";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +16,7 @@ const router = createBrowserRouter([
       { path: "/venues", element: <Venues /> },
       { path: "/contact", element: <Contact /> },
       { path: "/venues/:id", element: <Venue /> },
+      { path: "/login", element: <LoginPage /> },
     ],
   },
 ]);

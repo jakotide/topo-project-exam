@@ -14,7 +14,7 @@ export const ProfileButton = () => {
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >
-        <Link to="/" className="profile__btn">
+        <Link to="/login" className="profile__btn">
           Profile
           <div>
             <img src={userIcon} alt="User icon" className="user__icon" />
