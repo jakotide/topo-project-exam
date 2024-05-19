@@ -4,7 +4,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import "../src/scss/main.scss";
 import { Layout } from "./components/Layout";
-import { HomePage, Venues, Contact, Venue, LoginPage } from "./pages";
+import {
+  HomePage,
+  Venues,
+  Contact,
+  Venue,
+  LoginPage,
+  RegisterPage,
+} from "./pages";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +24,7 @@ const router = createBrowserRouter([
       { path: "/contact", element: <Contact /> },
       { path: "/venues/:id", element: <Venue /> },
       { path: "/login", element: <LoginPage /> },
+      { path: "/register", element: <RegisterPage /> },
     ],
   },
 ]);

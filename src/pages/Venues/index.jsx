@@ -9,7 +9,7 @@ import React, { useState } from "react";
 
 export const Venues = () => {
   const BASEURL = "https://v2.api.noroff.dev/holidaze/venues";
-  const { data, isError, isLoading } = useApi(BASEURL);
+  const { data, isError, isLoading } = useApi(BASEURL, {});
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRooms, setSelectedRooms] = useState(null);
   const [priceRange, setPriceRange] = useState([100, 12000]);
@@ -45,6 +45,7 @@ export const Venues = () => {
     content = <div>Error</div>;
   } else if (isLoading || data === null) {
     content = <div>Loading</div>;
+    console.log("Im loading");
   } else {
     const exludedWords = ["test", "testing", "tittel", "lorem", "string"];
 
