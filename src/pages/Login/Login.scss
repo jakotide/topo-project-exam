@@ -1,9 +1,93 @@
 @use "../../scss/base/globals" as clr;
+@use "../../scss/base/globals" as mq;
 
 .login__container {
-  width: 900px;
-  height: 600px;
-  background-color: clr.$green;
-  border-radius: 2em;
-  margin: 4rem auto;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  align-self: center;
+  margin: 100px 0;
+  font-family: "GeneralSans-Regular";
+  gap: 1.5rem;
+
+  .login__header {
+    font-family: "Tusker-Grotesk-8800-Super";
+    color: clr.$white;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  .register__form {
+    display: flex;
+    flex-direction: column;
+
+    .register__login__btn {
+      background-color: clr.$black;
+      color: clr.$white;
+      padding: 1rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-transform: uppercase;
+
+      &:hover {
+        background-color: rgb(31, 31, 31);
+      }
+    }
+
+    .login__btn {
+      margin-top: 20px;
+    }
+
+    input {
+      margin-top: 5px;
+      padding: 10px 5px;
+      border: none;
+      border-radius: 2px;
+    }
+
+    label {
+      margin-top: 10px;
+    }
+  }
+
+  .switch__form__box {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    .switch__link {
+      color: clr.$black;
+      text-decoration: none;
+      font-size: 1.25rem;
+    }
+  }
+
+  .success__dialog {
+    width: 400px;
+    height: 300px;
+    background-color: clr.$white;
+    // color: clr.$white;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin: auto;
+    border: none;
+
+    p {
+      width: 100%;
+      text-align: center;
+      text-wrap: balance;
+    }
+
+    button {
+      background-color: clr.$black;
+      color: clr.$white;
+      border: none;
+      border-radius: 0.5em;
+      padding: 0.6rem 1.4rem;
+    }
+  }
 }
