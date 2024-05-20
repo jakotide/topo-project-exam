@@ -11,6 +11,7 @@ import {
   Venue,
   LoginPage,
   RegisterPage,
+  ProfilePage,
 } from "./pages";
 
 const router = createBrowserRouter([
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
       { path: "/venues/:id", element: <Venue /> },
       { path: "/login", element: <LoginPage /> },
       { path: "/register", element: <RegisterPage /> },
+      { path: "/profiles/:name", element: <ProfilePage /> },
     ],
   },
 ]);

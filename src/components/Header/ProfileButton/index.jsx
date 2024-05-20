@@ -54,7 +54,8 @@ import { useUser } from "../../../hooks/useStore";
 import { useUserStore } from "../../../hooks/useStore";
 export const ProfileButton = () => {
   const [isHover, setIsHover] = useState(false);
-  const { isLoggedIn } = useUser();
+  // const { isLoggedIn } = useUser();
+  const { user, isLoggedIn } = useUser();
 
   return (
     <Reveal>
@@ -63,7 +64,10 @@ export const ProfileButton = () => {
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >
-        <Link to={isLoggedIn ? "/profile" : "/login"} className="profile__btn">
+        <Link
+          to={isLoggedIn ? `/profiles/${user.name}` : "/login"}
+          className="profile__btn"
+        >
           {isLoggedIn ? "Profile" : "Login"}
           <div>
             <img src={userIcon} alt="User icon" className="user__icon" />

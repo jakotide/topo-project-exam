@@ -4,3 +4,4 @@ export { Venues } from "./Venues";
 export { Venue } from "./Venue";
 export { LoginPage } from "./Login";
 export { RegisterPage } from "./Register";
+export { ProfilePage } from "./Profile";
