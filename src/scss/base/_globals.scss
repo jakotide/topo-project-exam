@@ -19,6 +19,7 @@ $tablet: 48em; // 768px
 $tabletS: 40.625em; // 650px
 $mobileL: 35em; // 560px
 $mobileS: 26.25em; // 420px
+$mobileXS: 370px;
 
 @mixin desktopL {
   @media (max-width: $desktopL) {
@@ -69,6 +70,11 @@ $mobileS: 26.25em; // 420px
 
 @mixin mobileS {
   @media (max-width: $mobileS) {
+    @content;
+  }
+}
+@mixin mobileXS {
+  @media (max-width: $mobileXS) {
     @content;
   }
 }

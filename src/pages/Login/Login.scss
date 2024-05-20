@@ -4,17 +4,31 @@
 .login__container {
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 600px;
   align-self: center;
   margin: 100px 0;
   font-family: "GeneralSans-Regular";
   gap: 1.5rem;
+
+  @include mq.tabletL {
+    width: 90%;
+  }
 
   .login__header {
     font-family: "Tusker-Grotesk-8800-Super";
     color: clr.$white;
     font-size: 3rem;
     margin-bottom: 2rem;
+
+    @include mq.tabletS {
+      font-size: 2.8rem;
+    }
+    @include mq.mobileL {
+      font-size: 2rem;
+    }
+    @include mq.mobileXS {
+      font-size: 2rem;
+    }
   }
 
   .register__form {
