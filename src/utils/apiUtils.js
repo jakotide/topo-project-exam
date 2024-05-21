@@ -26,9 +26,14 @@
 //   }
 // };
 
-export const fetchApi = async (url, options = {}) => {
+const apiBaseUrl = "https://v2.api.noroff.dev";
+const profileUrl = "https://v2.api.noroff.dev/holidaze/profiles";
+
+export const fetchApi = async (url, options = {}, accessToken) => {
   const headers = {
     "Content-Type": "application/json",
+    "X-Noroff-API-Key": import.meta.env.VITE_API_KEY,
+    ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
     ...options.headers,
   };
 
@@ -37,11 +42,13 @@ export const fetchApi = async (url, options = {}) => {
     headers,
   };
 
-  const response = await fetch(url, fetchOptions);
+  const response = await fetch(`${url}`, fetchOptions);
   if (!response.ok) {
     const errorBody = await response.json();
     const errorMessage = errorBody.message || `Status code: ${response.status}`;
     throw new Error(`API request failed: ${errorMessage}`);
   }
-  return response.json();
+  const jsonResponse = await response.json();
+  console.log("fetchApi Response:", jsonResponse); // Add logging here
+  return jsonResponse;
 };

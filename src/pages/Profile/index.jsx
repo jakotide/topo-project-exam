@@ -1,86 +1,117 @@
-// import React from "react";
-// import { useParams } from "react-router-dom";
-// import { useProfile } from "../../hooks/useProfile"; // Adjust the import according to your hooks file location
+// import React, { useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { useUser } from "../../hooks/useStore";
+// import { useProfile } from "../../hooks/useProfile";
 
 // export const ProfilePage = () => {
-//   const { name } = useParams();
-//   const { profile, loading, error } = useProfile(name);
+//   const { user, token } = useUser();
+//   const navigate = useNavigate();
 
-//   if (loading) return <p>Loading...</p>;
-//   if (error) {
-//     if (error.includes("404")) {
-//       return <p>User not found</p>;
-//     }
-//     return <p>Error: {error}</p>;
+//   const [profile, setProfile] = useState(null);
+//   const [isLoading, setIsLoading] = useState(true);
+//   const [isError, setIsError] = useState(false);
+
+//   useEffect(() => {
+//     const fetchProfileData = async () => {
+//       setIsLoading(true);
+//       setIsError(false);
+
+//       try {
+//         if (!user || !token) {
+//           throw new Error("User data or token not available");
+//         }
+
+//         const profileData = await useProfile(token, user.name);
+//         setProfile(profileData);
+//       } catch (error) {
+//         console.error("Error fetching profile:", error);
+//         setIsError(true);
+//       } finally {
+//         setIsLoading(false);
+//       }
+//     };
+
+//     fetchProfileData();
+//   }, [user, token]);
+
+//   const handleLogout = () => {
+//     // Handle logout logic
+//   };
+
+//   if (!user) {
+//     navigate("/login");
+//     return null;
 //   }
 
-//   // Check if profile is null
-//   if (!profile) {
-//     return <p>Profile not found</p>;
+//   if (isLoading) {
+//     return <p>Loading...</p>;
+//   }
+
+//   if (isError) {
+//     return <p>Error fetching profile data</p>;
 //   }
 
 //   return (
-//     <div>
-//       <h1>{profile.name}'s Profile</h1>
-//       {/* Add conditional rendering for avatar */}
-//       {profile.avatar && (
-//         <img src={profile.avatar.url} alt={`${profile.name}'s avatar`} />
-//       )}
-//       <p>Email: {profile.email}</p>
-//       {profile.venueManager ? (
-//         <div>
-//           <h2>Venues</h2>
-//           {/* Render user's venues */}
-//         </div>
-//       ) : (
-//         <div>
-//           <h2>Bookings</h2>
-//           {/* Render user's bookings */}
-//         </div>
-//       )}
-//     </div>
+//     <section>
+//       <div>
+//         {/* Render profile data */}
+//         <h1>{profile?.name}</h1>
+//         <p>{profile?.email}</p>
+//         {/* Add rendering logic for other profile details */}
+//       </div>
+//       <button onClick={handleLogout}>Logout</button>
+//     </section>
 //   );
 // };
-import React from "react";
-import { useParams } from "react-router-dom";
-import { useProfile } from "../../hooks/useProfile"; // Adjust the import according to your hooks file location
+
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import "./Profile.scss";
 
 export const ProfilePage = () => {
-  const { name } = useParams();
-  const { profile, loading, error } = useProfile(name);
+  const { username } = useParams();
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
 
-  console.log(name);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) {
-    if (error.includes("404")) {
-      return <p>User not found</p>;
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      const parsedUserData = JSON.parse(userData);
+      if (parsedUserData.name === username) {
+        setUser(parsedUserData);
+      } else {
+        // Handle case where the profile doesn't match the logged-in user
+        navigate("/login");
+      }
+    } else {
+      navigate("/login");
     }
-    return <p>Error: {error}</p>;
-  }
+  }, [username, navigate]);
 
-  if (!profile) {
-    return <p>Profile not found</p>;
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("venueManager");
+    navigate("/login");
+  };
+
+  if (!user) {
+    return <div>Loading...</div>;
   }
 
   return (
-    <div>
-      <h1>{profile.name}'s Profile</h1>
-      {profile.avatar && (
-        <img src={profile.avatar.url} alt={`${profile.name}'s avatar`} />
-      )}
-      <p>Email: {profile.email}</p>
-      {profile.venueManager ? (
-        <div>
-          <h2>Venues</h2>
-          {/* Render user's venues */}
-        </div>
-      ) : (
-        <div>
-          <h2>Bookings</h2>
-          {/* Render user's bookings */}
-        </div>
-      )}
+    <div className="profile-page">
+      <h1>Welcome, {user.name}</h1>
+      <img
+        src={user.avatar.url}
+        alt={user.avatar.alt}
+        className="profile-avatar"
+      />
+      <p>Email: {user.email}</p>
+      <p>Venue Manager: {user.venueManager ? "Yes" : "No"}</p>
+      {/* Add more user details as needed */}
+      <button onClick={handleLogout} className="logout-button">
+        Logout
+      </button>
     </div>
   );
 };

@@ -45,7 +45,6 @@ export const Venues = () => {
     content = <div>Error</div>;
   } else if (isLoading || data === null) {
     content = <div>Loading</div>;
-    console.log("Im loading");
   } else {
     const exludedWords = ["test", "testing", "tittel", "lorem", "string"];
 

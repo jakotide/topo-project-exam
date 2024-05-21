@@ -1,13 +1,9 @@
-import { useState, useEffect } from "react";
-import { useUserStore } from "./useStore";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-export const useProfile = () => {
+export const useProfile = (token, username) => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const token = useUserStore((state) => state.user?.accessToken);
-  const { name } = useParams();
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -15,33 +11,34 @@ export const useProfile = () => {
       setError(null);
 
       try {
-        const url = `https://v2.api.noroff.dev/api/v1/holidaze/profiles/${name}`;
-        const response = await fetch(url, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          `https://v2.api.noroff.dev/holidaze/profiles/${username}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (!response.ok) {
-          throw new Error(`Failed to fetch profile data: ${response.status}`);
+          throw new Error("Failed to fetch profile data");
         }
 
         const data = await response.json();
-        setProfile(data);
-      } catch (err) {
-        console.error("Error fetching profile:", err);
-        setError(err.message);
+        setProfile(data.data);
+      } catch (error) {
+        setError(error.message);
       } finally {
         setLoading(false);
       }
     };
 
-    if (token && name) {
+    if (token && username) {
       fetchProfile();
     }
-  }, [name, token]);
+  }, [token, username]);
 
   return { profile, loading, error };
 };

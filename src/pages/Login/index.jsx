@@ -1,53 +1,108 @@
+// import React, { useState } from "react";
+// import { useLogin } from "../../hooks/useLogin"; // Adjust the import according to your hooks file location
+// import { Link } from "react-router-dom";
+// import "./Login.scss";
+// import { useNavigate } from "react-router-dom";
+
+// export const LoginPage = () => {
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [error, setError] = useState(null);
+//   const navigate = useNavigate();
+//   const { login } = useLogin(); // Get the login function from useLogin hook
+
+//   const handleLogin = async (e) => {
+//     e.preventDefault();
+
+//     try {
+//       await login(email, password); // Call the login function with email and password
+//       navigate("/"); // Redirect to profile page or another page
+//     } catch (error) {
+//       setError("Failed to log in. Please try again.");
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <h1>Login</h1>
+//       <form onSubmit={handleLogin}>
+//         <div>
+//           <label>
+//             Email:
+//             <input
+//               type="email"
+//               value={email}
+//               onChange={(e) => setEmail(e.target.value)}
+//             />
+//           </label>
+//         </div>
+//         <div>
+//           <label>
+//             Password:
+//             <input
+//               type="password"
+//               value={password}
+//               onChange={(e) => setPassword(e.target.value)}
+//             />
+//           </label>
+//         </div>
+//         {error && <p>{error}</p>}
+//         <button type="submit">Login</button>
+//       </form>
+//     </div>
+//   );
+// };
+
 import React, { useState } from "react";
-import { useLogin } from "../../hooks/useLogin.jsx";
+import { useLogin } from "../../hooks/useLogin"; // Adjust the import according to your hooks file location
 import { Link } from "react-router-dom";
 import "./Login.scss";
+import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {
-  const { login, loading, error } = useLogin();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const { login } = useLogin(); // Get the login function from useLogin hook
 
-  const handleSubmit = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    login(email, password);
+
+    try {
+      await login(email, password); // Call the login function with email and password
+    } catch (error) {
+      setError("Failed to log in. Please try again.");
+    }
   };
 
   return (
-    <section className="login__container">
-      <div>
-        <h2 className="login__header">Welcome Back!</h2>
-        <form onSubmit={handleSubmit} className="register__form">
-          <label>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button
-            type="submit"
-            disabled={loading}
-            className="register__login__btn login__btn"
-          >
-            {loading ? "Logging in..." : "Log in"}
-          </button>
-        </form>
-        {error && <p className="error">{error}</p>}
-      </div>
-      <div className="switch__form__box">
-        <p>Don't have an account?</p>
-        <Link to="/register" className="switch__link">
-          Sign up here!
-        </Link>
-      </div>
-    </section>
+    <div>
+      <h1>Login</h1>
+      <form onSubmit={handleLogin}>
+        <div>
+          <label>
+            Email:
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            Password:
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
+        </div>
+        {error && <p>{error}</p>}
+        <button type="submit">Login</button>
+      </form>
+    </div>
   );
 };
