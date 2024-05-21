@@ -18,7 +18,7 @@
     font-family: "Tusker-Grotesk-8800-Super";
     color: clr.$white;
     font-size: 3rem;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
 
     @include mq.tabletS {
       font-size: 2.8rem;
@@ -50,11 +50,11 @@
     }
 
     .login__btn {
-      margin-top: 20px;
+      margin: 20px 0;
     }
 
     input {
-      margin-top: 5px;
+      margin-top: 10px;
       padding: 10px 5px;
       border: none;
       border-radius: 2px;
