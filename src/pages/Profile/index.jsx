@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { CreateVenueModal } from "../../components/ui/CreateVenueModal";
 import "./Profile.scss";
 
 export const ProfilePage = () => {
   const { username } = useParams();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+
+  const handleVenueCreated = (venue) => {
+    console.log("Venue created:", venue);
+    // You can add logic to update the UI with the new venue data here
+  };
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
@@ -43,6 +49,8 @@ export const ProfilePage = () => {
       <p>Email: {user.email}</p>
       <p>Venue Manager: {user.venueManager ? "Yes" : "No"}</p>
       {/* Add more user details as needed */}
+
+      <CreateVenueModal onVenueCreated={handleVenueCreated} />
       <button onClick={handleLogout} className="logout-button">
         Logout
       </button>
