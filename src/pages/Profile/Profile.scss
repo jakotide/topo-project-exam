@@ -1,8 +1,12 @@
+@use "../../scss/base/globals" as clr;
+@use "../../scss/base/globals" as mq;
+
 .profile-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 50px;
+  font-family: "GeneralSans-Regular";
 
   .profile-avatar {
     width: 150px;
@@ -16,8 +20,12 @@
     margin-bottom: 20px;
   }
 
-  p {
-    font-size: 1.2em;
+  .profile__tag {
+    background-color: clr.$black;
+    color: clr.$white;
+    padding: 0.5rem 1rem;
+    border-radius: 2em;
+    margin-bottom: 10px;
   }
 
   .logout-button {

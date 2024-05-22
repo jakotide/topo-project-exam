@@ -35,6 +35,11 @@
     display: flex;
     flex-direction: column;
 
+    .email__error {
+      color: clr.$black;
+      margin-top: 4px;
+    }
+
     .register__login__btn {
       background-color: clr.$black;
       color: clr.$white;

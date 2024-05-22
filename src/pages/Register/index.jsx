@@ -46,18 +46,7 @@
 //       return;
 //     }
 //     setEmailError(null);
-//     const formattedDetails = {
-//       ...userDetails,
-//       avatar: {
-//         url: userDetails.avatarUrl,
-//         alt: userDetails.avatarAlt,
-//       },
-//       banner: {
-//         url: userDetails.bannerUrl,
-//         alt: userDetails.bannerAlt,
-//       },
-//     };
-//     register(formattedDetails);
+//     register(userDetails);
 //   };
 
 //   return (
@@ -90,39 +79,6 @@
 //             onChange={handleChange}
 //             required
 //           />
-//           {/* <label htmlFor="avatarUrl">Avatar URL</label>
-//           <input
-//             type="text"
-//             placeholder="URL"
-//             name="avatarUrl"
-//             value={userDetails.avatarUrl}
-//             onChange={handleChange}
-//           />
-//           <label htmlFor="avatarAlt">Avatar Alt Text</label>
-//           <input
-//             type="text"
-//             placeholder="Alt Text"
-//             name="avatarAlt"
-//             value={userDetails.avatarAlt}
-//             onChange={handleChange}
-//           />
-//           <label htmlFor="bannerUrl">Banner URL</label>
-//           <input
-//             type="text"
-//             placeholder="URL"
-//             name="bannerUrl"
-//             value={userDetails.bannerUrl}
-//             onChange={handleChange}
-//           />
-//           <label htmlFor="bannerAlt">Banner Alt Text</label>
-//           <input
-//             type="text"
-//             placeholder="Alt Text"
-//             name="bannerAlt"
-//             value={userDetails.bannerAlt}
-//             onChange={handleChange}
-//           /> */}
-
 //           <div className="venuemanager__checkbox">
 //             <label htmlFor="venueManager">Register as a venue manager?</label>
 //             <input
@@ -133,7 +89,6 @@
 //               onChange={handleChange}
 //             />
 //           </div>
-
 //           <button
 //             type="submit"
 //             disabled={loading}
@@ -160,30 +115,28 @@
 //   );
 // };
 
-import React, { useState, useEffect, useRef } from "react";
-import { useRegister } from "../../hooks/useRegister.jsx";
-import { Link } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
+import { registerUser } from "../../api/auth/register";
+import { useUserActions } from "../../hooks/useStore";
 import "./Register.scss";
+import { Link, useNavigate } from "react-router-dom";
 
 export const RegisterPage = () => {
-  const { register, loading, error, success } = useRegister();
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [venueManager, setVenueManager] = useState(false);
+  const [avatar, setAvatar] = useState("");
+  const [error, setError] = useState(null);
   const [emailError, setEmailError] = useState(null);
-  const [userDetails, setUserDetails] = useState({
-    name: "",
-    email: "",
-    password: "",
-    venueManager: false,
-    avatarUrl: "",
-    avatarAlt: "",
-    bannerUrl: "",
-    bannerAlt: "",
-  });
+  const [success, setSuccess] = useState(false);
+  const { setUser } = useUserActions();
+  const dialogRef = useRef(null);
 
   const isValidNoroffEmail = (email) => {
     return email.endsWith("@stud.noroff.no");
   };
-
-  const dialogRef = useRef(null);
 
   useEffect(() => {
     if (success) {
@@ -191,81 +144,89 @@ export const RegisterPage = () => {
     }
   }, [success]);
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setUserDetails((prevDetails) => ({
-      ...prevDetails,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isValidNoroffEmail(userDetails.email)) {
-      setEmailError(
-        "Please use your Noroff student email (ending with @stud.noroff.no)."
-      );
+    if (!isValidNoroffEmail(email)) {
+      setEmailError("Please use your @stud.noroff.no email address");
       return;
     }
-    setEmailError(null);
-    register(userDetails);
+
+    const userDetails = {
+      name,
+      email,
+      password,
+      venueManager,
+      avatar,
+    };
+
+    try {
+      const response = await registerUser(userDetails);
+      setUser(response);
+      setSuccess(true);
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+      console.log("Registration successful:", response);
+    } catch (error) {
+      console.error("Registration failed:", error);
+      setError(error.message);
+    }
   };
 
   return (
     <section className="register__container">
       <div>
-        <h2 className="register__login__header">Welcome!</h2>
+        <h2 className="register__login__header">Register</h2>
+        {error && <p style={{ color: "red" }}>{error}</p>}
         <form onSubmit={handleSubmit} className="register__form">
-          <label>Name</label>
+          <label>Name:</label>
           <input
             type="text"
-            name="name"
-            value={userDetails.name}
-            onChange={handleChange}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             required
           />
-          <label>Email</label>
+          <label>Email:</label>
           <input
             type="email"
-            name="email"
-            value={userDetails.email}
-            onChange={handleChange}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
-          {emailError && <p className="error">{emailError}</p>}
-          <label>Password</label>
+
+          {emailError && <p className="email__error">{emailError}</p>}
+          <label>Password:</label>
           <input
             type="password"
-            name="password"
-            value={userDetails.password}
-            onChange={handleChange}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
+
+          <label>Avatar URL:</label>
+          <input
+            type="url"
+            value={avatar}
+            onChange={(e) => setAvatar(e.target.value)}
+          />
           <div className="venuemanager__checkbox">
-            <label htmlFor="venueManager">Register as a venue manager?</label>
+            <label>Venue Manager:</label>
             <input
               type="checkbox"
-              id="venueManager"
-              name="venueManager"
-              checked={userDetails.venueManager}
-              onChange={handleChange}
+              checked={venueManager}
+              onChange={(e) => setVenueManager(e.target.checked)}
             />
           </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="register__login__btn"
-          >
-            {loading ? "Registering..." : "Sign up"}
+          <button type="submit" className="register__login__btn">
+            Register
           </button>
+          <div className="switch__form__box">
+            <p>Already got an account?</p>
+            <Link to="/login" className="switch__link">
+              Log in here!
+            </Link>
+          </div>
         </form>
-        {error && <p className="error">{error}</p>}
-      </div>
-      <div className="switch__form__box">
-        <p>Already got an account?</p>
-        <Link to="/login" className="switch__link">
-          Log in here!
-        </Link>
       </div>
       {success && (
         <dialog ref={dialogRef} className="success__dialog">

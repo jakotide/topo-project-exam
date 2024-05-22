@@ -1,6 +1,6 @@
-// src/components/CreateVenueModal/CreateVenueModal.js
 import "./createVenue.scss";
 import React, { useState, useRef, useEffect } from "react";
+import { fetchApi } from "../../../utils/apiUtils";
 
 export const CreateVenueModal = ({ onClose, onVenueCreated }) => {
   const dialogRef = useRef(null);
@@ -41,24 +41,77 @@ export const CreateVenueModal = ({ onClose, onVenueCreated }) => {
     }
   };
 
+  const handleLocationChange = (field, value) => {
+    setVenueData((prev) => ({
+      ...prev,
+      location: { ...prev.location, [field]: value },
+    }));
+  };
+
+  const handleMediaChange = (index, key, value) => {
+    const updatedMedia = [...venueData.media];
+    updatedMedia[index][key] = value;
+    setVenueData((prevData) => ({
+      ...prevData,
+      media: updatedMedia,
+    }));
+  };
+
+  const addMedia = () => {
+    setVenueData((prevData) => ({
+      ...prevData,
+      media: [...prevData.media, { url: "", alt: "" }],
+    }));
+  };
+
+  const removeMedia = (index) => {
+    const updatedMedia = venueData.media.filter((_, i) => i !== index);
+    setVenueData((prevData) => ({
+      ...prevData,
+      media: updatedMedia,
+    }));
+  };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const token = JSON.parse(localStorage.getItem("user")).accessToken;
+  //   try {
+  //     const response = await fetch(
+  //       "https://v2.api.noroff.dev/holidaze/venues",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //         body: JSON.stringify(venueData),
+  //       }
+  //     );
+  //     console.log(token);
+  //     const result = await response.json();
+  //     if (response.ok) {
+  //       onVenueCreated(result.data);
+  //       closeDialog();
+  //     } else {
+  //       console.error("Failed to create venue:", result);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = JSON.parse(localStorage.getItem("user")).accessToken;
     try {
-      const response = await fetch(
-        "https://v2.api.noroff.dev/holidaze/venues",
+      const result = await fetchApi(
+        "/holidaze/venues",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
           body: JSON.stringify(venueData),
-        }
+        },
+        token
       );
-
-      const result = await response.json();
-      if (response.ok) {
+      if (result) {
         onVenueCreated(result.data);
         closeDialog();
       } else {
@@ -145,16 +198,44 @@ export const CreateVenueModal = ({ onClose, onVenueCreated }) => {
             required
             className="create__modal__input"
           />
-          <label className="create__modal__label">Media:</label>
-          <input
-            type="text"
-            placeholder="Media URL"
-            name="media"
-            value={venueData.media.url}
-            onChange={handleChange}
-            required
-            className="create__modal__input"
-          />
+          <fieldset>
+            <legend>Media</legend>
+            {venueData.media.map((mediaItem, index) => (
+              <div key={index} className="media-input">
+                <label>
+                  Media URL:
+                  <input
+                    type="text"
+                    value={mediaItem.url}
+                    onChange={(e) =>
+                      handleMediaChange(index, "url", e.target.value)
+                    }
+                    className="create__modal__input"
+                    required={index === 0}
+                  />
+                </label>
+                <label>
+                  Media Description:
+                  <input
+                    type="text"
+                    value={mediaItem.alt}
+                    onChange={(e) =>
+                      handleMediaChange(index, "alt", e.target.value)
+                    }
+                    className="create__modal__input"
+                  />
+                </label>
+                {index > 0 && (
+                  <button type="button" onClick={() => removeMedia(index)}>
+                    Remove
+                  </button>
+                )}
+              </div>
+            ))}
+            <button type="button" onClick={addMedia}>
+              Add Media
+            </button>
+          </fieldset>
           <h3 className="create__modal__label">Amenities</h3>
           <div className="amenities__div">
             <label>
@@ -197,45 +278,50 @@ export const CreateVenueModal = ({ onClose, onVenueCreated }) => {
 
           <label className="create__modal__label">Address:</label>
           <input
+            autoComplete="new-off"
             type="text"
-            name="address"
+            name="venue_address"
             value={venueData.location.address}
-            onChange={handleChange}
+            onChange={(e) => handleLocationChange("address", e.target.value)}
             className="create__modal__input"
             required
           />
           <label className="create__modal__label">City:</label>
           <input
-            type="text"
+            autoComplete="new-off"
+            type="venue_text"
             name="city"
             value={venueData.location.city}
-            onChange={handleChange}
+            onChange={(e) => handleLocationChange("city", e.target.value)}
             className="create__modal__input"
             required
           />
           <label className="create__modal__label">Zip:</label>
           <input
+            autoComplete="new-off"
             type="number"
-            name="zip"
+            name="venue_zip"
             value={venueData.location.zip}
-            onChange={handleChange}
+            onChange={(e) => handleLocationChange("zip", e.target.value)}
             className="create__modal__input"
           />
           <label className="create__modal__label">Country:</label>
           <input
+            autoComplete="new-off"
             type="text"
-            name="country"
+            name="venue_country"
             value={venueData.location.country}
-            onChange={handleChange}
+            onChange={(e) => handleLocationChange("country", e.target.value)}
             className="create__modal__input"
             required
           />
           <label className="create__modal__label">Continent:</label>
           <input
+            autoComplete="new-password"
             type="text"
-            name="continent"
+            name="venue_continent"
             value={venueData.location.continent}
-            onChange={handleChange}
+            onChange={(e) => handleLocationChange("continent", e.target.value)}
             className="create__modal__input"
           />
           <div className="modal__btn__container">

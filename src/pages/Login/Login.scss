@@ -14,6 +14,10 @@
     width: 90%;
   }
 
+  .error__message {
+    color: clr.$black;
+  }
+
   .login__header {
     font-family: "Tusker-Grotesk-8800-Super";
     color: clr.$white;
@@ -31,9 +35,21 @@
     }
   }
 
-  .register__form {
+  .login__form {
     display: flex;
     flex-direction: column;
+
+    .remember__checkbox {
+      display: flex;
+      gap: 0.7rem;
+      align-items: center;
+      margin: 12px 0 20px;
+
+      input {
+        width: 1.5rem;
+        height: 1.2rem;
+      }
+    }
 
     .register__login__btn {
       background-color: clr.$black;
