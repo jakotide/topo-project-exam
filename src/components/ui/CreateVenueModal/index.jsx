@@ -1,8 +1,13 @@
 import "./createVenue.scss";
 import React, { useState, useRef, useEffect } from "react";
-import { fetchApi } from "../../../utils/apiUtils";
+import { postVenue } from "../../../api/postVenue";
+import { useToken } from "../../../hooks/useStore";
+import { imageValidator } from "../../../utils/imageValidator";
 
 export const CreateVenueModal = ({ onClose, onVenueCreated }) => {
+  // const [media, setMedia] = useState([]);
+  // const [mediaError, setMediaError] = useState("");
+
   const dialogRef = useRef(null);
   const [venueData, setVenueData] = useState({
     name: "",
@@ -10,7 +15,7 @@ export const CreateVenueModal = ({ onClose, onVenueCreated }) => {
     media: [{ url: "", alt: "" }],
     price: "",
     maxGuests: "",
-    rating: "",
+    rating: 5,
     meta: {
       wifi: false,
       parking: false,
@@ -23,8 +28,12 @@ export const CreateVenueModal = ({ onClose, onVenueCreated }) => {
       zip: "",
       country: "",
       continent: "",
+      lat: 0,
+      lng: 0,
     },
   });
+
+  const token = useToken();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -34,9 +43,14 @@ export const CreateVenueModal = ({ onClose, onVenueCreated }) => {
         meta: { ...prevData.meta, [name]: checked },
       }));
     } else {
+      const numericValue =
+        name === "maxGuests" || name === "price" || name === "rating"
+          ? parseFloat(value)
+          : value;
+
       setVenueData((prevData) => ({
         ...prevData,
-        [name]: value,
+        [name]: numericValue,
       }));
     }
   };
@@ -57,6 +71,52 @@ export const CreateVenueModal = ({ onClose, onVenueCreated }) => {
     }));
   };
 
+  // const handleMediaChange = (index, field, value) => {
+  //   const updatedMedia = [...venueData.media];
+  //   updatedMedia[index][field] = value;
+  //   setVenueData((prev) => ({ ...prev, media: updatedMedia }));
+  // };
+
+  // const handleMediaChange = async (index, key, value) => {
+  //   const updatedMedia = [...venueData.media];
+  //   updatedMedia[index][key] = value;
+
+  //   // Validate image URL before updating state
+  //   if (key === "url" && value.trim() !== "") {
+  //     const isValid = await imageValidator(value);
+  //     if (!isValid) {
+  //       // Display error message or handle invalid image URL
+  //       console.error("Invalid image URL:", value);
+  //       return;
+  //     }
+  //   }
+
+  //   setVenueData((prevData) => ({
+  //     ...prevData,
+  //     media: updatedMedia,
+  //   }));
+  // };
+
+  // const handleMediaChange = () => {
+  //   const mediaInput = document.getElementById("media");
+  //   const imageUrl = mediaInput.value;
+
+  //   // Check if the URL is a valid image
+  //   const isValid = imageValidator(imageUrl);
+
+  //   if (isValid) {
+  //     // Add the image URL to the media array
+  //     setVenueData((prevData) => ({
+  //       ...prevData,
+  //       media: [{ url: imageUrl, alt: "" }],
+  //     }));
+  //     setMediaError(""); // Clear any previous error message
+  //     mediaInput.value = ""; // Clear the input field
+  //   } else {
+  //     setMediaError("URL provided does not lead to an image.");
+  //   }
+  // };
+
   const addMedia = () => {
     setVenueData((prevData) => ({
       ...prevData,
@@ -72,45 +132,10 @@ export const CreateVenueModal = ({ onClose, onVenueCreated }) => {
     }));
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const token = JSON.parse(localStorage.getItem("user")).accessToken;
-  //   try {
-  //     const response = await fetch(
-  //       "https://v2.api.noroff.dev/holidaze/venues",
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //         body: JSON.stringify(venueData),
-  //       }
-  //     );
-  //     console.log(token);
-  //     const result = await response.json();
-  //     if (response.ok) {
-  //       onVenueCreated(result.data);
-  //       closeDialog();
-  //     } else {
-  //       console.error("Failed to create venue:", result);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = JSON.parse(localStorage.getItem("user")).accessToken;
     try {
-      const result = await fetchApi(
-        "/holidaze/venues",
-        {
-          method: "POST",
-          body: JSON.stringify(venueData),
-        },
-        token
-      );
+      const result = await postVenue(token, venueData);
       if (result) {
         onVenueCreated(result.data);
         closeDialog();
@@ -132,7 +157,6 @@ export const CreateVenueModal = ({ onClose, onVenueCreated }) => {
     if (!dialogRef.current) return;
     dialogRef.current.close();
     document.body.classList.remove("modal-open");
-    // onClose();
   };
 
   const handleDialogClick = (e) => {
@@ -200,25 +224,24 @@ export const CreateVenueModal = ({ onClose, onVenueCreated }) => {
           />
           <fieldset>
             <legend>Media</legend>
-            {venueData.media.map((mediaItem, index) => (
+            {venueData.media.map((media, index) => (
               <div key={index} className="media-input">
                 <label>
                   Media URL:
                   <input
-                    type="text"
-                    value={mediaItem.url}
+                    id="media"
+                    value={media.url}
                     onChange={(e) =>
                       handleMediaChange(index, "url", e.target.value)
                     }
                     className="create__modal__input"
-                    required={index === 0}
+                    // required={index === 0}
                   />
                 </label>
                 <label>
                   Media Description:
                   <input
-                    type="text"
-                    value={mediaItem.alt}
+                    value={media.alt}
                     onChange={(e) =>
                       handleMediaChange(index, "alt", e.target.value)
                     }
@@ -236,6 +259,29 @@ export const CreateVenueModal = ({ onClose, onVenueCreated }) => {
               Add Media
             </button>
           </fieldset>
+          {/* <fieldset>
+            <legend>Media</legend>
+            <div className="media-input">
+              <label>
+                Media URL:
+                <input
+                  type="text"
+                  value={venueData.media[0].url}
+                  onChange={(e) => handleMediaChange(0, "url", e.target.value)}
+                  className="create__modal__input"
+                />
+              </label>
+              <label>
+                Media Description:
+                <input
+                  type="text"
+                  value={venueData.media[0].alt}
+                  onChange={(e) => handleMediaChange(0, "alt", e.target.value)}
+                  className="create__modal__input"
+                />
+              </label>
+            </div>
+          </fieldset> */}
           <h3 className="create__modal__label">Amenities</h3>
           <div className="amenities__div">
             <label>

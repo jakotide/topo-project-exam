@@ -1,4 +1,4 @@
-import { LOGIN_URL } from "../../constants/Endpoints";
+import { LOGIN_URL, LOGIN_URL_V2 } from "../../constants/Endpoints";
 
 export async function loginUser(userDetails) {
   const { password, email } = userDetails;
@@ -8,7 +8,7 @@ export async function loginUser(userDetails) {
     body: JSON.stringify({ password, email }),
   };
 
-  const response = await fetch(LOGIN_URL, options);
+  const response = await fetch(LOGIN_URL_V2, options);
   const json = await response.json();
 
   if (!response.ok) {

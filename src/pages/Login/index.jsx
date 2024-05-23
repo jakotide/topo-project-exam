@@ -51,6 +51,7 @@ import React, { useState } from "react";
 import { loginUser } from "../../api/auth/login";
 import { useUserActions } from "../../hooks/useStore";
 import { Link, useNavigate } from "react-router-dom";
+import { useFetchApiKey } from "../../hooks/useFetchApiKey";
 import "./Login.scss";
 
 export const LoginPage = () => {
@@ -61,6 +62,8 @@ export const LoginPage = () => {
   const { setUser } = useUserActions();
   const navigate = useNavigate();
 
+  const { fetchApiKey } = useFetchApiKey();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userDetails = { email, password, remember };
@@ -68,14 +71,18 @@ export const LoginPage = () => {
     try {
       const response = await loginUser(userDetails);
       const user = {
-        name: response.name,
-        email: response.email,
-        avatar: response.avatar,
-        venueManager: response.venueManager,
-        accessToken: response.accessToken,
-        remember: response.remember,
+        name: response.data.name,
+        email: response.data.email,
+        bio: response.data.bio,
+        avatar: response.data.avatar,
+        banner: response.data.banner,
+        venueManager: response.data.venueManager,
+        accessToken: response.data.accessToken,
+        remember: remember,
       };
+
       setUser(user);
+      await fetchApiKey();
       console.log("Login successful:", response);
       navigate("/");
     } catch (error) {

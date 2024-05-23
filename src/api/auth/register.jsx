@@ -1,4 +1,4 @@
-import { REGISTER_URL } from "../../constants/Endpoints";
+import { REGISTER_URL, REGISTER_URL_V2 } from "../../constants/Endpoints";
 
 export async function registerUser(userDetails) {
   const options = {
@@ -7,7 +7,7 @@ export async function registerUser(userDetails) {
     body: JSON.stringify(userDetails),
   };
 
-  const response = await fetch(REGISTER_URL, options);
+  const response = await fetch(REGISTER_URL_V2, options);
   const json = await response.json();
 
   if (!response.ok) {
