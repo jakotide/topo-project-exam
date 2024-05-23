@@ -6,3 +6,5 @@ export { SearchFilterComponent } from "./SearchFilterComponent";
 export { Carousel } from "./Carousel";
 export { VenueBookingBox } from "./VenueBookingBox";
 export { FilterComponent } from "./FilterComponent";
+export { ManagedVenues } from "./ManagedVenues";
+export { CreateVenueModal } from "./CreateVenueModal";
