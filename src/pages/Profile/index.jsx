@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import { getProfile } from "../../api/profile";
 import {
   useToken,
   useUser,
   useUserActions,
   useApiKey,
-  // Import the hook to fetch apiKey
 } from "../../hooks/useStore";
 import { useFetchApiKey } from "../../hooks/useFetchApiKey";
 import { CreateVenueModal } from "../../components/ui/CreateVenueModal";
+import { SuccessModal } from "../../components/ui/SuccessModal";
 import "./Profile.scss";
 
 export const ProfilePage = () => {
@@ -21,7 +22,8 @@ export const ProfilePage = () => {
   const [error, setError] = useState(null);
   const { clearUser } = useUserActions();
   const navigate = useNavigate();
-  const { error: apiKeyError } = useFetchApiKey(); // Fetch apiKey
+  const { error: apiKeyError } = useFetchApiKey();
+  const [showSuccess, setShowSucccess] = useState(false);
 
   const handleLogout = () => {
     clearUser();
@@ -32,7 +34,10 @@ export const ProfilePage = () => {
 
   const handleVenueCreated = (venue) => {
     console.log("Venue created:", venue);
-    // You can add logic to update the UI with the new venue data here
+    setShowSucccess(true);
+    setTimeout(() => {
+      setShowSucccess(false);
+    }, 3000);
   };
 
   useEffect(() => {
@@ -53,7 +58,7 @@ export const ProfilePage = () => {
     if (token && name && apiKey) {
       fetchProfile();
     }
-  }, [token, name, apiKey, apiKeyError]); // Ensure apiKeyError is included in the dependency array
+  }, [token, name, apiKey, apiKeyError]);
 
   if (!token) {
     return navigate("/login");
@@ -66,8 +71,6 @@ export const ProfilePage = () => {
   if (!profile) {
     return <div>Loading...</div>;
   }
-
-  console.log(profile);
 
   return (
     <section className="profile-page">
@@ -89,10 +92,11 @@ export const ProfilePage = () => {
       ) : (
         <div>{`${profile.data.name} has not written a bio.`}</div>
       )}
-      <CreateVenueModal onVenueCreated={handleVenueCreated} />
+      <CreateVenueModal onVenueCreated={handleVenueCreated} apiKey={apiKey} />
       <button onClick={handleLogout} className="logout-button">
         Logout
       </button>
+      <AnimatePresence>{showSuccess && <SuccessModal />}</AnimatePresence>
     </section>
   );
 };

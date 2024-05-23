@@ -1,13 +1,10 @@
 import "./createVenue.scss";
 import React, { useState, useRef, useEffect } from "react";
 import { postVenue } from "../../../api/postVenue";
-import { useToken } from "../../../hooks/useStore";
-import { imageValidator } from "../../../utils/imageValidator";
+import { useToken, useApiKey } from "../../../hooks/useStore";
+import { useFetchApiKey } from "../../../hooks/useFetchApiKey";
 
-export const CreateVenueModal = ({ onClose, onVenueCreated }) => {
-  // const [media, setMedia] = useState([]);
-  // const [mediaError, setMediaError] = useState("");
-
+export const CreateVenueModal = ({ onClose, onVenueCreated, apiKey }) => {
   const dialogRef = useRef(null);
   const [venueData, setVenueData] = useState({
     name: "",
@@ -71,52 +68,6 @@ export const CreateVenueModal = ({ onClose, onVenueCreated }) => {
     }));
   };
 
-  // const handleMediaChange = (index, field, value) => {
-  //   const updatedMedia = [...venueData.media];
-  //   updatedMedia[index][field] = value;
-  //   setVenueData((prev) => ({ ...prev, media: updatedMedia }));
-  // };
-
-  // const handleMediaChange = async (index, key, value) => {
-  //   const updatedMedia = [...venueData.media];
-  //   updatedMedia[index][key] = value;
-
-  //   // Validate image URL before updating state
-  //   if (key === "url" && value.trim() !== "") {
-  //     const isValid = await imageValidator(value);
-  //     if (!isValid) {
-  //       // Display error message or handle invalid image URL
-  //       console.error("Invalid image URL:", value);
-  //       return;
-  //     }
-  //   }
-
-  //   setVenueData((prevData) => ({
-  //     ...prevData,
-  //     media: updatedMedia,
-  //   }));
-  // };
-
-  // const handleMediaChange = () => {
-  //   const mediaInput = document.getElementById("media");
-  //   const imageUrl = mediaInput.value;
-
-  //   // Check if the URL is a valid image
-  //   const isValid = imageValidator(imageUrl);
-
-  //   if (isValid) {
-  //     // Add the image URL to the media array
-  //     setVenueData((prevData) => ({
-  //       ...prevData,
-  //       media: [{ url: imageUrl, alt: "" }],
-  //     }));
-  //     setMediaError(""); // Clear any previous error message
-  //     mediaInput.value = ""; // Clear the input field
-  //   } else {
-  //     setMediaError("URL provided does not lead to an image.");
-  //   }
-  // };
-
   const addMedia = () => {
     setVenueData((prevData) => ({
       ...prevData,
@@ -135,7 +86,7 @@ export const CreateVenueModal = ({ onClose, onVenueCreated }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const result = await postVenue(token, venueData);
+      const result = await postVenue(token, apiKey, venueData); // Use apiKey from props
       if (result) {
         onVenueCreated(result.data);
         closeDialog();
@@ -259,29 +210,6 @@ export const CreateVenueModal = ({ onClose, onVenueCreated }) => {
               Add Media
             </button>
           </fieldset>
-          {/* <fieldset>
-            <legend>Media</legend>
-            <div className="media-input">
-              <label>
-                Media URL:
-                <input
-                  type="text"
-                  value={venueData.media[0].url}
-                  onChange={(e) => handleMediaChange(0, "url", e.target.value)}
-                  className="create__modal__input"
-                />
-              </label>
-              <label>
-                Media Description:
-                <input
-                  type="text"
-                  value={venueData.media[0].alt}
-                  onChange={(e) => handleMediaChange(0, "alt", e.target.value)}
-                  className="create__modal__input"
-                />
-              </label>
-            </div>
-          </fieldset> */}
           <h3 className="create__modal__label">Amenities</h3>
           <div className="amenities__div">
             <label>
