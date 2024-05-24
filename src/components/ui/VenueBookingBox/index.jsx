@@ -6,6 +6,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers";
 import { postBooking } from "../../../api/postBooking";
 import { useToken, useApiKey } from "../../../hooks/useStore";
+import { Loader } from "../LoadingSpinner";
+import { Link } from "react-router-dom";
 import "./VenueBookingBox.scss";
 
 export const VenueBookingBox = () => {
@@ -18,6 +20,8 @@ export const VenueBookingBox = () => {
   const [guests, setGuests] = useState(1);
   const [exceededMaxGuests, setExceededMaxGuests] = useState(false);
   const [bookingError, setBookingError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const token = useToken();
   const apiKey = useApiKey();
 
@@ -70,7 +74,7 @@ export const VenueBookingBox = () => {
 
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submit button clicked");
+
     if (!dateFrom || !dateTo) {
       console.log("Form validation failed - Dates not selected");
       setBookingError("Please select check-in and check-out dates.");
@@ -106,6 +110,9 @@ export const VenueBookingBox = () => {
       return;
     }
 
+    setLoading(true);
+    setBookingError(null);
+
     try {
       const bookingData = {
         dateFrom: dateFrom.toISOString(),
@@ -114,17 +121,18 @@ export const VenueBookingBox = () => {
         venueId: params.id,
       };
 
-      console.log("Booking data:", bookingData);
-
       await postBooking(bookingData, token, apiKey);
-
-      console.log("Booking successful!");
 
       setDateFrom(null);
       setDateTo(null);
       setGuests(1);
       setExceededMaxGuests(false);
       setBookingError(null);
+
+      setTimeout(() => {
+        setLoading(false);
+        setSuccess(true);
+      }, 2000);
     } catch (error) {
       console.error("Error:", error);
       setBookingError(error.message);
@@ -271,10 +279,20 @@ export const VenueBookingBox = () => {
           Maximun number of guests allowed is {data.data.maxGuests}
         </div>
       )}
-      {bookingError && <div className="error-message">{bookingError}</div>}
-      <button type="submit" className="book__button">
-        Book
-      </button>
+      {bookingError && <div className="required-message">{bookingError}</div>}
+      {token ? (
+        <button
+          type="submit"
+          className="book__button"
+          disabled={loading || success}
+        >
+          {loading ? <Loader /> : success ? "Success!" : "Book"}
+        </button>
+      ) : (
+        <Link to="/login">
+          <button className="book__button">Login to book</button>
+        </Link>
+      )}
 
       {numberOfNights > 0 && data && data.data && calculateTotalSum() && (
         <div className="venue__calculated__total">

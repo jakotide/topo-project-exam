@@ -54,11 +54,16 @@
       }
     }
 
-    input {
+    input,
+    textarea {
       margin-top: 5px;
       padding: 10px 5px;
       border: none;
       border-radius: 2px;
+    }
+
+    textarea {
+      resize: none;
     }
 
     label {
