@@ -1,0 +1,89 @@
+@use "../../../scss/base/globals" as clr;
+.edit__venue__btn {
+  background-color: clr.$black;
+  color: clr.$white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 1em;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: clr.$hover-black;
+  }
+}
+.create-venue-modal {
+  align-self: center;
+  justify-self: center;
+  height: 840px;
+  width: 100%;
+  max-width: 780px;
+  border: 1px solid rgb(206, 206, 206, 0.7);
+  border-radius: 1.5em;
+  font-family: "GeneralSans-Regular";
+
+  .create__modal__header {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .create__venue__form {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+
+    .create__modal__label {
+      margin-bottom: 4px;
+    }
+
+    .create__modal__input {
+      padding: 0.6rem 0.5rem;
+      border: 0.5px solid rgb(206, 206, 206, 0.7);
+      margin-bottom: 15px;
+    }
+
+    .amenities__div {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 8px 0 20px;
+
+      label {
+        margin-right: 3px;
+        display: flex;
+        align-items: center;
+        input[type="checkbox"]:focus {
+          outline: none;
+        }
+        input[type="checkbox"]:checked {
+          accent-color: clr.$pink;
+        }
+
+        input {
+          margin-left: 5px;
+          width: 1.4rem;
+          height: 1.2rem;
+        }
+      }
+    }
+    .modal__btn__container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+
+      .modal__cancel__btn {
+        border: none;
+        background-color: transparent;
+        color: rgb(88, 86, 86);
+      }
+
+      .modal__create__btn {
+        background-color: clr.$black;
+        color: clr.$white;
+        border: none;
+        padding: 0.6rem 1rem;
+        border-radius: 10px;
+      }
+    }
+  }
+}
