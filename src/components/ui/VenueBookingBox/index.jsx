@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers";
+import { postBooking } from "../../../api/postBooking";
+import { useToken, useApiKey } from "../../../hooks/useStore";
 import "./VenueBookingBox.scss";
 
 export const VenueBookingBox = () => {
@@ -13,7 +15,11 @@ export const VenueBookingBox = () => {
   const [bookedDates, setBookedDates] = useState([]);
   const [dateFrom, setDateFrom] = useState(null);
   const [dateTo, setDateTo] = useState(null);
+  const [guests, setGuests] = useState(1);
   const [exceededMaxGuests, setExceededMaxGuests] = useState(false);
+  const [bookingError, setBookingError] = useState(null);
+  const token = useToken();
+  const apiKey = useApiKey();
 
   useEffect(() => {
     if (data && data.data.bookings) {
@@ -62,8 +68,71 @@ export const VenueBookingBox = () => {
     }
   };
 
+  const handleBookingSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Submit button clicked");
+    if (!dateFrom || !dateTo) {
+      console.log("Form validation failed - Dates not selected");
+      setBookingError("Please select check-in and check-out dates.");
+      return;
+    }
+
+    if (guests < 1) {
+      console.log("Form validation failed - No. of guests is less than 1");
+      setBookingError("Please enter at least 1 guest.");
+      return;
+    }
+
+    if (dateFrom && dateTo && dateFrom >= dateTo) {
+      console.log(
+        "Form validation failed - Check-out date before or same as check-in date"
+      );
+      setBookingError("Check-out date must be after check-in date.");
+      return;
+    }
+
+    if (dateFrom && areDatesEqual(dateFrom, dateTo)) {
+      console.log("Form validation failed - Minimum 1 night stay");
+      setBookingError("Minimum stay is 1 night.");
+      return;
+    }
+
+    if (guests > data.data.maxGuests) {
+      console.log("Form validation failed - Exceeded maximum guests");
+      setExceededMaxGuests(true);
+      setBookingError(
+        `Maximum number of guests allowed is ${data.data.maxGuests}.`
+      );
+      return;
+    }
+
+    try {
+      const bookingData = {
+        dateFrom: dateFrom.toISOString(),
+        dateTo: dateTo.toISOString(),
+        guests: guests,
+        venueId: params.id,
+      };
+
+      console.log("Booking data:", bookingData);
+
+      await postBooking(bookingData, token, apiKey);
+
+      console.log("Booking successful!");
+
+      setDateFrom(null);
+      setDateTo(null);
+      setGuests(1);
+      setExceededMaxGuests(false);
+      setBookingError(null);
+    } catch (error) {
+      console.error("Error:", error);
+      setBookingError(error.message);
+    }
+  };
+
   return (
-    <form className="venue__booking__box">
+    <form className="venue__booking__box" onSubmit={handleBookingSubmit}>
       {data && data.data && (
         <div className="venue__price">
           <span>{data.data.price}$</span> per night{" "}
@@ -198,8 +267,11 @@ export const VenueBookingBox = () => {
         />
       )}
       {exceededMaxGuests && (
-        <div>Maximun number of guests allowed is {data.data.maxGuests}</div>
+        <div className="required-message">
+          Maximun number of guests allowed is {data.data.maxGuests}
+        </div>
       )}
+      {bookingError && <div className="error-message">{bookingError}</div>}
       <button type="submit" className="book__button">
         Book
       </button>

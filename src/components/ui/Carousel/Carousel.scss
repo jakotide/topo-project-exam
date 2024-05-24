@@ -6,10 +6,9 @@
   height: 34rem;
   overflow: hidden;
   position: relative;
-  border-radius: 2em;
+  border-radius: 2em 2em 0 0;
 
   @include mq.tabletL {
-    border-radius: 2em 2em 0 0;
     height: 32rem;
   }
 

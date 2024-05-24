@@ -4,29 +4,31 @@
 .venue__container {
   background-color: clr.$white;
   width: 100%;
+  max-width: 1600px;
   height: fit-content;
   border-top-left-radius: 2em;
   border-top-right-radius: 2em;
   margin: 1rem auto 0;
-  padding: 4rem 18rem;
   font-family: "GeneralSans-Regular";
   display: flex;
   flex-direction: column;
   gap: 2rem;
 
-  @include mq.desktopL {
-    padding: 4rem 14rem;
+  .padding__container {
+    padding: 4rem 18rem;
+    @include mq.desktopL {
+      padding: 4rem 14rem;
+    }
+    @include mq.desktopS {
+      padding: 4rem 8rem;
+    }
+    @include mq.tabletL {
+      padding: 0;
+    }
   }
-  @include mq.desktopS {
-    padding: 4rem 10rem;
-  }
-  @include mq.tabletL {
-    padding: 0;
-  }
-
   .venue__section__container {
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
     @include mq.tabletL {
       flex-direction: column;
       width: 100%;
