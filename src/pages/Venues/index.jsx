@@ -6,6 +6,7 @@ import {
 } from "../../components/ui";
 import { useApi } from "../../hooks/useApi";
 import React, { useState } from "react";
+import { cloudOne } from "../../assets/images";
 
 export const Venues = () => {
   const BASEURL = "https://v2.api.noroff.dev/holidaze/venues";
@@ -113,6 +114,8 @@ export const Venues = () => {
     <>
       <section className="venues__section">
         <h1 className="venues__h1">Venues</h1>
+        <img src={cloudOne} className="venue__cloud" alt="" />
+        <img src={cloudOne} className="venue__cloud__two" alt="" />
         <div className="venues__grid__container">
           <div className="search__filter__container">
             <h2 className="search__h2">Search</h2>

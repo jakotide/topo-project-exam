@@ -187,7 +187,7 @@ export const HomeVenuesSection = ({ options, children }) => {
 
         <div className="destination__card__grid">
           {destinationCards.map((destination, index) => (
-            <Link className="destination__link" to="/venues">
+            <Link key={index} className="destination__link" to="/venues">
               <div key={index} className="destination__card">
                 <img
                   src={destination.image}

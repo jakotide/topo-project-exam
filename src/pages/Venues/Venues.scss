@@ -7,7 +7,45 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
   // padding-bottom: 4rem;
+
+  .venue__cloud {
+    position: absolute;
+    top: 25px;
+    z-index: -5;
+    left: 2%;
+    width: 350px;
+    overflow: hidden;
+
+    @include mq.tablet {
+      width: 230px;
+      left: 2%;
+      top: 75px;
+    }
+    @include mq.mobileL {
+      width: 200px;
+      left: 0;
+      top: 75px;
+    }
+  }
+  .venue__cloud__two {
+    position: absolute;
+    top: 145px;
+    z-index: -5;
+    right: 2%;
+    width: 150px;
+    overflow: hidden;
+    transform: scaleX(-1);
+
+    @include mq.tablet {
+      top: 125px;
+    }
+    @include mq.mobileL {
+      top: 115px;
+      right: 0%;
+    }
+  }
 
   .venues__h1 {
     color: clr.$white;
