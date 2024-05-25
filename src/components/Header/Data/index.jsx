@@ -1,21 +1,28 @@
-export const navLinks = [
-  {
-    title: "Home",
-    to: "/",
-  },
-  {
-    title: "Venues",
-    to: "/venues",
-  },
-  {
-    title: "Profile",
-    to: "/profile",
-  },
-  {
-    title: "Contact",
-    to: "/contact",
-  },
-];
+import { useUser } from "../../../hooks/useStore";
+
+export const getNavLinks = () => {
+  const user = useUser(); // Get the user data from Zustand store
+  const userName = user ? user.name : null;
+
+  return [
+    {
+      title: "Home",
+      to: "/",
+    },
+    {
+      title: "Venues",
+      to: "/venues",
+    },
+    {
+      title: "Profile",
+      to: userName ? `/profiles/${userName}` : "/login", // Fallback to login if userName is null
+    },
+    {
+      title: "Contact",
+      to: "/contact",
+    },
+  ];
+};
 
 export const footerLinks = [
   {

@@ -9,6 +9,7 @@ import {
   useApiKey,
 } from "../../hooks/useStore";
 import { useFetchApiKey } from "../../hooks/useFetchApiKey";
+import { updateAvatar } from "../../api/updateProfile";
 import { CreateVenueModal, ManagedVenues } from "../../components/ui/";
 import { BookedVenues } from "../../components/ui/BookedVenues";
 import { SuccessModal } from "../../components/ui/SuccessModal";
@@ -26,6 +27,9 @@ export const ProfilePage = () => {
   const navigate = useNavigate();
   const { error: apiKeyError } = useFetchApiKey();
   const [showSuccess, setShowSuccess] = useState(false);
+  const [newAvatarUrl, setNewAvatarUrl] = useState("");
+  const [updateError, setUpdateError] = useState(null);
+  const [isEditingAvatar, setIsEditingAvatar] = useState(false);
 
   useEffect(() => {
     if (!token) {
@@ -67,6 +71,25 @@ export const ProfilePage = () => {
     }
   }, [token, name, apiKey, apiKeyError]);
 
+  const handleAvatarUpdate = async () => {
+    try {
+      const updatedProfile = await updateAvatar({
+        name,
+        avatarUrl: newAvatarUrl,
+        token,
+        apiKey,
+      });
+      setProfile(updatedProfile);
+      toggleEditAvatar();
+    } catch (error) {
+      setUpdateError(error.message);
+    }
+  };
+
+  const toggleEditAvatar = () => {
+    setIsEditingAvatar(!isEditingAvatar);
+  };
+
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -79,16 +102,44 @@ export const ProfilePage = () => {
     <section className="profile-page">
       <div className="profile__avatar__container">
         <h1>{profile.data.name}</h1>
-        <img
-          className="profile-avatar"
-          src={profile.data.avatar.url}
-          alt={`${profile.data.name}'s avatar`}
-        />
+        <div className="profile-edit-container">
+          <img
+            className="profile-avatar"
+            src={profile.data.avatar.url}
+            alt={`${profile.data.name}'s avatar`}
+          />
+          <button onClick={toggleEditAvatar} className="update-avatar-button">
+            Edit
+          </button>
+        </div>
+        {isEditingAvatar && (
+          <div className="update-avatar-input-container">
+            <input
+              type="text"
+              className="update-avatar-input"
+              value={newAvatarUrl}
+              onChange={(e) => setNewAvatarUrl(e.target.value)}
+              placeholder="New Avatar URL"
+            />
+            <div className="update__avatar__btns">
+              <button
+                onClick={handleAvatarUpdate}
+                className="save-avatar-button"
+              >
+                Save
+              </button>
+              <button onClick={toggleEditAvatar} className="cancel-edit-button">
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
         {profile.data.venueManager ? (
           <div className="profile__tag">Venue Manager</div>
         ) : (
           <div className="profile__tag">Customer</div>
         )}
+
         <button onClick={handleLogout} className="logout-button">
           Logout
         </button>

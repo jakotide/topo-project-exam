@@ -46,7 +46,16 @@ export const Venues = () => {
   } else if (isLoading || data === null) {
     content = <div>Loading</div>;
   } else {
-    const exludedWords = ["test", "testing", "tittel", "lorem", "string"];
+    const exludedWords = [
+      "test",
+      "testing",
+      "tittel",
+      "lorem",
+      "string",
+      "Zzz",
+      "zz",
+      "z",
+    ];
 
     const filteredVenues = data.data
       .filter((item) =>

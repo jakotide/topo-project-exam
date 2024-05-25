@@ -35,6 +35,50 @@
   }
   .profile__avatar__container {
     background-color: clr.$white;
+    .profile-edit-container {
+      position: relative;
+      .update-avatar-button {
+        position: absolute;
+        left: 50%;
+        top: 85%;
+        transform: translate(-50%, -50%);
+        padding: 0.2rem 0.5rem;
+        border: none;
+        background-color: clr.$black;
+        color: clr.$white;
+        border-radius: 10px;
+      }
+    }
+    .update-avatar-input-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      .update-avatar-input {
+        padding: 0.4rem;
+        border: 0.3px solid rgba($color: #e6e6e6, $alpha: 1);
+        border-radius: 5px;
+      }
+      .update__avatar__btns {
+        display: flex;
+        align-self: center;
+        justify-self: center;
+        gap: 1rem;
+        .save-avatar-button {
+          padding: 0.2rem 0.5rem;
+          border: none;
+          background-color: clr.$black;
+          color: clr.$white;
+          border-radius: 10px;
+        }
+        .cancel-edit-button {
+          background-color: transparent;
+          border: none;
+          color: rgb(88, 86, 86);
+          font-size: 0.9rem;
+        }
+      }
+    }
+
     .logout-button {
       margin-top: 20px;
       padding: 10px 20px;

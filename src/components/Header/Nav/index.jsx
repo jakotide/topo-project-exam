@@ -1,10 +1,11 @@
-import { navLinks, footerLinks } from "../Data";
+import { getNavLinks, footerLinks } from "../Data";
 import { LinkItem } from "../LinkItem";
 import "./Nav.scss";
 import { menuSlide } from "../animation";
 import { motion } from "framer-motion";
 
 export const Nav = ({ closeMenu }) => {
+  const navLinks = getNavLinks();
   return (
     <motion.nav
       className="button__nav"

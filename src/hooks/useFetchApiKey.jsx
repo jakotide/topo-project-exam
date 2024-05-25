@@ -64,7 +64,7 @@ export const useFetchApiKey = () => {
           setApiKey(newApiKey); // Set the API key in the store
         }
       } catch (error) {
-        console.error("Error creating API key:", error.message);
+        // console.error("Error creating API key:", error.message);
         setError(error.message);
       } finally {
         setLoading(false);

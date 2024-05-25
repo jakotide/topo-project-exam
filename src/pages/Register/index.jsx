@@ -2,7 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import { registerUser } from "../../api/auth/register";
 import { useUserActions } from "../../hooks/useStore";
 import "./Register.scss";
+import { SuccessModal } from "../../components/ui/SuccessModal";
 import { Link, useNavigate } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
@@ -17,22 +19,22 @@ export const RegisterPage = () => {
   const [emailError, setEmailError] = useState(null);
   const [success, setSuccess] = useState(false);
   const { setUser } = useUserActions();
-  const dialogRef = useRef(null);
+  // const dialogRef = useRef(null);
 
   const isValidNoroffEmail = (email) => {
     return email.endsWith("@stud.noroff.no");
   };
 
-  useEffect(() => {
-    if (success) {
-      dialogRef.current.showModal();
-    }
-  }, [success]);
+  // useEffect(() => {
+  //   if (success) {
+  //     dialogRef.current.showModal();
+  //   }
+  // }, [success]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isValidNoroffEmail(email)) {
-      setEmailError("Please use your @stud.noroff.no email address");
+      setEmailError("Email must end with @stud.noroff.no");
       return;
     }
 
@@ -92,11 +94,12 @@ export const RegisterPage = () => {
 
           <label>Avatar URL:</label>
           <input
+            placeholder="Optional"
             type="url"
             value={avatar.url}
             onChange={(e) => setAvatar({ ...avatar, url: e.target.value })}
           />
-          <label>Avatar Alt Text:</label>
+          {/* <label>Avatar Alt Text:</label>
           <input
             type="text"
             value={avatar.alt}
@@ -117,7 +120,7 @@ export const RegisterPage = () => {
           />
 
           <label>Bio:</label>
-          <textarea value={bio} onChange={(e) => setBio(e.target.value)} />
+          <textarea value={bio} onChange={(e) => setBio(e.target.value)} /> */}
 
           <div className="venuemanager__checkbox">
             <label>Venue Manager:</label>
@@ -138,12 +141,20 @@ export const RegisterPage = () => {
           </div>
         </form>
       </div>
-      {success && (
+      <AnimatePresence>
+        {success && (
+          <SuccessModal>
+            Thank you for signing up! You can now login to your account.
+          </SuccessModal>
+        )}
+      </AnimatePresence>
+
+      {/* {success && (
         <dialog ref={dialogRef} className="success__dialog">
           <p>Thank you for signing up! You can now login to your account.</p>
           <button onClick={() => dialogRef.current.close()}>Close</button>
         </dialog>
-      )}
+      )} */}
     </section>
   );
 };

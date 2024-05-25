@@ -5,6 +5,7 @@ import { Button } from "../../components/ui/Button";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import { useUser } from "../../hooks/useStore";
 gsap.registerPlugin(ScrollTrigger);
 
 export const Hero = ({}) => {
@@ -12,6 +13,8 @@ export const Hero = ({}) => {
   const title = useRef(null);
   const buttonContainer = useRef(null);
   const heroImage = useRef(null);
+  const user = useUser(); // Get the user data from Zustand store
+  const userName = user ? user.name : null;
 
   useLayoutEffect(() => {
     const context = gsap.context(() => {
@@ -72,14 +75,17 @@ export const Hero = ({}) => {
           Venues
         </Button>
         <Button
+          to={`/profiles/${userName}`}
           style={{
             "--button-color": "#171717",
             "--button-background": "#f9f5f3",
             // "--button-background": "transparent",
+            // fontSize: "12px",
+            gap: "1.5rem",
           }}
           arrowFillColor="#171717"
         >
-          Venues
+          Profile
         </Button>
       </div>
       <motion.img

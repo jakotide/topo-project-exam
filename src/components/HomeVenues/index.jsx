@@ -11,6 +11,7 @@ import { motion, useTransform, useScroll, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { slideUp, MoreButton, BrowseButton } from "./anim";
 import { BoxReveal } from "../../effects/BoxReveal";
+import { Link } from "react-router-dom";
 
 export const HomeVenuesSection = ({ options, children }) => {
   const { data, isLoading, isError } = useApi(
@@ -52,7 +53,16 @@ export const HomeVenuesSection = ({ options, children }) => {
   } else if (isLoading || data === null) {
     content = <div>Loading</div>;
   } else {
-    const exludedWords = ["test", "testing", "tittel", "lorem", "string"];
+    const exludedWords = [
+      "test",
+      "testing",
+      "tittel",
+      "lorem",
+      "string",
+      "zz",
+      "zzz",
+      "z",
+    ];
     const filteredVenues = data.data
       .filter((item) =>
         exludedWords.every(
@@ -146,6 +156,7 @@ export const HomeVenuesSection = ({ options, children }) => {
         </div>
         <div className="home__venue__grid">{content}</div>
         <Button
+          to="/venues"
           className="more__venues__button"
           style={{ width: "14rem", gap: "1.8rem" }}
           variants={MoreButton}
@@ -176,21 +187,24 @@ export const HomeVenuesSection = ({ options, children }) => {
 
         <div className="destination__card__grid">
           {destinationCards.map((destination, index) => (
-            <div key={index} className="destination__card">
-              <img
-                src={destination.image}
-                alt={destination.alt}
-                className="destination__card__img"
-              />
-              {/* <div className="destination__tag">{destination.tag}</div> */}
-              <h5>{destination.title}</h5>
-              <p>{destination.description}</p>
-            </div>
+            <Link className="destination__link" to="/venues">
+              <div key={index} className="destination__card">
+                <img
+                  src={destination.image}
+                  alt={destination.alt}
+                  className="destination__card__img"
+                />
+                {/* <div className="destination__tag">{destination.tag}</div> */}
+                <h5>{destination.title}</h5>
+                <p>{destination.description}</p>
+              </div>
+            </Link>
           ))}
         </div>
         <div className="get__inspired">
           <p>Get Inspired</p>
           <Button
+            to="/venues"
             className="browse__button"
             style={{ width: "16rem", gap: "2.1rem" }}
             variants={BrowseButton}
