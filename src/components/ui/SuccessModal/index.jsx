@@ -1,7 +1,7 @@
 import "./SuccessModal.scss";
 import { motion } from "framer-motion";
 
-export const SuccessModal = () => {
+export const SuccessModal = ({ children }) => {
   const showSuccessAnim = {
     hidden: {
       transition: { duration: 0.2, ease: [0.76, 0, 0.24, 1] },
@@ -31,7 +31,7 @@ export const SuccessModal = () => {
       exit="exit"
       className="success__modal"
     >
-      Success!
+      <p>{children}</p>
     </motion.dialog>
   );
 };

@@ -3,7 +3,8 @@ import { useApi } from "../../hooks/useApi";
 import { useParams } from "react-router-dom";
 import { Carousel, VenueBookingBox, StarRating } from "../../components/ui";
 import { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import { SuccessModal } from "../../components/ui/SuccessModal";
 
 export const Venue = () => {
   const params = useParams();
@@ -13,14 +14,14 @@ export const Venue = () => {
   );
 
   const [hideBtn, setHideBtn] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
-  // const venueContainer = useRef(null);
-  // const { scrollYProgress } = useScroll({
-  //   layoutEffect: false,
-  //   target: venueContainer,
-  //   offset: ["start end", "end 10px"],
-  // });
-  // const height = useTransform(scrollYProgress, [0, 0.9], [50, 0]);
+  const handleBookingSuccess = () => {
+    setShowSuccess(true);
+    setTimeout(() => {
+      setShowSuccess(false);
+    }, 3000);
+  };
 
   useEffect(() => {
     if (data && data.data.media.length < 2) {
@@ -102,9 +103,20 @@ export const Venue = () => {
               <div>Booked {data.data.bookings.length} times</div>
             </div>
           </div>
-          <VenueBookingBox venueId={params.id} />
+          <VenueBookingBox
+            venueId={params.id}
+            onBookingSuccess={handleBookingSuccess}
+          />
         </div>
       </div>
+
+      <AnimatePresence>
+        {showSuccess && (
+          <SuccessModal>
+            Success! Go to profile to see your booking.
+          </SuccessModal>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

@@ -6,11 +6,12 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers";
 import { postBooking } from "../../../api/postBooking";
 import { useToken, useApiKey } from "../../../hooks/useStore";
-import { Loader } from "../LoadingSpinner";
+import { ButtonLoader } from "../ButtonSpinner";
 import { Link } from "react-router-dom";
+import { SuccessModal } from "../SuccessModal";
 import "./VenueBookingBox.scss";
 
-export const VenueBookingBox = () => {
+export const VenueBookingBox = ({ onBookingSuccess }) => {
   const params = useParams();
   const BASEURL = "https://v2.api.noroff.dev/holidaze/venues";
   const { data } = useApi(`${BASEURL}/${params.id}?_bookings=true&_owner=true`);
@@ -132,6 +133,7 @@ export const VenueBookingBox = () => {
       setTimeout(() => {
         setLoading(false);
         setSuccess(true);
+        if (onBookingSuccess) onBookingSuccess();
       }, 2000);
     } catch (error) {
       console.error("Error:", error);
@@ -286,7 +288,7 @@ export const VenueBookingBox = () => {
           className="book__button"
           disabled={loading || success}
         >
-          {loading ? <Loader /> : success ? "Success!" : "Book"}
+          {loading ? <ButtonLoader /> : success ? "Success!" : "Book"}
         </button>
       ) : (
         <Link to="/login">

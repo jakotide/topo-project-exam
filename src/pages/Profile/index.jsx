@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { getProfile } from "../../api/profile";
 import {
   useToken,
@@ -12,6 +12,7 @@ import { useFetchApiKey } from "../../hooks/useFetchApiKey";
 import { CreateVenueModal, ManagedVenues } from "../../components/ui/";
 import { BookedVenues } from "../../components/ui/BookedVenues";
 import { SuccessModal } from "../../components/ui/SuccessModal";
+import { Loader } from "../../components/ui/LoadingSpinner";
 import "./Profile.scss";
 
 export const ProfilePage = () => {
@@ -24,7 +25,13 @@ export const ProfilePage = () => {
   const { clearUser } = useUserActions();
   const navigate = useNavigate();
   const { error: apiKeyError } = useFetchApiKey();
-  const [showSuccess, setShowSucccess] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token, navigate]);
 
   const handleLogout = () => {
     clearUser();
@@ -34,10 +41,9 @@ export const ProfilePage = () => {
   };
 
   const handleVenueCreated = (venue) => {
-    console.log("Venue created:", venue);
-    setShowSucccess(true);
+    setShowSuccess(true);
     setTimeout(() => {
-      setShowSucccess(false);
+      setShowSuccess(false);
     }, 3000);
   };
 
@@ -61,45 +67,49 @@ export const ProfilePage = () => {
     }
   }, [token, name, apiKey, apiKeyError]);
 
-  if (!token) {
-    return navigate("/login");
-  }
-
   if (error) {
     return <div>Error: {error}</div>;
   }
 
   if (!profile) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (
     <section className="profile-page">
-      <h1>{profile.data.name}'s Profile</h1>
+      <div className="profile__avatar__container">
+        <h1>{profile.data.name}</h1>
+        <img
+          className="profile-avatar"
+          src={profile.data.avatar.url}
+          alt={`${profile.data.name}'s avatar`}
+        />
+        {profile.data.venueManager ? (
+          <div className="profile__tag">Venue Manager</div>
+        ) : (
+          <div className="profile__tag">Customer</div>
+        )}
+        <button onClick={handleLogout} className="logout-button">
+          Logout
+        </button>
+      </div>
+      <div className="create__logout__container">
+        <p>Got a venue to list out?</p>
+        <CreateVenueModal onVenueCreated={handleVenueCreated} apiKey={apiKey} />
 
-      <img
-        className="profile-avatar"
-        src={profile.data.avatar.url}
-        alt={`${profile.data.name}'s avatar`}
-      />
-      {profile.data.venueManager ? (
-        <div className="profile__tag">Venue Manager</div>
-      ) : (
-        <div className="profile__tag">Customer</div>
-      )}
-      <p>Email: {profile.data.email}</p>
-      {profile.data.bio ? (
-        <div>{profile.data.bio}</div>
-      ) : (
-        <div>{`${profile.data.name} has not written a bio.`}</div>
-      )}
-      <CreateVenueModal onVenueCreated={handleVenueCreated} apiKey={apiKey} />
-      <button onClick={handleLogout} className="logout-button">
-        Logout
-      </button>
-      <AnimatePresence>{showSuccess && <SuccessModal />}</AnimatePresence>
+        <AnimatePresence>
+          {showSuccess && (
+            <SuccessModal>
+              Success! Refresh page to see your venue.
+            </SuccessModal>
+          )}
+        </AnimatePresence>
+      </div>
+
       <div>
         <ManagedVenues token={token} apiKey={apiKey} profileName={name} />
+      </div>
+      <div>
         <BookedVenues />
       </div>
     </section>

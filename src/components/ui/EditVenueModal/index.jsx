@@ -162,42 +162,46 @@ export const EditVenueModal = ({ onClose, onVenueUpdated, apiKey, venue }) => {
             required
             className="create__modal__input"
           />
-          <fieldset>
-            <legend>Media</legend>
-            {venueData.media.map((media, index) => (
-              <div key={index} className="media-input">
-                <label>
-                  Media URL:
-                  <input
-                    id="media"
-                    value={media.url}
-                    onChange={(e) =>
-                      handleMediaChange(index, "url", e.target.value)
-                    }
-                    className="create__modal__input"
-                  />
-                </label>
-                <label>
-                  Media Description:
-                  <input
-                    value={media.alt}
-                    onChange={(e) =>
-                      handleMediaChange(index, "alt", e.target.value)
-                    }
-                    className="create__modal__input"
-                  />
-                </label>
-                {index > 0 && (
-                  <button type="button" onClick={() => removeMedia(index)}>
-                    Remove
-                  </button>
-                )}
-              </div>
-            ))}
-            <button type="button" onClick={addMedia}>
-              Add Media
-            </button>
-          </fieldset>
+
+          <legend>Media</legend>
+          {venueData.media.map((media, index) => (
+            <div key={index} className="media-input">
+              <input
+                id="media"
+                value={media.url}
+                placeholder="URL"
+                aria-label="media-url"
+                onChange={(e) =>
+                  handleMediaChange(index, "url", e.target.value)
+                }
+                className="create__modal__input"
+              />
+
+              <input
+                value={media.alt}
+                aria-label="media-alt"
+                placeholder="ALT"
+                onChange={(e) =>
+                  handleMediaChange(index, "alt", e.target.value)
+                }
+                className="create__modal__input"
+              />
+
+              {index > 0 && (
+                <button
+                  className="remove__media__btn"
+                  type="button"
+                  onClick={() => removeMedia(index)}
+                >
+                  X
+                </button>
+              )}
+            </div>
+          ))}
+          <button className="add__media__btn" type="button" onClick={addMedia}>
+            Add Media
+          </button>
+
           <h3 className="create__modal__label">Amenities</h3>
           <div className="amenities__div">
             <label>

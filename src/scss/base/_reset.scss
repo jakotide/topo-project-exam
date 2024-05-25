@@ -64,3 +64,62 @@ svg {
   display: flex;
   align-items: center;
 }
+
+.dialog__element {
+  width: 400px;
+  height: 300px;
+  background-color: clr.$white;
+  border-radius: 2em;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+
+  p {
+    width: 100%;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  button {
+    background-color: clr.$black;
+    color: clr.$white;
+    border: none;
+    border-radius: 0.5em;
+    padding: 0.6rem 1.4rem;
+  }
+}
+
+.dialog__element {
+  display: none;
+}
+
+.dialog__element[open] {
+  display: block;
+  width: 400px;
+  height: 300px;
+  background-color: clr.$white;
+  border-radius: 2em;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+
+  menu {
+    display: flex;
+    gap: 1rem;
+    margin-top: 15px;
+  }
+}

@@ -1,9 +1,21 @@
 @use "../../../scss/base/globals" as clr;
-
+.create__venue__btn {
+  background-color: clr.$black;
+  border: none;
+  color: clr.$white;
+  padding: 0.9rem 1.5rem;
+  border-radius: 2em;
+  cursor: pointer;
+  &:hover {
+    background-color: clr.$hover-black;
+  }
+}
 .create-venue-modal {
   align-self: center;
   justify-self: center;
   height: 840px;
+  height: 100%;
+  max-height: 840px;
   width: 100%;
   max-width: 780px;
   border: 1px solid rgb(206, 206, 206, 0.7);
@@ -20,7 +32,13 @@
     display: flex;
     flex-direction: column;
     padding: 2rem;
-
+    .form__content {
+      overflow-y: scroll;
+      display: flex;
+      flex-direction: column;
+      scrollbar-width: thin;
+      scrollbar-color: clr.$pink transparent;
+    }
     .create__modal__label {
       margin-bottom: 4px;
     }
@@ -29,6 +47,37 @@
       padding: 0.6rem 0.5rem;
       border: 0.5px solid rgb(206, 206, 206, 0.7);
       margin-bottom: 15px;
+    }
+
+    .media-input {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      .create__modal__input {
+        padding: 0.6rem 0.5rem;
+        border: 0.5px solid rgb(206, 206, 206, 0.7);
+        margin-bottom: 15px;
+        width: 100%;
+      }
+    }
+    .add__media__btn {
+      background-color: clr.$pink;
+      border: none;
+      border-radius: 2em;
+      color: clr.$white;
+      padding: 0.5rem 0;
+      width: 25%;
+      min-width: 120px;
+      margin-bottom: 25px;
+    }
+
+    .remove__media__btn {
+      height: 40px;
+      padding: 0 0.8rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
 
     .amenities__div {

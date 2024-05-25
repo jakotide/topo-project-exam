@@ -5,60 +5,69 @@ import { deleteVenue } from "../../../api/deleteVenue";
 import { SuccessModal } from "../SuccessModal";
 import "./ManagedVenues.scss";
 import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const ManagedVenues = ({ token, apiKey, profileName }) => {
   const [venues, setVenues] = useState([]);
   const [error, setError] = useState(null);
   const [selectedVenue, setSelectedVenue] = useState(null);
-  const [showSucces, setShowSucces] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [venueToDelete, setVenueToDelete] = useState(null);
   const dialogRef = useRef(null);
 
-  const handleVenueUpdated = (updatedVenue) => {
-    setShowSucces(true);
+  const handleVenueUpdated = () => {
+    setShowSuccess(true);
+    setTimeout(() => {
+      setShowSuccess(false);
+    }, 3000);
   };
 
   const handleDeleteVenue = async (venueId) => {
     try {
       await deleteVenue(venueId, token, apiKey);
       handleVenueUpdated();
+      closeDialog();
     } catch (error) {
       console.error("Error deleting venue:", error);
     }
   };
 
-  const openDialog = () => {
-    if (!dialogRef.current) return;
-    dialogRef.current.showModal();
+  const openDialog = (venueId) => {
+    setVenueToDelete(venueId);
+    setIsDialogOpen(true);
     document.body.classList.add("modal-open");
   };
 
   const closeDialog = () => {
-    if (!dialogRef.current) return;
-    dialogRef.current.close();
+    setIsDialogOpen(false);
+    setVenueToDelete(null);
     document.body.classList.remove("modal-open");
   };
 
   const handleDialogClick = (e) => {
-    const dialogDimensions = dialogRef.current.getBoundingClientRect();
+    const dialog = dialogRef.current;
+    const rect = dialog.getBoundingClientRect();
     if (
-      e.clientX < dialogDimensions.left ||
-      e.clientX > dialogDimensions.right ||
-      e.clientY < dialogDimensions.top ||
-      e.clientY > dialogDimensions.bottom
+      e.clientX < rect.left ||
+      e.clientX > rect.right ||
+      e.clientY < rect.top ||
+      e.clientY > rect.bottom
     ) {
       closeDialog();
     }
   };
 
   useEffect(() => {
-    const dialogElement = dialogRef.current;
-    if (dialogElement) {
-      dialogElement.addEventListener("click", handleDialogClick);
-      return () => {
-        dialogElement.removeEventListener("click", handleDialogClick);
-      };
+    const dialog = dialogRef.current;
+    if (dialog) {
+      if (isDialogOpen) {
+        dialog.showModal();
+      } else {
+        dialog.close();
+      }
     }
-  }, []);
+  }, [isDialogOpen]);
 
   useEffect(() => {
     const fetchVenues = async () => {
@@ -75,12 +84,22 @@ export const ManagedVenues = ({ token, apiKey, profileName }) => {
     }
   }, [token, apiKey, profileName]);
 
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (dialog) {
+      dialog.addEventListener("click", handleDialogClick);
+      return () => {
+        dialog.removeEventListener("click", handleDialogClick);
+      };
+    }
+  }, []);
+
   if (error) {
     return <div>Error: {error}</div>;
   }
 
   if (venues.length === 0) {
-    return <div>No venues found.</div>;
+    return <div className="managed__venues__container">No venues found.</div>;
   }
 
   return (
@@ -99,29 +118,49 @@ export const ManagedVenues = ({ token, apiKey, profileName }) => {
                 <span className="managed__venue__name">{venue.name}</span>
               </div>
             </Link>
-
-            <EditVenueModal
-              isOpen={selectedVenue === venue}
-              onClose={() => setSelectedVenue(null)}
-              apiKey={apiKey}
-              venue={venue}
-              onVenueUpdated={handleVenueUpdated}
-            />
-            <button onClick={openDialog} className="delete__venue__btn">
-              Delete
-            </button>
-            <dialog ref={dialogRef}>
-              <p>Delete this venue?</p>
-              <div>
-                <button onClick={() => handleDeleteVenue(venue.id)}>Yes</button>
-                <button onClick={closeDialog}>Cancel</button>
-              </div>
-            </dialog>
+            <div className="venue__button__container">
+              <EditVenueModal
+                isOpen={selectedVenue === venue}
+                onClose={() => setSelectedVenue(null)}
+                apiKey={apiKey}
+                venue={venue}
+                onVenueUpdated={handleVenueUpdated}
+              />
+              <button
+                onClick={() => openDialog(venue.id)}
+                className="delete__venue__btn"
+              >
+                Delete
+              </button>
+            </div>
           </li>
         ))}
       </ul>
 
-      {showSucces && <SuccessModal></SuccessModal>}
+      {isDialogOpen && (
+        <dialog ref={dialogRef} className="dialog__element">
+          <form method="dialog">
+            <p>Delete this venue?</p>
+            <menu>
+              <button
+                type="button"
+                onClick={() => handleDeleteVenue(venueToDelete)}
+              >
+                Yes
+              </button>
+              <button type="button" onClick={closeDialog}>
+                Cancel
+              </button>
+            </menu>
+          </form>
+        </dialog>
+      )}
+
+      <AnimatePresence>
+        {showSuccess && (
+          <SuccessModal>Success! Refresh page to see update.</SuccessModal>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

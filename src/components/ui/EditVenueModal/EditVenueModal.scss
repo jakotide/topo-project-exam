@@ -41,6 +41,36 @@
       border: 0.5px solid rgb(206, 206, 206, 0.7);
       margin-bottom: 15px;
     }
+    .media-input {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      .create__modal__input {
+        padding: 0.6rem 0.5rem;
+        border: 0.5px solid rgb(206, 206, 206, 0.7);
+        margin-bottom: 15px;
+        width: 100%;
+      }
+    }
+    .add__media__btn {
+      background-color: clr.$pink;
+      border: none;
+      border-radius: 2em;
+      color: clr.$white;
+      padding: 0.5rem 0;
+      width: 25%;
+      min-width: 120px;
+      margin-bottom: 25px;
+    }
+
+    .remove__media__btn {
+      height: 40px;
+      padding: 0 0.8rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
 
     .amenities__div {
       display: flex;

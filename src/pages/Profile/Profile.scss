@@ -2,45 +2,72 @@
 @use "../../scss/base/globals" as mq;
 
 .profile-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  width: 100%;
+  max-width: 1600px;
+  margin: 50px auto 100px;
   font-family: "GeneralSans-Regular";
+  padding: 0 3rem;
+  position: relative;
 
-  .profile-avatar {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    margin-bottom: 20px;
+  @include mq.tabletL {
+    padding: 0 1.5rem;
+  }
+  @include mq.tablet {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  @include mq.mobileL {
+    padding: 0 1rem;
   }
 
-  h1 {
-    font-size: 2em;
-    margin-bottom: 20px;
-  }
-
-  .profile__tag {
-    background-color: clr.$black;
-    color: clr.$white;
-    padding: 0.5rem 1rem;
+  .profile__avatar__container,
+  .create__logout__container {
+    padding: 2rem;
     border-radius: 2em;
-    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    min-height: 500px;
+  }
+  .profile__avatar__container {
+    background-color: clr.$white;
+    .logout-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      color: clr.$black;
+      background-color: transparent;
+      border: 0.5px solid clr.$black;
+      border-radius: 2em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .profile-avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    .profile__tag {
+      background-color: clr.$black;
+      color: clr.$white;
+      padding: 0.5rem 1rem;
+      border-radius: 2em;
+      margin-bottom: 10px;
+    }
   }
 
-  .logout-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1em;
-    color: white;
-    background-color: #f44336;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: #d32f2f;
-    }
+  .create__logout__container {
+    background-color: clr.$purple;
   }
 }

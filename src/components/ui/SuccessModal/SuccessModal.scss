@@ -1,12 +1,27 @@
+@use "../../../scss/base/globals" as clr;
+@use "../../../scss/base/globals" as mq;
+
 .success__modal {
-  padding: 2rem 4rem;
+  padding: 2.5rem 4rem;
   background-color: white;
   display: grid;
   place-items: center;
-  bottom: 10vh;
   border: none;
-
+  position: fixed;
+  bottom: 20px;
+  left: auto;
+  margin-right: 10px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 12px;
+  z-index: 1000;
   font-family: "GeneralSans-Regular";
   border-radius: 1em;
-  left: 80vw;
+
+  @include mq.mobileL {
+    padding: 2rem 2rem;
+    margin: auto;
+    left: 0;
+  }
+  p {
+    // text-wrap: balance;
+  }
 }
