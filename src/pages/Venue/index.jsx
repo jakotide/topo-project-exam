@@ -5,6 +5,7 @@ import { Carousel, VenueBookingBox, StarRating } from "../../components/ui";
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence } from "framer-motion";
 import { SuccessModal } from "../../components/ui/SuccessModal";
+import { Loader } from "../../components/ui/LoadingSpinner";
 
 export const Venue = () => {
   const params = useParams();
@@ -32,7 +33,7 @@ export const Venue = () => {
   }, [data]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader backgroundColor="#000000" />;
   }
 
   if (isError || !data) {

@@ -7,6 +7,7 @@ import {
 import { useApi } from "../../hooks/useApi";
 import React, { useState } from "react";
 import { cloudOne } from "../../assets/images";
+import { Loader } from "../../components/ui/LoadingSpinner";
 
 export const Venues = () => {
   const BASEURL = "https://v2.api.noroff.dev/holidaze/venues";
@@ -45,11 +46,12 @@ export const Venues = () => {
   if (isError) {
     content = <div>Error</div>;
   } else if (isLoading || data === null) {
-    content = <div>Loading</div>;
+    content = <Loader backgroundColor="#000000" />;
   } else {
     const exludedWords = [
       "test",
       "testing",
+      "yo",
       "tittel",
       "lorem",
       "string",

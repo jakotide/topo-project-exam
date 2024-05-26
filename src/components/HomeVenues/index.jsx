@@ -12,6 +12,7 @@ import { useRef, useState } from "react";
 import { slideUp, MoreButton, BrowseButton } from "./anim";
 import { BoxReveal } from "../../effects/BoxReveal";
 import { Link } from "react-router-dom";
+import { Loader } from "../ui/LoadingSpinner";
 
 export const HomeVenuesSection = ({ options, children }) => {
   const { data, isLoading, isError } = useApi(
@@ -51,17 +52,18 @@ export const HomeVenuesSection = ({ options, children }) => {
   if (isError) {
     content = <div>Error</div>;
   } else if (isLoading || data === null) {
-    content = <div>Loading</div>;
+    content = <Loader backgroundColor="#000000" />;
   } else {
     const exludedWords = [
-      // "test",
-      // "testing",
-      // "tittel",
+      "test",
+      "testing",
+      "tittel",
       "lorem",
       "string",
       "zz",
       "zzz",
       "z",
+      "yo",
     ];
     const filteredVenues = data.data
       .filter((item) =>
