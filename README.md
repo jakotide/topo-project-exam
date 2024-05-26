@@ -1,3 +1,5 @@
+![topo-readme](https://github.com/jakotide/topo-project-exam/assets/111381232/02bce40a-142e-4f03-bcda-e853d741ad38)
+
 # TOPO
 
 TOPO is a venue booking site that allows users to register, book venues, create venues, and check venue availability with a calendar. Built with React. 
