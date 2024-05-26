@@ -13,7 +13,7 @@ export const Hero = ({}) => {
   const title = useRef(null);
   const buttonContainer = useRef(null);
   const heroImage = useRef(null);
-  const user = useUser(); // Get the user data from Zustand store
+  const user = useUser();
   const userName = user ? user.name : null;
 
   useLayoutEffect(() => {
@@ -79,8 +79,6 @@ export const Hero = ({}) => {
           style={{
             "--button-color": "#171717",
             "--button-background": "#f9f5f3",
-            // "--button-background": "transparent",
-            // fontSize: "12px",
             gap: "1.5rem",
           }}
           arrowFillColor="#171717"

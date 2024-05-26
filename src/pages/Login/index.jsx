@@ -40,14 +40,13 @@ export const LoginPage = () => {
       console.log("Login successful:", response);
 
       if (!apiKeyLoading && !apiKeyError) {
-        // Check if API key is not loading and no error occurred
-        await fetchApiKey(); // Call fetchApiKey
+        await fetchApiKey();
       }
 
       navigate("/");
     } catch (error) {
       console.error("Login failed:", error);
-      // setError(error.message);
+      setError(error.message);
     }
   };
 

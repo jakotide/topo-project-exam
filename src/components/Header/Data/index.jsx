@@ -1,7 +1,7 @@
 import { useUser } from "../../../hooks/useStore";
 
 export const getNavLinks = () => {
-  const user = useUser(); // Get the user data from Zustand store
+  const user = useUser();
   const userName = user ? user.name : null;
 
   return [
@@ -14,8 +14,8 @@ export const getNavLinks = () => {
       to: "/venues",
     },
     {
-      title: "Profile",
-      to: userName ? `/profiles/${userName}` : "/login", // Fallback to login if userName is null
+      title: userName ? "Profile" : "Login",
+      to: userName ? `/profiles/${userName}` : "/login",
     },
     {
       title: "Contact",

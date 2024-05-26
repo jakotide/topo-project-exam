@@ -2,11 +2,10 @@ import "./ProfileButton.scss";
 import { Link } from "react-router-dom";
 import { Reveal } from "../../../effects/Reveal";
 import userIcon from "../../../assets/icons/user-white.png";
-import { useUser } from "../../../hooks/useStore"; // Import the Zustand hook
+import { useUser } from "../../../hooks/useStore";
 
 export const ProfileButton = () => {
-  const user = useUser(); // Get the user data from Zustand store
-
+  const user = useUser();
   const isLoggedIn = Boolean(user);
   const userName = user ? user.name : null;
 

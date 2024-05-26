@@ -1,9 +1,9 @@
-import { fetchApi } from "./api"; // Assuming 'api.js' is in the same directory
+import { fetchApi } from "./api";
 
 export const handleSubmit = async (e) => {
   e.preventDefault();
   const token = JSON.parse(localStorage.getItem("user")).accessToken;
-  const url = "/holidaze/venues"; // Endpoint URL
+  const url = "/holidaze/venues";
   const options = {
     method: "POST",
     body: JSON.stringify(venueData),

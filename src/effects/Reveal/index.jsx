@@ -30,17 +30,6 @@ export const Reveal = ({ children }) => {
       >
         {children}
       </motion.div>
-      {/* <motion.div
-        className="slider__box"
-        variants={{
-          hidden: { right: 0 },
-          visible: { right: 100 },
-        }}
-        initial="hidden"
-        animate={slideControls}
-        exit="hidden"
-        transition={{ duration: 0.3, ease: "easeIn", delay: 0.5 }}
-      /> */}
     </div>
   );
 };
