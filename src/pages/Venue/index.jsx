@@ -51,8 +51,8 @@ export const Venue = () => {
           <div className="venue__info">
             <div>
               <div className="info__header">
-                <h1>{data.data.name}</h1>
-                <div className="">
+                <h1 className="venue__page__h1">{data.data.name}</h1>
+                <div className="venue__location">
                   {data.data.location.city === ""
                     ? "Outer"
                     : data.data.location.city}

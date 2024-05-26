@@ -54,9 +54,9 @@ export const HomeVenuesSection = ({ options, children }) => {
     content = <div>Loading</div>;
   } else {
     const exludedWords = [
-      "test",
-      "testing",
-      "tittel",
+      // "test",
+      // "testing",
+      // "tittel",
       "lorem",
       "string",
       "zz",

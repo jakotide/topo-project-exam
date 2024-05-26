@@ -44,11 +44,23 @@
         align-items: flex-end;
         gap: 1rem;
         padding-bottom: 1rem;
+
+        .venue__page__h1 {
+          font-family: "GeneralSans-SemiBold";
+          font-size: 2rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          max-width: 350px;
+        }
+
+        .venue__location {
+          max-width: 100px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
       }
-      h1 {
-        font-family: "GeneralSans-SemiBold";
-        font-size: 2rem;
-      }
+
       .hosted__container {
         padding: 2rem 0 6rem;
         display: flex;
@@ -65,6 +77,8 @@
       .venue__description {
         padding-bottom: 6rem;
         text-wrap: balance;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
       h2,
       h3 {

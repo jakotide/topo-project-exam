@@ -38,18 +38,22 @@
       font-size: 1.1rem;
       font-family: "GeneralSans-Semibold";
     }
-    .card__h3 {
-      padding-right: 1rem;
-    }
+
     .card__desc,
-    .card__h3 {
+    .card__h3,
+    .card__location {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      max-width: 200px;
     }
     .card__location {
       font-size: 0.9rem;
       color: clr.$grey;
+    }
+    .card__h3 {
+      padding-right: 1rem;
+      max-width: 180px;
     }
   }
 }
