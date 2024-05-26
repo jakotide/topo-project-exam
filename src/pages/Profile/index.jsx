@@ -145,8 +145,17 @@ export const ProfilePage = () => {
         </button>
       </div>
       <div className="create__logout__container">
-        <p>Got a venue to list out?</p>
-        <CreateVenueModal onVenueCreated={handleVenueCreated} apiKey={apiKey} />
+        {profile.data.venueManager ? (
+          <>
+            <p>Got a venue to list out?</p>
+            <CreateVenueModal
+              onVenueCreated={handleVenueCreated}
+              apiKey={apiKey}
+            />
+          </>
+        ) : (
+          <p>Register as a venue manager to list out your own venues!</p>
+        )}
 
         <AnimatePresence>
           {showSuccess && (

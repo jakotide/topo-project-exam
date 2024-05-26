@@ -1,9 +1,11 @@
 import "./VenueCard.scss";
 import { StarRating } from "../StarRating";
 import { Link } from "react-router-dom";
+import PlaceHolderImage from "../../../assets/images/placeholderimage.png";
 
 export const VenueCard = ({ data }) => {
-  const imageUrl = data.media && data.media.length > 0 ? data.media[0].url : "";
+  const imageUrl =
+    data.media && data.media.length > 0 ? data.media[0].url : PlaceHolderImage;
   const imageAlt =
     data.media && data.media.length > 0 && data.media[0].alt
       ? data.media[0].alt
@@ -25,7 +27,7 @@ export const VenueCard = ({ data }) => {
 
   return (
     <Link className="venue__card" to={`/venues/${data.id}`}>
-      <img src={imageUrl} alt={imageAlt} />
+      <img src={imageUrl} alt={imageAlt} loading="lazy" />
       <div className="venue__card__info">
         <div>
           <div className="venue__title">
