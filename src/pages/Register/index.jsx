@@ -66,7 +66,6 @@ export const RegisterPage = () => {
     <section className="register__container">
       <div>
         <h2 className="register__login__header">Register</h2>
-        {error && <p style={{ color: "red" }}>{error}</p>}
         <form onSubmit={handleSubmit} className="register__form">
           <label>Name:</label>
           <input
@@ -99,28 +98,6 @@ export const RegisterPage = () => {
             value={avatar.url}
             onChange={(e) => setAvatar({ ...avatar, url: e.target.value })}
           />
-          {/* <label>Avatar Alt Text:</label>
-          <input
-            type="text"
-            value={avatar.alt}
-            onChange={(e) => setAvatar({ ...avatar, alt: e.target.value })}
-          />
-
-          <label>Banner URL:</label>
-          <input
-            type="url"
-            value={banner.url}
-            onChange={(e) => setBanner({ ...banner, url: e.target.value })}
-          />
-          <label>Banner Alt Text:</label>
-          <input
-            type="text"
-            value={banner.alt}
-            onChange={(e) => setBanner({ ...banner, alt: e.target.value })}
-          />
-
-          <label>Bio:</label>
-          <textarea value={bio} onChange={(e) => setBio(e.target.value)} /> */}
 
           <div className="venuemanager__checkbox">
             <label>Venue Manager:</label>
@@ -133,6 +110,14 @@ export const RegisterPage = () => {
           <button type="submit" className="register__login__btn">
             Register
           </button>
+          {error && (
+            <p
+              style={{ color: "black", margin: "8px 0" }}
+              className="register-error-message"
+            >
+              {error}
+            </p>
+          )}
           <div className="switch__form__box">
             <p>Already got an account?</p>
             <Link to="/login" className="switch__link">
@@ -148,13 +133,6 @@ export const RegisterPage = () => {
           </SuccessModal>
         )}
       </AnimatePresence>
-
-      {/* {success && (
-        <dialog ref={dialogRef} className="success__dialog">
-          <p>Thank you for signing up! You can now login to your account.</p>
-          <button onClick={() => dialogRef.current.close()}>Close</button>
-        </dialog>
-      )} */}
     </section>
   );
 };
