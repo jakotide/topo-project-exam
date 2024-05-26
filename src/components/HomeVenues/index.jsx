@@ -64,6 +64,8 @@ export const HomeVenuesSection = ({ options, children }) => {
       "zzz",
       "z",
       "yo",
+      "yes",
+      "wadupss",
     ];
     const filteredVenues = data.data
       .filter((item) =>

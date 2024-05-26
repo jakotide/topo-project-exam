@@ -58,6 +58,8 @@ export const Venues = () => {
       "Zzz",
       "zz",
       "z",
+      "yes",
+      "wadupss",
     ];
 
     const filteredVenues = data.data
