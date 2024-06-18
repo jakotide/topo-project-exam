@@ -6,7 +6,7 @@ export const slideLeft = {
   },
   animate: {
     x: "-100%",
-    transition: { duration: 1, ease: easeOut, delay: 1.6 },
+    transition: { duration: 1, ease: [0.76, 0, 0.24, 1], delay: 1.6 },
   },
 };
 
@@ -16,7 +16,7 @@ export const slideRight = {
   },
   animate: {
     x: "100%",
-    transition: { duration: 1, ease: easeOut, delay: 1.6 },
+    transition: { duration: 1, ease: [0.76, 0, 0.24, 1], delay: 1.6 },
   },
 };
 
@@ -27,6 +27,6 @@ export const headerAnim = {
   animate: {
     opacity: 0,
 
-    transition: { duration: 0.5, ease: easeOut, delay: 1 },
+    transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1], delay: 1 },
   },
 };

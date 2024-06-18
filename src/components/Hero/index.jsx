@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { useUser } from "../../hooks/useStore";
+import { headerReveal } from "./anim";
 gsap.registerPlugin(ScrollTrigger);
 
 export const Hero = ({}) => {
@@ -67,9 +68,15 @@ export const Hero = ({}) => {
         alt="White 3d cloud"
         className="cloud__img__small2"
       />
-      <h1 className="hero__h1" ref={title}>
+      <motion.h1
+        className="hero__h1"
+        ref={title}
+        variants={headerReveal}
+        initial="initial"
+        animate="animate"
+      >
         Booking Made Easy
-      </h1>
+      </motion.h1>
       <div className="hero__btn__container" ref={buttonContainer}>
         <Button to="/venues" className="primary__btn" arrowFillColor="#f9f5f3">
           Venues

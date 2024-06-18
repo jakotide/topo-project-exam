@@ -24,15 +24,30 @@ export const Button = ({
     },
   };
 
+  const buttonReveal = {
+    initial: {
+      opacity: 0,
+      y: "20px",
+    },
+    animate: {
+      opacity: 1,
+      y: "0",
+      transition: { duration: 0.4, delay: 2.2, ease: [0.76, 0, 0.24, 1] },
+    },
+  };
+
   return (
     <motion.div className={className}>
       <Link to={to} className="button__link">
-        <button
+        <motion.button
           {...rest}
           style={style}
           className="button__component"
           onMouseEnter={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}
+          variants={buttonReveal}
+          initial="initial"
+          animate="animate"
         >
           <motion.div
             variants={variants || buttonVariants}
@@ -67,7 +82,7 @@ export const Button = ({
               }}
             />
           </motion.div>
-        </button>
+        </motion.button>
       </Link>
     </motion.div>
   );
