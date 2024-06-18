@@ -60,6 +60,9 @@ export const Venues = () => {
       "z",
       "yes",
       "wadupss",
+      "wqe",
+      "wef",
+      "wewer",
     ];
 
     const filteredVenues = data.data
