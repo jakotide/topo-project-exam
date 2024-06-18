@@ -4,7 +4,6 @@ import { Nav } from "./Nav";
 import { Logo } from "./Logo";
 import { TopNav } from "./TopNavDesktop";
 import { TopNavMobile } from "./TopNavMobile";
-import { ProfileButton } from "./ProfileButton";
 import { AnimatePresence, motion } from "framer-motion";
 import { circle, buttonScale } from "./animation";
 import { useMediaQuery } from "../../hooks/useMediaQuery";

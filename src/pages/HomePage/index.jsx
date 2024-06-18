@@ -1,20 +1,72 @@
-import "./HomePage.scss";
+// import "./HomePage.scss";
+// import { Hero, HomeVenuesSection } from "../../components";
+// import { Preloader } from "../../components/ui";
+// import { useEffect, useState } from "react";
+// import Lenis from "lenis";
+// import { AnimatePresence } from "framer-motion";
+
+// export const HomePage = () => {
+//   const [isLoading, setIsLoading] = useState(true);
+
+//   useEffect(() => {
+//     const lenis = new Lenis();
+//     function raf(time) {
+//       lenis.raf(time);
+//       requestAnimationFrame(raf);
+//     }
+
+//     requestAnimationFrame(raf);
+
+//     setTimeout(() => {
+//       setIsLoading(false);
+//       window.scrollTo(0, 0);
+//     }, 3000);
+//   }, []);
+
+//   return (
+//     <>
+//       <AnimatePresence>
+//         {isLoading && <Preloader isLoading={isLoading} />}
+//       </AnimatePresence>
+
+//       <Hero />
+//       <HomeVenuesSection />
+//     </>
+//   );
+// };
+import React, { useEffect, useState } from "react";
 import { Hero, HomeVenuesSection } from "../../components";
-// import { useFetchApiKey } from "../../hooks/useFetchApiKey";
-// import { useEffect } from "react";
+import { Preloader } from "../../components/ui";
+import Lenis from "lenis";
+import { AnimatePresence } from "framer-motion";
+import "./HomePage.scss";
 
 export const HomePage = () => {
-  // const { error } = useFetchApiKey();
+  const [isLoading, setIsLoading] = useState(true);
 
-  // useEffect(() => {
-  //   if (error) {
-  //     console.error("API Key Error:", error);
-  //   }
-  // }, [error]);
+  useEffect(() => {
+    const lenis = new Lenis();
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    setTimeout(() => {
+      setIsLoading(false);
+      window.scrollTo(0, 0);
+    }, 3000);
+  }, []);
+
   return (
     <>
-      <Hero />
-      <HomeVenuesSection />
+      {isLoading && <Preloader isLoading={isLoading} />}
+
+      <>
+        <Hero />
+        <HomeVenuesSection />
+      </>
     </>
   );
 };

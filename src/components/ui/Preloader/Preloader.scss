@@ -1,0 +1,48 @@
+@use "../../../scss/base/globals" as clr;
+
+.preloader__container {
+  width: 100vw;
+  height: 100vh;
+  z-index: 500;
+  //   background-color: clr.$black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+
+  .preloader__header {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    font-family: "Tusker-Grotesk-7800-Super";
+    color: clr.$white;
+    z-index: 1000;
+    opacity: 0;
+  }
+
+  .preloader__block {
+    height: 25%;
+    width: 100%;
+    z-index: 550;
+    background-color: clr.$black;
+  }
+
+  //   .red {
+  //     background-color: clr.$black;
+  //   }
+
+  //   .green {
+  //     background-color: green;
+  //   }
+
+  //   .blue {
+  //     background-color: blue;
+  //   }
+
+  //   .white {
+  //     background-color: white;
+  //   }
+}
