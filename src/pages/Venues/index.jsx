@@ -65,7 +65,7 @@ export const Venues = () => {
       "wewer",
     ];
 
-    const filteredVenues = data.data
+    const filteredVenues = data
       .filter((item) =>
         exludedWords.every(
           (word) =>

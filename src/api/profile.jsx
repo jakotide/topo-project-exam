@@ -8,7 +8,7 @@ export async function getProfile(token, apiKey, name) {
       "X-Noroff-API-Key": apiKey,
     },
   };
-
+  console.log(apiKey);
   const response = await fetch(`${PROFILES_URL}/${name}`, options);
   const json = await response.json();
 

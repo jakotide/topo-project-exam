@@ -10,12 +10,14 @@ export const VenueCard = ({ data }) => {
     data.media && data.media.length > 0 && data.media[0].alt
       ? data.media[0].alt
       : data.name;
+
   const capitalizeFirstLetter = (str) => {
     if (str && str.length > 0) {
       return str.charAt(0).toUpperCase() + str.slice(1);
     }
     return "Outer, Space";
   };
+
   const capitalizeLocation = (country, city) => {
     const capitalizedCountry = country
       ? capitalizeFirstLetter(country)

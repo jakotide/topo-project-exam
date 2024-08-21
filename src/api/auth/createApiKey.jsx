@@ -1,4 +1,3 @@
-const API_BASE_URL = "https://api.noroff.dev/api/v1";
 const API_BASE_V2 = "https://v2.api.noroff.dev";
 const API_KEY_URL = `${API_BASE_V2}/auth/create-api-key`;
 
@@ -14,6 +13,7 @@ export async function createApiKey(accessToken, name = "API Key") {
 
   const response = await fetch(API_KEY_URL, options);
   const json = await response.json();
+  console.log("APIKEY:", json);
 
   if (!response.ok) {
     throw new Error(
@@ -21,5 +21,6 @@ export async function createApiKey(accessToken, name = "API Key") {
     );
   }
 
+  // Return the key from the data object
   return json.data.key;
 }

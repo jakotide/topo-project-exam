@@ -1,8 +1,8 @@
 import "./Venue.scss";
-import { useApi } from "../../hooks/useApi";
+import { useSingleVenue } from "../../hooks/useApi";
 import { useParams } from "react-router-dom";
 import { Carousel, VenueBookingBox, StarRating } from "../../components/ui";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import { SuccessModal } from "../../components/ui/SuccessModal";
 import { Loader } from "../../components/ui/LoadingSpinner";
@@ -10,9 +10,11 @@ import { Loader } from "../../components/ui/LoadingSpinner";
 export const Venue = () => {
   const params = useParams();
   const BASEURL = "https://v2.api.noroff.dev/holidaze/venues";
-  const { data, isError, isLoading } = useApi(
+  const { data, isError, isLoading } = useSingleVenue(
     `${BASEURL}/${params.id}?_bookings=true&_owner=true`
   );
+
+  console.log(data);
 
   const [hideBtn, setHideBtn] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -25,7 +27,7 @@ export const Venue = () => {
   };
 
   useEffect(() => {
-    if (data && data.data.media.length < 2) {
+    if (data && data.media && data.media.length < 2) {
       setHideBtn(true);
     } else {
       setHideBtn(false);
@@ -36,13 +38,24 @@ export const Venue = () => {
     return <Loader backgroundColor="#000000" />;
   }
 
-  if (isError || !data) {
+  if (isError) {
     return <div>Error: Failed to fetch data</div>;
   }
 
-  const imagesToDisplay = data.data.media.map((item, index) => (
-    <img key={index} src={item.url} alt={`Image ${index + 1}`} />
-  ));
+  if (!data || data.length === 0) {
+    return <div>Loading...</div>;
+  }
+
+  const imagesToDisplay =
+    data.media && Array.isArray(data.media)
+      ? data.media.map((item, index) => (
+          <img
+            key={index}
+            src={item.url}
+            alt={item.alt || `Image ${index + 1}`}
+          />
+        ))
+      : [];
 
   return (
     <section className="venue__container">
@@ -52,56 +65,45 @@ export const Venue = () => {
           <div className="venue__info">
             <div>
               <div className="info__header">
-                <h1 className="venue__page__h1">{data.data.name}</h1>
+                <h1 className="venue__page__h1">{data.name}</h1>
                 <div className="venue__location">
-                  {data.data.location.city === ""
-                    ? "Outer"
-                    : data.data.location.city}
-                  ,{" "}
-                  {data.data.location.country === null || ""
+                  {data.location.city === "" ? "Outer" : data.location.city}
+                  {data.location.country === null || ""
                     ? "Space"
-                    : data.data.location.country}
+                    : data.location.country}
                 </div>
               </div>
 
-              <StarRating rating={data.data.rating}></StarRating>
+              <StarRating rating={data.rating} />
               <div className="hosted__container">
                 <img
                   className="venue__owner__avatar"
-                  src={data.data.owner.avatar.url}
-                  alt=""
+                  src={data.owner.avatar.url}
+                  alt="Owner Avatar"
                 />
-                <div>Hosted by {data.data.owner.name}</div>
+                <div>Hosted by {data.owner.name}</div>
               </div>
             </div>
             <p className="venue__description">
-              {data.data.description
-                ? data.data.description
+              {data.description
+                ? data.description
                 : "No description available."}
             </p>
             <h2>Includes</h2>
             <div className="includes__grid">
-              {data.data.meta.breakfast ? (
-                <div>{data.data.meta.breakfast ? "Breakfast" : ""}</div>
-              ) : null}
-              {data.data.meta.wifi ? (
-                <div>{data.data.meta.wifi ? "Wifi" : ""}</div>
-              ) : null}
-              {data.data.meta.pets ? (
-                <div>{data.data.meta.pets ? "Pets" : ""}</div>
-              ) : null}
-              {data.data.meta.parking ? (
-                <div>{data.data.meta.parking ? "Parking" : ""}</div>
-              ) : null}
-              {!data.data.meta.breakfast &&
-                !data.data.meta.wifi &&
-                !data.data.meta.pets &&
-                !data.data.meta.parking && <p>No amenities included.</p>}
+              {data.meta.breakfast && <div>Breakfast</div>}
+              {data.meta.wifi && <div>Wifi</div>}
+              {data.meta.pets && <div>Pets</div>}
+              {data.meta.parking && <div>Parking</div>}
+              {!data.meta.breakfast &&
+                !data.meta.wifi &&
+                !data.meta.pets &&
+                !data.meta.parking && <p>No amenities included.</p>}
             </div>
             <h3>Info</h3>
             <div className="venue__info__container">
-              <div>Max guests: {data.data.maxGuests}</div>
-              <div>Booked {data.data.bookings.length} times</div>
+              {/* <div>Max guests: {data.maxGuests}</div> */}
+              <div>Booked {data._count.bookings} times</div>
             </div>
           </div>
           <VenueBookingBox

@@ -1,4 +1,4 @@
-import { useApi } from "../../../hooks/useApi";
+import { useSingleVenue } from "../../../hooks/useApi";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -14,7 +14,9 @@ import "./VenueBookingBox.scss";
 export const VenueBookingBox = ({ onBookingSuccess }) => {
   const params = useParams();
   const BASEURL = "https://v2.api.noroff.dev/holidaze/venues";
-  const { data } = useApi(`${BASEURL}/${params.id}?_bookings=true&_owner=true`);
+  const { data } = useSingleVenue(
+    `${BASEURL}/${params.id}?_bookings=true&_owner=true`
+  );
   const [bookedDates, setBookedDates] = useState([]);
   const [dateFrom, setDateFrom] = useState(null);
   const [dateTo, setDateTo] = useState(null);
@@ -27,8 +29,8 @@ export const VenueBookingBox = ({ onBookingSuccess }) => {
   const apiKey = useApiKey();
 
   useEffect(() => {
-    if (data && data.data.bookings) {
-      const bookedDatesArray = data.data.bookings;
+    if (data && data.bookings) {
+      const bookedDatesArray = data.bookings;
       setBookedDates(bookedDatesArray);
     }
   }, [data]);
@@ -102,12 +104,10 @@ export const VenueBookingBox = ({ onBookingSuccess }) => {
       return;
     }
 
-    if (guests > data.data.maxGuests) {
+    if (guests > data.maxGuests) {
       console.log("Form validation failed - Exceeded maximum guests");
       setExceededMaxGuests(true);
-      setBookingError(
-        `Maximum number of guests allowed is ${data.data.maxGuests}.`
-      );
+      setBookingError(`Maximum number of guests allowed is ${data.maxGuests}.`);
       return;
     }
 
@@ -143,9 +143,9 @@ export const VenueBookingBox = ({ onBookingSuccess }) => {
 
   return (
     <form className="venue__booking__box" onSubmit={handleBookingSubmit}>
-      {data && data.data && (
+      {data && (
         <div className="venue__price">
-          <span>{data.data.price}$</span> per night{" "}
+          <span>{data.price}$</span> per night{" "}
         </div>
       )}
       <div className="datepicker__container">
@@ -272,13 +272,13 @@ export const VenueBookingBox = ({ onBookingSuccess }) => {
           className="guests__input"
           placeholder="Guests"
           min="1"
-          max={data.data.maxGuests}
+          max={data.maxGuests}
           onChange={handleMaxGuests}
         />
       )}
       {exceededMaxGuests && (
         <div className="required-message">
-          Maximun number of guests allowed is {data.data.maxGuests}
+          Maximun number of guests allowed is {data.maxGuests}
         </div>
       )}
       {bookingError && <div className="required-message">{bookingError}</div>}
@@ -296,10 +296,10 @@ export const VenueBookingBox = ({ onBookingSuccess }) => {
         </Link>
       )}
 
-      {numberOfNights > 0 && data && data.data && calculateTotalSum() && (
+      {numberOfNights > 0 && data && calculateTotalSum() && (
         <div className="venue__calculated__total">
           <span className="total__x">
-            {data.data.price}$<span>X</span>
+            {data.price}$<span>X</span>
             {numberOfNights}
           </span>
           <span>{calculateTotalSum()}$</span>

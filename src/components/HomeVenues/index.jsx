@@ -18,6 +18,9 @@ export const HomeVenuesSection = ({ options, children }) => {
   const { data, isLoading, isError } = useApi(
     "https://v2.api.noroff.dev/holidaze/venues"
   );
+
+  console.log("Full API Response: ", data);
+
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRooms, setSelectedRooms] = useState(null);
   const [priceRange, setPriceRange] = useState([100, 12000]);
@@ -71,7 +74,7 @@ export const HomeVenuesSection = ({ options, children }) => {
       "wewer",
       "www",
     ];
-    const filteredVenues = data.data
+    const filteredVenues = data
       .filter((item) =>
         exludedWords.every(
           (word) =>

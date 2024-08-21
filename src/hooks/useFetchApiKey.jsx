@@ -21,6 +21,7 @@ export const useFetchApiKey = () => {
         if (!storedApiKey) {
           const newApiKey = await createApiKey(token);
           setApiKey(newApiKey);
+          console.log(newApiKey);
         }
       } catch (error) {
         setError(error.message);
