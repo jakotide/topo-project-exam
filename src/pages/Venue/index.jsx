@@ -14,8 +14,6 @@ export const Venue = () => {
     `${BASEURL}/${params.id}?_bookings=true&_owner=true`
   );
 
-  console.log(data);
-
   const [hideBtn, setHideBtn] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -67,7 +65,7 @@ export const Venue = () => {
               <div className="info__header">
                 <h1 className="venue__page__h1">{data.name}</h1>
                 <div className="venue__location">
-                  {data.location.city === "" ? "Outer" : data.location.city}
+                  {data.location.city === "" ? "Outer" : data.location.city},{" "}
                   {data.location.country === null || ""
                     ? "Space"
                     : data.location.country}
@@ -102,7 +100,7 @@ export const Venue = () => {
             </div>
             <h3>Info</h3>
             <div className="venue__info__container">
-              {/* <div>Max guests: {data.maxGuests}</div> */}
+              <div>Max guests: {data.maxGuests}</div>
               <div>Booked {data._count.bookings} times</div>
             </div>
           </div>

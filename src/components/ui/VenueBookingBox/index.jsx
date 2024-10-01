@@ -68,7 +68,7 @@ export const VenueBookingBox = ({ onBookingSuccess }) => {
   const handleMaxGuests = (event) => {
     const value = parseInt(event.target.value);
 
-    if (value === data.data.maxGuests) {
+    if (value === data.maxGuests) {
       setExceededMaxGuests(true);
     } else {
       setExceededMaxGuests(false);

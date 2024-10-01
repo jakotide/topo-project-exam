@@ -1,5 +1,3 @@
-import { animate, easeOut } from "framer-motion";
-
 export const slideLeft = {
   initial: {
     x: "0%",
